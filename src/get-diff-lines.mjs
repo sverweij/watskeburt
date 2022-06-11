@@ -11,30 +11,33 @@ export function doMagic(pOldThing) {
   });
   let lData = "";
   let lError = null;
-
   function saveError(pError) {
     lError = pError;
   }
   function stringifyError(pError) {
     if (lError instanceof Buffer) {
-      return lError.toString("utf8");
+      return pError.toString("utf8");
     } else {
-      return lError;
+      return pError;
     }
   }
 
-  git.stdout.on("data", (pData) => {
-    lData += pData;
-  });
-  git.on("close", (pCode) => {
-    if (lError) {
-      return Promise.reject(stringifyError(lError));
-    }
-    if (pCode === 0) {
-      return Promise.resolve(lData);
-    }
+  let lPromise = new Promise((pResolveFn, pRejectFn) => {
+    git.stdout.on("data", (pData) => {
+      lData += pData;
+    });
+    git.on("close", (pCode) => {
+      if (lError) {
+        pRejectFn(stringifyError(lError));
+      }
+      if (pCode === 0) {
+        pResolveFn(lData);
+      }
+    });
+
+    git.stderr.on("data", saveError);
+    git.on("error", saveError);
   });
 
-  git.stderr.on("data", saveError);
-  git.on("error", saveError);
+  return lPromise;
 }

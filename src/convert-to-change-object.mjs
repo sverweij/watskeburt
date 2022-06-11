@@ -1,6 +1,6 @@
 import { EOL } from "node:os";
 const DIFF_NAME_STATUS_LINE_PATTERN = new RegExp(
-  "^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ ]+(?<name>[^ ]+)[ ]*(?<newName>[^ ]+)?$"
+  "^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$"
 );
 const CHANGE_CHAR_2_CHANGE_TYPE = {
   A: "added",
@@ -53,5 +53,5 @@ export function convertLine(pString) {
  * @returns {import('../types/diff-dat').IChange[]}
  */
 export function convertLines(pString) {
-  return pString.split(EOL).map(convertLine);
+  return pString.split(EOL).filter(Boolean).map(convertLine);
 }

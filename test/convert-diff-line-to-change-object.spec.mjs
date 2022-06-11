@@ -1,5 +1,5 @@
 import { deepEqual } from "node:assert";
-import convertLine from "../src/convert-diff-line-to-change-object.mjs";
+import { convertLine } from "../src/convert-to-change-object.mjs";
 
 describe("convert diff line to change object", () => {
   it("recognizes Modified files", () => {
