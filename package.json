@@ -1,0 +1,17 @@
+{
+  "name": "diff-dat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.mjs",
+  "scripts": {
+    "test": "mocha \"test/**/*.spec.mjs\"",
+    "test:cover": "c8 --check-coverage --statements 100 --branches 100 --functions 100 --lines 100 --reporter text-summary --reporter html --reporter json-summary npm test"
+  },
+  "keywords": [],
+  "author": "Sander Verweij (https://sverweij.github.io/)",
+  "license": "MIT",
+  "devDependencies": {
+    "c8": "^7.11.3",
+    "mocha": "^10.0.0"
+  }
+}
