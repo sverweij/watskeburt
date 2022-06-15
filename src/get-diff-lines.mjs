@@ -1,43 +1,28 @@
-import { spawn } from "child_process";
+import { spawnSync } from "child_process";
+
+function stringifyOutStream(pError) {
+  if (pError instanceof Buffer) {
+    return pError.toString("utf8");
+  } else {
+    return pError;
+  }
+}
 
 /**
  *
  * @param {string} pOldThing the target to compare against (e.g. branch name, commit, tag etc)
- * @return {Promise<string>}
+ * @return {string}
+ * @throws {Error}
  */
-export function doMagic(pOldThing) {
-  const git = spawn("git", ["diff", pOldThing, "--name-status"], {
+export function getDiffLines(pOldThing) {
+  const lGitResult = spawnSync("git", ["diff", pOldThing, "--name-status"], {
     cwd: process.cwd(),
   });
-  let lData = "";
-  let lError = null;
-  function saveError(pError) {
-    lError = pError;
+
+  if (lGitResult.error) {
+    throw new Error(stringifyOutStream(lGitResult.error));
   }
-  function stringifyError(pError) {
-    if (lError instanceof Buffer) {
-      return pError.toString("utf8");
-    } else {
-      return pError;
-    }
+  if (lGitResult.status === 0) {
+    return stringifyOutStream(lGitResult.stdout);
   }
-
-  let lPromise = new Promise((pResolveFn, pRejectFn) => {
-    git.stdout.on("data", (pData) => {
-      lData += pData;
-    });
-    git.on("close", (pCode) => {
-      if (lError) {
-        pRejectFn(stringifyError(lError));
-      }
-      if (pCode === 0) {
-        pResolveFn(lData);
-      }
-    });
-
-    git.stderr.on("data", saveError);
-    git.on("error", saveError);
-  });
-
-  return lPromise;
 }
