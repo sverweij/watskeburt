@@ -23,7 +23,7 @@ function changeChar2ChangeType(pChar) {
  * @param {string} pString
  * @returns {import('../types/diff-dat').IChange}
  */
-export function convertLine(pString) {
+export function convertDiffLine(pString) {
   const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
   let lReturnValue = {};
 
@@ -52,10 +52,10 @@ export function convertLine(pString) {
  * @param {string} pString
  * @returns {import('../types/diff-dat').IChange[]}
  */
-export function convertLines(pString) {
+export function convertDiffLines(pString) {
   return pString
     .split(EOL)
     .filter(Boolean)
-    .map(convertLine)
+    .map(convertDiffLine)
     .filter(({ changeType }) => Boolean(changeType));
 }

@@ -19,44 +19,56 @@ jobs:
     runs-on: ${{matrix.platform}}
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: cache node modules for ${{matrix.node-version}}@${{matrix.platform}}
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
-          restore-keys: |
-            ${{matrix.node-version}}@${{matrix.platform}}-build-
-      - name: set up node ${{matrix.node-version}}@${{matrix.platform}}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{matrix.node-version}}
-      - name: install & build
-        run: |
-          node --version
-          npm install
-        shell: bash
-        env:
-          CI: true
-      - name: forbidden dependency check
-        run: |
-          node --version
-          npm run depcruise
-        shell: bash
-        env:
-          CI: true
-      - name: emit full depcruise results to step summary
-        run: |
-          npm run depcruise -T markdown >> $GITHUB_STEP_SUMMARY
-          echo '## le graph\n```mermaid' >> $GITHUB_STEP_SUMMARY
-          npm run depcruise -T markdown >> $GITHUB_STEP_SUMMARY
-          echo '\n```\n' >> $GITHUB_STEP_SUMMARY
-        if: branch === 'main'
-      - name: test coverage
-        run: |
-          node --version
-          npm run test:cover
-        shell: bash
-        env:
-          CI: true
+      - name: dummy-do-da-check
+        run: echo 'doing the check'
+      # - name: checkout
+      #   uses: actions/checkout@v3
+      # - name: cache node modules for ${{matrix.node-version}}@${{matrix.platform}}
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: node_modules
+      #     key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
+      #     restore-keys: |
+      #       ${{matrix.node-version}}@${{matrix.platform}}-build-
+      # - name: set up node ${{matrix.node-version}}@${{matrix.platform}}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{matrix.node-version}}
+      # - name: install & build
+      #   run: |
+      #     node --version
+      #     npm install
+      #   shell: bash
+      #   env:
+      #     CI: true
+      # - name: forbidden dependency check
+      #   run: |
+      #     node --version
+      #     npm run depcruise
+      #   shell: bash
+      #   env:
+      #     CI: true
+      # - name: emit full depcruise results to step summary
+      #   run: |
+      #     npm run depcruise -T markdown >> $GITHUB_STEP_SUMMARY
+      #     echo '## le graph\n```mermaid' >> $GITHUB_STEP_SUMMARY
+      #     npm run depcruise -T markdown >> $GITHUB_STEP_SUMMARY
+      #     echo '\n```\n' >> $GITHUB_STEP_SUMMARY
+      #   if: branch === 'main'
+      # - name: test coverage
+      #   run: |
+      #     node --version
+      #     npm run test:cover
+      #   shell: bash
+      #   env:
+      #     CI: true
+  beep-boop:
+    needs: check
+    steps:
+      - name: say beep book after doing the check job
+        run: echo 'beep boop'
+  say-hello:
+    needs: check
+    steps:
+      - name: say hello after doing the check job
+        run: echo 'hello'

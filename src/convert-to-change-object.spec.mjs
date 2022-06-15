@@ -1,24 +1,33 @@
 import { deepEqual } from "node:assert";
-import { convertLine, convertLines } from "./convert-to-change-object.mjs";
+import {
+  convertDiffLine,
+  convertDiffLines,
+} from "./convert-to-change-object.mjs";
 
 describe("convert diff line to change object", () => {
   it("recognizes Modified files", () => {
-    deepEqual(convertLine("M       test/report/markdown/markdown.spec.mjs"), {
-      changeType: "modified",
-      name: "test/report/markdown/markdown.spec.mjs",
-    });
+    deepEqual(
+      convertDiffLine("M       test/report/markdown/markdown.spec.mjs"),
+      {
+        changeType: "modified",
+        name: "test/report/markdown/markdown.spec.mjs",
+      }
+    );
   });
 
   it("recognizes Modified files", () => {
-    deepEqual(convertLine("A       test/report/markdown/markdown.spec.mjs"), {
-      changeType: "added",
-      name: "test/report/markdown/markdown.spec.mjs",
-    });
+    deepEqual(
+      convertDiffLine("A       test/report/markdown/markdown.spec.mjs"),
+      {
+        changeType: "added",
+        name: "test/report/markdown/markdown.spec.mjs",
+      }
+    );
   });
 
   it("recognizes Renamed files", () => {
     deepEqual(
-      convertLine(
+      convertDiffLine(
         "R066\ttest/report/markdown/markdown.spec.mjs\ttest/report/markdown/markdown-short.spec.mjs"
       ),
       {
@@ -31,46 +40,49 @@ describe("convert diff line to change object", () => {
   });
 
   it("recognizes Deleted files", () => {
-    deepEqual(convertLine("D\ttest/report/markdown/markdown.spec.mjs"), {
+    deepEqual(convertDiffLine("D\ttest/report/markdown/markdown.spec.mjs"), {
       changeType: "deleted",
       name: "test/report/markdown/markdown.spec.mjs",
     });
   });
 
   it("recognizes Added files", () => {
-    deepEqual(convertLine("A       test/report/markdown/markdown.spec.mjs"), {
-      changeType: "added",
-      name: "test/report/markdown/markdown.spec.mjs",
-    });
+    deepEqual(
+      convertDiffLine("A       test/report/markdown/markdown.spec.mjs"),
+      {
+        changeType: "added",
+        name: "test/report/markdown/markdown.spec.mjs",
+      }
+    );
   });
 
   it("files with an unknown change status", () => {
-    deepEqual(convertLine("X\ttest/report/markdown/markdown.spec.mjs"), {
+    deepEqual(convertDiffLine("X\ttest/report/markdown/markdown.spec.mjs"), {
       changeType: "unknown",
       name: "test/report/markdown/markdown.spec.mjs",
     });
   });
 
   it("returns an empty object when the line doesn't match", () => {
-    deepEqual(convertLine("X"), {});
+    deepEqual(convertDiffLine("X"), {});
   });
 
   it("returns an empty object when the line is empty", () => {
-    deepEqual(convertLine(""), {});
+    deepEqual(convertDiffLine(""), {});
   });
 });
 
 describe("convert a bunch of diff lines to an array of change objects", () => {
   it("empty string delivers an empty array", () => {
-    deepEqual(convertLines(""), []);
+    deepEqual(convertDiffLines(""), []);
   });
 
   it("string with invalid line(s) only delivers an empty array", () => {
-    deepEqual(convertLines("X\t\n"), []);
+    deepEqual(convertDiffLines("X\t\n"), []);
   });
 
   it("bunch of valid lines deliver array of change records", () => {
-    deepEqual(convertLines("A\tthisjusadded\nR100\tfrom\tto\n"), [
+    deepEqual(convertDiffLines("A\tthisjusadded\nR100\tfrom\tto\n"), [
       {
         changeType: "added",
         name: "thisjusadded",
