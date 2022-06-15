@@ -53,5 +53,9 @@ export function convertLine(pString) {
  * @returns {import('../types/diff-dat').IChange[]}
  */
 export function convertLines(pString) {
-  return pString.split(EOL).filter(Boolean).map(convertLine);
+  return pString
+    .split(EOL)
+    .filter(Boolean)
+    .map(convertLine)
+    .filter(({ changeType }) => Boolean(changeType));
 }
