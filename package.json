@@ -6,20 +6,22 @@
   "scripts": {
     "test": "mocha \"src/**/*.spec.mjs\"",
     "test:cover": "c8 --check-coverage --statements 100 --branches 100 --functions 100 --lines 100 --exclude \"**/*.spec.mjs\" --reporter text-summary --reporter html --reporter json-summary npm test",
-    "depcruise": "depcruise src test --config",
+    "depcruise": "depcruise src  --config",
     "depcruise:graph": "depcruise src --include-only '^(src)' --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html > dependency-graph.html",
-    "depcruise:graph:dev": "depcruise src --include-only '^(src)' --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
     "depcruise:graph:archi": "depcruise src --include-only '^(src)' --config --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > high-level-dependency-graph.html",
-    "depcruise:html": "depcruise src test --progress --config --output-type err-html --output-to dependency-violation-report.html",
-    "depcruise:text": "depcruise src test --progress --config --output-type text",
-    "depcruise:focus": "depcruise src test --progress --config --output-type text --focus"
+    "depcruise:graph:dev": "depcruise src --include-only '^(src)' --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:graph:diff:dev": "depcruise src --include-only '^(src)' --focus \"$(node . main -T regex)\" --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:graph:diff:mermaid": "depcruise src --config --output-type mermaid --output-to - --focus \"$(node . $SHA -T regex)\"",
+    "depcruise:html": "depcruise src  --progress --config --output-type err-html --output-to dependency-violation-report.html",
+    "depcruise:text": "depcruise src  --progress --config --output-type text",
+    "depcruise:focus": "depcruise src  --progress --config --output-type text --focus"
   },
   "keywords": [],
   "author": "Sander Verweij (https://sverweij.github.io/)",
   "license": "MIT",
   "devDependencies": {
     "c8": "^7.11.3",
-    "dependency-cruiser": "^11.9.0",
+    "dependency-cruiser": "^11.10.0",
     "mocha": "^10.0.0"
   },
   "dependencies": {

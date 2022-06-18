@@ -6,6 +6,12 @@ on:
       - main
   pull_request:
 
+env:
+  CI: true
+defaults:
+  run:
+    shell: bash
+
 jobs:
   check:
     name: check
@@ -21,27 +27,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
       - uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
           restore-keys: |
             ${{matrix.node-version}}@${{matrix.platform}}-build-
-      - name: dump some variables
-        run: |
-          echo github object:
-          echo '${{toJSON(github)}}'
-          echo runner object:
-          echo '${{toJSON(runner)}}'
-          echo env object:
-          echo '${{toJSON(env)}}'
-          echo job object:
-          echo '${{toJSON(job)}}'
-          echo steps object:
-          echo '${{toJSON(steps)}}'
-          echo 'Default branch: ${{toJSON(github.event.repository.default_branch)}}'
-          echo 'event_name: ${{toJSON(github.event_name)}}'
-          echo 'ref_name: ${{toJSON(github.ref_name)}}'
+      # - name: dump some variables
+      #   run: |
+      #     echo '## github object' >> $GITHUB_STEP_SUMMARY
+      #     echo '```json' >> $GITHUB_STEP_SUMMARY
+      #     echo '${{toJSON(github)}}' >> $GITHUB_STEP_SUMMARY
+      #     echo '```' >> $GITHUB_STEP_SUMMARY
       - name: set up node ${{matrix.node-version}}@${{matrix.platform}}
         uses: actions/setup-node@v3
         with:
@@ -50,28 +49,28 @@ jobs:
         run: |
           node --version
           npm install
-        shell: bash
-        env:
-          CI: true
       - name: forbidden dependency check
         run: |
           node --version
           npm run depcruise
-        shell: bash
-        env:
-          CI: true
       - name: emit full depcruise results to step summary on pushes to the default branch
-        if: github.event_name == 'push' && github.ref_name == ${{toJSON(github.event_name)}}
+        if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
         run: |
           yarn --silent depcruise -T markdown >> $GITHUB_STEP_SUMMARY
           echo '## le graph' >> $GITHUB_STEP_SUMMARY
           echo '```mermaid' >> $GITHUB_STEP_SUMMARY
           yarn --silent depcruise -T mermaid >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+      - name: emit depcruise results + diff graph for pull requests
+        if: github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
+        run: |
+          yarn --silent depcruise -T markdown >> $GITHUB_STEP_SUMMARY
+          echo '## visual diff:' >> $GITHUB_STEP_SUMMARY
+          echo '```mermaid' >> $GITHUB_STEP_SUMMARY
+          SHA=${{github.event.pull_request.base.sha}} yarn --silent depcruise:graph:diff:mermaid >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
       - name: test coverage
         run: |
           node --version
           npm run test:cover
-        shell: bash
-        env:
-          CI: true
