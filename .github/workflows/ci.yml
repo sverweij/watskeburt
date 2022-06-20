@@ -13,14 +13,8 @@ defaults:
     shell: bash
 
 jobs:
-  wip:
-    if: ${{github.event_name == 'pull_request' && startsWith(github.event.pull_request.title, 'WIP')}}
-    runs-on: ubuntu-latest
-    steps:
-      - run: exit 1
   check:
     name: check
-    if: ${{!(github.event_name == 'pull_request' && startsWith(github.event.pull_request.title, 'WIP'))}}
     strategy:
       fail-fast: true
       matrix:
@@ -52,9 +46,13 @@ jobs:
         with:
           node-version: ${{matrix.node-version}}
       - name: install & build
-        run: npm install
+        run: |
+          node --version
+          npm install
       - name: forbidden dependency check
-        run: npm run depcruise
+        run: |
+          node --version
+          npm run depcruise
       - name: emit full depcruise results to step summary on pushes to the default branch
         if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
         run: |
@@ -73,4 +71,6 @@ jobs:
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: test coverage
-        run: npm run test:cover
+        run: |
+          node --version
+          npm run test:cover
