@@ -72,7 +72,7 @@ jobs:
         if: github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
         run: |
           yarn --silent depcruise -T markdown >> $GITHUB_STEP_SUMMARY
-          echo '## visual diff:' >> $GITHUB_STEP_SUMMARY
+          echo '## visual diff' >> $GITHUB_STEP_SUMMARY
           echo '```mermaid' >> $GITHUB_STEP_SUMMARY
           SHA=${{github.event.pull_request.base.sha}} yarn --silent depcruise:graph:diff:mermaid >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
