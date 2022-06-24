@@ -4,10 +4,17 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "*/**.md"
+      - "*/**.txt"
   pull_request:
+    paths-ignore:
+      - "*/**.md"
+      - "*/**.txt"
 
 env:
   CI: true
+
 defaults:
   run:
     shell: bash
