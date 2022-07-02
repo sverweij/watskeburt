@@ -64,7 +64,7 @@ jobs:
           yarn --silent depcruise --output-type markdown >> $GITHUB_STEP_SUMMARY
           echo '## Visual overview' >> $GITHUB_STEP_SUMMARY
           echo '```mermaid' >> $GITHUB_STEP_SUMMARY
-          yarn --silent depcruise --include-only "^(src)" --output-type mermaid >> $GITHUB_STEP_SUMMARY
+          yarn --silent depcruise --exclude ".spec.mjs$" --include-only "^(src)" --output-type mermaid >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: on pull requests emit depcruise results + diff graph to step summary
         if: github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
