@@ -18,3 +18,10 @@ export interface IChange {
   similarity?: Number;
   oldName?: string;
 }
+
+export type outputTypeType = "regex" | "json" | "object";
+
+export interface IOptions {
+  outputType: outputTypeType;
+  trackedOnly: boolean;
+}
