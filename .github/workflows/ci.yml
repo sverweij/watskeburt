@@ -78,6 +78,4 @@ jobs:
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: test coverage
-        run: |
-          node --version
-          npm run test:cover
+        run: npm run test:cover

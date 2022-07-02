@@ -2,6 +2,21 @@ import { deepEqual } from "node:assert";
 import format from "./regex.mjs";
 
 describe("regex formatter", () => {
+  const CHANGES_OF_EACH_TYPE = [
+    { changeType: "added", name: "added.mjs" },
+    { changeType: "copied", name: "copied.mjs" },
+    { changeType: "deleted", name: "deleted.mjs" },
+    { changeType: "modified", name: "modified.mjs" },
+    { changeType: "renamed", name: "renamed.mjs", oldName: "oldname.mjs" },
+    { changeType: "type changed", name: "type-changed.mjs" },
+    { changeType: "unmerged", name: "unmerged.mjs" },
+    { changeType: "pairing broken", name: "pairing-broken.mjs" },
+    { changeType: "unknown", name: "unknown.mjs" },
+    { changeType: "unmodified", name: "unmodified.mjs" },
+    { changeType: "untracked", name: "untracked.mjs" },
+    { changeType: "ignored", name: "ignored.mjs" },
+  ];
+
   it("empty array yields empty regex", () => {
     deepEqual(format([]), "^()$");
   });
@@ -20,6 +35,59 @@ describe("regex formatter", () => {
         { changeType: "modified", name: "changed.mjs" },
       ]),
       "^(added.mjs|changed.mjs)$"
+    );
+  });
+
+  it("by default only takes changes into account that changed the contents + untracked files", () => {
+    deepEqual(
+      format(CHANGES_OF_EACH_TYPE),
+      "^(added.mjs|copied.mjs|modified.mjs|renamed.mjs|untracked.mjs)$"
+    );
+  });
+
+  it("when passed list of change types only emits changes of that type", () => {
+    deepEqual(
+      format(
+        CHANGES_OF_EACH_TYPE,
+        [".mjs"],
+        ["type changed", "pairing broken", "ignored"]
+      ),
+      "^(type-changed.mjs|pairing-broken.mjs|ignored.mjs)$"
+    );
+  });
+
+  it("when passed list of extensions only takes those into account", () => {
+    deepEqual(
+      format(
+        [
+          {
+            changeType: "added",
+            name: "added.aap",
+          },
+          {
+            changeType: "modified",
+            name: "modified.aap",
+          },
+          {
+            changeType: "added",
+            name: "added.noot",
+          },
+          {
+            changeType: "added",
+            name: "added.mies",
+          },
+          {
+            changeType: "added",
+            name: "added.wim",
+          },
+          {
+            changeType: "added",
+            name: "added.zus",
+          },
+        ],
+        [".aap", ".noot", ".mies"]
+      ),
+      "^(added.aap|modified.aap|added.noot|added.mies)$"
     );
   });
 });

@@ -2,6 +2,10 @@ import { EOL } from "node:os";
 const DIFF_NAME_STATUS_LINE_PATTERN = new RegExp(
   "^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$"
 );
+const DIFF_SHORT_STATUS_LINE_PATTERN = new RegExp(
+  "^(?<stagedChangeType>[ ACDMRTUXB?!])(?<unStagedChangeType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$"
+);
+
 const CHANGE_CHAR_2_CHANGE_TYPE = {
   A: "added",
   C: "copied",
@@ -11,6 +15,9 @@ const CHANGE_CHAR_2_CHANGE_TYPE = {
   T: "type changed",
   U: "unmerged",
   B: "pairing broken",
+  " ": "unmodified",
+  "?": "untracked",
+  "!": "ignored",
   // X: "unknown"
 };
 
@@ -23,8 +30,42 @@ function changeChar2ChangeType(pChar) {
  * @param {string} pString
  * @returns {import('../types/diff-dat').IChange}
  */
+export function convertStatusLine(pString) {
+  const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
+  /**  @type {import('../types/diff-dat').IChange} */
+  let lReturnValue = {};
+
+  if (lMatchResult) {
+    const lStagedChangeType = changeChar2ChangeType(
+      lMatchResult.groups.stagedChangeType
+    );
+    const lUnStagedChangeType = changeChar2ChangeType(
+      lMatchResult.groups.unStagedChangeType
+    );
+
+    lReturnValue.changeType =
+      lStagedChangeType === "unmodified"
+        ? lUnStagedChangeType
+        : lStagedChangeType;
+
+    if (lMatchResult.groups.newName) {
+      lReturnValue.name = lMatchResult.groups.newName;
+      lReturnValue.oldName = lMatchResult.groups.name;
+    } else {
+      lReturnValue.name = lMatchResult.groups.name;
+    }
+  }
+  return lReturnValue;
+}
+
+/**
+ *
+ * @param {string} pString
+ * @returns {import('../types/diff-dat').IChange}
+ */
 export function convertDiffLine(pString) {
   const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
+  /**  @type {import('../types/diff-dat').IChange} */
   let lReturnValue = {};
 
   if (lMatchResult) {
@@ -45,6 +86,19 @@ export function convertDiffLine(pString) {
     }
   }
   return lReturnValue;
+}
+
+/**
+ *
+ * @param {string} pString
+ * @returns {import('../types/diff-dat').IChange[]}
+ */
+export function convertStatusLines(pString) {
+  return pString
+    .split(EOL)
+    .filter(Boolean)
+    .map(convertStatusLine)
+    .filter(({ changeType }) => Boolean(changeType));
 }
 
 /**
