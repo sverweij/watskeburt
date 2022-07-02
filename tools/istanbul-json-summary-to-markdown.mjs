@@ -1,15 +1,15 @@
 function formatMetric(pCoverageMetric) {
-  return `${pCoverageMetric.pct}%|${pCoverageMetric.covered}/${pCoverageMetric.total}|${pCoverageMetric.skipped}`;
+  return `${pCoverageMetric.pct}%|${pCoverageMetric.covered}/${pCoverageMetric.total}|${pCoverageMetric.skipped} skipped`;
 }
 
 function formatSummary(pCoverageSummary) {
   return (
-    `|Metric|Coverage|Covered/Total|Skipped|\n` +
+    `|||||\n` +
     `|:--|--:|:--:|--:|\n` +
-    `|Statements|${formatMetric(pCoverageSummary.total.statements)}|\n` +
-    `|Branches|${formatMetric(pCoverageSummary.total.branches)}|\n` +
-    `|Functions|${formatMetric(pCoverageSummary.total.functions)}|\n` +
-    `|Lines|${formatMetric(pCoverageSummary.total.lines)}|\n`
+    `|**Statements**|${formatMetric(pCoverageSummary.total.statements)}|\n` +
+    `|**Branches**|${formatMetric(pCoverageSummary.total.branches)}|\n` +
+    `|**Functions**|${formatMetric(pCoverageSummary.total.functions)}|\n` +
+    `|**Lines**|${formatMetric(pCoverageSummary.total.lines)}|\n`
   );
 }
 /**
