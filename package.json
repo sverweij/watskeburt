@@ -11,7 +11,7 @@
     "depcruise:graph:archi": "depcruise src --include-only '^(src)' --config --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > high-level-dependency-graph.html",
     "depcruise:graph:dev": "depcruise src --include-only '^(src)' --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
     "depcruise:graph:diff:dev": "depcruise src --include-only '^(src)' --focus \"$(node . main -T regex)\" --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:graph:diff:mermaid": "depcruise src --config --output-type mermaid --output-to - --focus \"$(node . $SHA -T regex)\"",
+    "depcruise:graph:diff:mermaid": "depcruise src --include-only '^(src)' --config --output-type mermaid --output-to - --focus \"$(node . $SHA -T regex)\"",
     "depcruise:html": "depcruise src  --progress --config --output-type err-html --output-to dependency-violation-report.html",
     "depcruise:text": "depcruise src  --progress --config --output-type text",
     "depcruise:focus": "depcruise src  --progress --config --output-type text --focus"
@@ -21,7 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "c8": "^7.11.3",
-    "dependency-cruiser": "^11.10.0",
+    "dependency-cruiser": "^11.11.0",
     "mocha": "^10.0.0"
   },
   "dependencies": {
