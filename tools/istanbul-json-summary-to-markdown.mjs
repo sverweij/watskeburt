@@ -13,11 +13,13 @@ function formatSummary(pCoverageSummary) {
   );
 }
 /**
+ * Takes the output from the instanbul json-summary reporter (in a readStream),
+ * formats it in a markdown table and writes it to the provided writeStream
  *
- * @param {readStream} pStream stream whose characters are to be slapped between header and footer
- * @param {writeStream} pOutStream stream to write to
+ * @param {readStream} pStream stream to read the JSON from
+ * @param {writeStream} pOutStream stream to write the markdown to
  */
-function wrap(pInStream, pOutStream) {
+function main(pInStream, pOutStream) {
   let lBuffer = "";
 
   pInStream
@@ -38,4 +40,4 @@ function wrap(pInStream, pOutStream) {
     });
 }
 
-wrap(process.stdin, process.stdout);
+main(process.stdin, process.stdout);
