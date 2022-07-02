@@ -1,5 +1,5 @@
-import formatToRegex from "./formatters/regex.mjs";
-import formatToJSON from "./formatters/json.mjs";
+import formatToRegex from "./regex.mjs";
+import formatToJSON from "./json.mjs";
 
 const OUTPUT_TYPE_TO_FUNCTION = {
   regex: formatToRegex,

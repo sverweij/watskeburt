@@ -4,7 +4,7 @@ import {
 } from "./convert-to-change-object.mjs";
 import { getDiffLines, getStatusShort } from "./get-diff-lines.mjs";
 import { program } from "commander";
-import format from "./format.mjs";
+import format from "./formatters/format.mjs";
 
 program
   .description("lists files since <reference>")
