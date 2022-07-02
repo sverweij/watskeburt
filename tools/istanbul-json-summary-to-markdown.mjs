@@ -1,5 +1,7 @@
 function formatMetric(pCoverageMetric) {
-  return `${pCoverageMetric.pct}%|${pCoverageMetric.covered}/${pCoverageMetric.total}|${pCoverageMetric.skipped} skipped`;
+  return `${pCoverageMetric.pct.toFixed(1)}%|${pCoverageMetric.covered}/${
+    pCoverageMetric.total
+  }|${pCoverageMetric.skipped} skipped`;
 }
 
 function formatSummary(pCoverageSummary) {
