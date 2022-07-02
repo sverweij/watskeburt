@@ -2,7 +2,7 @@
 
 get git changed files since _any reference_
 
-## what's this do?z
+## what's this do?
 
 A micro-lib to retrieve an array of file names that were changed (added,
 modified, renamed, deleted, ...) since the reference it got passed.
