@@ -6,11 +6,15 @@ export type changeTypeType =
   | "renamed"
   | "type changed"
   | "unmerged"
-  | "pairing broken";
+  | "pairing broken"
+  | "unknown"
+  | "unmodified"
+  | "untracked"
+  | "ignored";
 
 export interface IChange {
   name: string;
   changeType: changeTypeType;
-  similarty?: Number;
+  similarity?: Number;
   oldName?: string;
 }
