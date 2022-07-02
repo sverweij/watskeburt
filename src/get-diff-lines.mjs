@@ -1,4 +1,4 @@
-import { spawnSync } from "child_process";
+import { spawnSync } from "node:child_process";
 
 function stringifyOutStream(pError) {
   if (pError instanceof Buffer) {
@@ -11,14 +11,13 @@ function stringifyOutStream(pError) {
 /**
  *
  * @param {string[]} pArguments
- * @param {string} pGitCommand - the git command to run; defaults to "git"
- * @param {string} pWorkingDirectory - the working directory to run the command in; defaults to the current directory
  * @return {string}
  * @throws {Error}
  */
-export function getGitResult(pArguments, pGitCommand, pWorkingDirectory) {
-  const lGitResult = spawnSync(pGitCommand, pArguments, {
-    cwd: pWorkingDirectory,
+function getGitResult(pArguments) {
+  const lGitResult = spawnSync("git", pArguments, {
+    cwd: process.cwd(),
+    env: process.env,
   });
 
   if (lGitResult.error) {
@@ -35,38 +34,19 @@ export function getGitResult(pArguments, pGitCommand, pWorkingDirectory) {
 
 /**
  *
- * @param {string} pGitCommand - the git command to run; defaults to "git"
- * @param {string} pWorkingDirectory - the working directory to run the command in; defaults to the current directory
  * @returns {string}
  * @throws {Error}
  */
-export function getStatusShort(
-  pGitCommand = "git",
-  pWorkingDirectory = process.cwd()
-) {
-  return getGitResult(
-    ["status", "--porcelain"],
-    pGitCommand,
-    pWorkingDirectory
-  );
+export function getStatusShort() {
+  return getGitResult(["status", "--porcelain"]);
 }
 
 /**
  *
  * @param {string} pOldThing the target to compare against (e.g. branch name, commit, tag etc)
- * @param {string} pGitCommand - the git command to run; defaults to "git"
- * @param {string} pWorkingDirectory - the working directory to run the command in; defaults to the current directory
  * @return {string}
  * @throws {Error}
  */
-export function getDiffLines(
-  pOldThing,
-  pGitCommand = "git",
-  pWorkingDirectory = process.cwd()
-) {
-  return getGitResult(
-    ["diff", pOldThing, "--name-status"],
-    pGitCommand,
-    pWorkingDirectory
-  );
+export function getDiffLines(pOldThing) {
+  return getGitResult(["diff", pOldThing, "--name-status"]);
 }
