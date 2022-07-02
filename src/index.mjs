@@ -15,8 +15,8 @@ program
 
 if (program.args[0]) {
   try {
-    const lDiffLines = getDiffLines(program.args[0]);
-    let lChanges = convertDiffLines(lDiffLines);
+    let lChanges = convertDiffLines(getDiffLines(program.args[0]));
+
     if (!program.opts().trackedOnly) {
       lChanges = lChanges.concat(
         convertStatusLines(getStatusShort()).filter(
