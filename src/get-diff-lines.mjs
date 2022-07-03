@@ -14,14 +14,13 @@ function stringifyOutStream(pError) {
  * @return {string}
  * @throws {Error}
  */
-function getGitResult(pArguments) {
-  const lGitResult = spawnSync("git", pArguments, {
+function getGitResult(pArguments, pSpawnFunction) {
+  const lGitResult = pSpawnFunction("git", pArguments, {
     cwd: process.cwd(),
     env: process.env,
   });
 
   if (lGitResult.error) {
-    console.error(JSON.stringify(lGitResult, null, 2));
     throw new Error(stringifyOutStream(lGitResult.error));
   }
 
@@ -37,8 +36,8 @@ function getGitResult(pArguments) {
  * @returns {string}
  * @throws {Error}
  */
-export function getStatusShort() {
-  return getGitResult(["status", "--porcelain"]);
+export function getStatusShort(pSpawnFunction = spawnSync) {
+  return getGitResult(["status", "--porcelain"], pSpawnFunction);
 }
 
 /**
@@ -47,6 +46,6 @@ export function getStatusShort() {
  * @return {string}
  * @throws {Error}
  */
-export function getDiffLines(pOldThing) {
-  return getGitResult(["diff", pOldThing, "--name-status"]);
+export function getDiffLines(pOldThing, pSpawnFunction = spawnSync) {
+  return getGitResult(["diff", pOldThing, "--name-status"], pSpawnFunction);
 }
