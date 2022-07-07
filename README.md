@@ -10,7 +10,8 @@ modified, renamed, deleted, ...) since the reference it got passed.
 - :warning: in the process of getting 'production ready'. It's automatically
   tested + it's using itself - but a bunch of static analysis and a bit of
   automation still needs be added.
-- Interface is stable-ish, but can can change until 1.0.0 is published
+- :warning: Interface is stable-ish, but can can change until 1.0.0 is published
+- :warning: expect some rough edges for e.g. error scenarios
 
 ## sample return value
 

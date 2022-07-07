@@ -4,7 +4,7 @@ import { program } from "commander";
 import { convert } from "./main.mjs";
 
 program
-  .description("lists files since <reference>")
+  .description("lists files & their statuses since <reference>")
   .option("-T, --output-type <type>", "json,regex", "regex")
   .option("--tracked-only", "only take tracked files into account", false)
   .arguments("<reference>")
