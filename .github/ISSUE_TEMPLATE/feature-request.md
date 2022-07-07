@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an improvement for diff-dat
+about: Suggest an improvement for watskeburt
 title: "Feature request: ... "
 ---
 

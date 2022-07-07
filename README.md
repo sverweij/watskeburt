@@ -1,4 +1,4 @@
-# diff-dat
+# watskeburt
 
 get git changed files since _any reference_
 
@@ -28,7 +28,7 @@ modified, renamed, deleted, ...) since the reference it got passed.
 For now there's also a simple command line interface
 
 ```
-Usage: diff-dat [options] <reference>
+Usage: watskeburt [options] <reference>
 
 lists files since <reference>
 

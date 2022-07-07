@@ -10,9 +10,9 @@ const DEFAULT_OUTPUT_TYPE = "object";
 
 /**
  *
- * @param {import("../../types/diff-dat.js").IChange[]} pChanges
- * @param {import("../../types/diff-dat.js").outputTypeType} pOutputType
- * @returns {string|import("../../types/diff-dat.js").IChange[]}
+ * @param {import("../../types/watskeburt.js").IChange[]} pChanges
+ * @param {import("../../types/watskeburt.js").outputTypeType} pOutputType
+ * @returns {string|import("../../types/watskeburt.js").IChange[]}
  */
 export default function format(pChanges, pOutputType) {
   return OUTPUT_TYPE_TO_FUNCTION[pOutputType || DEFAULT_OUTPUT_TYPE](pChanges);

@@ -1,5 +1,5 @@
 {
-  "name": "diff-dat",
+  "name": "watskeburt",
   "version": "1.0.0",
   "description": "list files changed since a git reference",
   "bin": "src/cli.mjs",
@@ -12,7 +12,7 @@
       }
     ]
   },
-  "types": "types/diff-dat.d.ts",
+  "types": "types/watskeburt.d.ts",
   "files": [
     "src",
     "!src/**/*.spec.mjs",

@@ -1,7 +1,7 @@
 <!--- Provide a general summary of your changes in the Title above -->
 
 > Plan to do something drastic?  
-> Leave an [issue](https://github.com/sverweij/diff-dat/issues/new/choose) with a
+> Leave an [issue](https://github.com/sverweij/watskeburt/issues/new/choose) with a
 > summary of the changes you propose + some context on why you'd want to
 > do that, so we can have a conversation before you start. This will save you time!
 
@@ -45,6 +45,6 @@
   - it _does_ and I have updated it
 
 - [ ] :balance_scale:
-  - The contribution will be subject to [The MIT license](https://github.com/sverweij/diff-dat/blob/develop/LICENSE), and I'm OK with that.
+  - The contribution will be subject to [The MIT license](https://github.com/sverweij/watskeburt/blob/develop/LICENSE), and I'm OK with that.
   - The contribution is my own original work.
-  - I am ok with the stuff in [**CONTRIBUTING.md**](https://github.com/sverweij/diff-dat/blob/develop/.github/CONTRIBUTING.md).
+  - I am ok with the stuff in [**CONTRIBUTING.md**](https://github.com/sverweij/watskeburt/blob/develop/.github/CONTRIBUTING.md).

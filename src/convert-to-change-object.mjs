@@ -28,11 +28,11 @@ function changeChar2ChangeType(pChar) {
 /**
  *
  * @param {string} pString
- * @returns {import('../types/diff-dat').IChange}
+ * @returns {import('../types/watskeburt').IChange}
  */
 export function convertStatusLine(pString) {
   const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
-  /**  @type {import('../types/diff-dat').IChange} */
+  /**  @type {import('../types/watskeburt').IChange} */
   let lReturnValue = {};
 
   if (lMatchResult) {
@@ -61,11 +61,11 @@ export function convertStatusLine(pString) {
 /**
  *
  * @param {string} pString
- * @returns {import('../types/diff-dat').IChange}
+ * @returns {import('../types/watskeburt').IChange}
  */
 export function convertDiffLine(pString) {
   const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
-  /**  @type {import('../types/diff-dat').IChange} */
+  /**  @type {import('../types/watskeburt').IChange} */
   let lReturnValue = {};
 
   if (lMatchResult) {
@@ -91,7 +91,7 @@ export function convertDiffLine(pString) {
 /**
  *
  * @param {string} pString
- * @returns {import('../types/diff-dat').IChange[]}
+ * @returns {import('../types/watskeburt').IChange[]}
  */
 export function convertStatusLines(pString) {
   return pString
@@ -104,7 +104,7 @@ export function convertStatusLines(pString) {
 /**
  *
  * @param {string} pString
- * @returns {import('../types/diff-dat').IChange[]}
+ * @returns {import('../types/watskeburt').IChange[]}
  */
 export function convertDiffLines(pString) {
   return pString

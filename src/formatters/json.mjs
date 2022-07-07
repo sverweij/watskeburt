@@ -1,6 +1,6 @@
 /**
  *
- * @param {import('../types/diff-dat').IChange[]} pChanges
+ * @param {import('../types/watskeburt').IChange[]} pChanges
  * @return {string}
  */
 export default function formatToJSON(pChanges) {

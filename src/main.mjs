@@ -15,8 +15,8 @@ import format from "./formatters/format.mjs";
  *   well (by setting trackedOnly to false)
  *
  * @param {string} pOldThing reference to a commit, branch, tag, ...
- * @param {import("../types/diff-dat.js").IOptions} pOptions
- * @returns {string|import("../types/diff-dat.js").IChange[]}
+ * @param {import("../types/watskeburt.js").IOptions} pOptions
+ * @returns {string|import("../types/watskeburt.js").IChange[]}
  */
 export function convert(pOldThing, pOptions) {
   let lChanges = convertDiffLines(getDiffLines(pOldThing));

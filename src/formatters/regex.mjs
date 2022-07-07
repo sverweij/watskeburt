@@ -2,9 +2,9 @@ import { extname } from "node:path";
 
 /**
  *
- * @param {import('../types/diff-dat').IChange[]} pChanges
+ * @param {import('../types/watskeburt').IChange[]} pChanges
  * @param {string[]} pExtensions
- * @param {import('../types/diff-dat').changeTypeType[]} pChangeTypes
+ * @param {import('../types/watskeburt').changeTypeType[]} pChangeTypes
  * @return {string}
  */
 export default function formatToRegex(

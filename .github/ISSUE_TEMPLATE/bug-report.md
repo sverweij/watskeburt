@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Raise an issue to help improve diff-dat
+about: Raise an issue to help improve watskeburt
 title: "Issue: ..."
 ---
 
