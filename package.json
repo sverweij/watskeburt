@@ -1,6 +1,6 @@
 {
   "name": "watskeburt",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "list files changed since a git reference",
   "bin": "src/cli.mjs",
   "main": "src/main.mjs",
