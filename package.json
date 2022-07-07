@@ -1,6 +1,6 @@
 {
   "name": "watskeburt",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "list files changed since a git reference",
   "bin": "src/cli.mjs",
   "main": "dist/cjs-bundle.js",
