@@ -36,7 +36,7 @@ For now there's also a simple command line interface
 ```
 Usage: watskeburt [options] <reference>
 
-lists files since <reference>
+lists files & their statuses since <reference>
 
 Options:
   -T, --output-type <type>  json,regex (default: "regex")
