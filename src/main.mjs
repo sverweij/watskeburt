@@ -20,13 +20,14 @@ import format from "./formatters/format.mjs";
  */
 export function convert(pOldThing, pOptions) {
   let lChanges = convertDiffLines(getDiffLines(pOldThing));
+  const lOptions = pOptions || {};
 
-  if (!pOptions.trackedOnly) {
+  if (!lOptions.trackedOnly) {
     lChanges = lChanges.concat(
       convertStatusLines(getStatusShort()).filter(
         ({ changeType }) => changeType === "untracked"
       )
     );
   }
-  return format(lChanges, pOptions.outputType);
+  return format(lChanges, lOptions.outputType);
 }

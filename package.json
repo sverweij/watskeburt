@@ -3,18 +3,21 @@
   "version": "0.1.0",
   "description": "list files changed since a git reference",
   "bin": "src/cli.mjs",
-  "main": "src/main.mjs",
+  "main": "dist/cjs-bundle.js",
   "module": "src/main.mjs",
   "exports": {
     ".": [
       {
-        "import": "./src/main.mjs"
-      }
+        "import": "./src/main.mjs",
+        "require": "./dist/cjs-bundle.js"
+      },
+      "./dist/cjs-bundle.js"
     ]
   },
   "types": "types/watskeburt.d.ts",
   "files": [
     "src",
+    "dist",
     "!src/**/*.spec.mjs",
     "!**/*.DS_Store",
     "types",
@@ -23,6 +26,8 @@
     "README.md"
   ],
   "scripts": {
+    "build": "esbuild src/main.mjs --format=cjs --target=node12 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.js",
+    "clean": "rm -rf dist",
     "test": "mocha \"src/**/*.spec.mjs\"",
     "test:cover": "c8 --check-coverage --statements 100 --branches 100 --functions 100 --lines 100 --exclude \"**/*.spec.mjs\" --reporter text-summary --reporter html --reporter json-summary npm test",
     "depcruise": "depcruise src --config",
@@ -44,6 +49,7 @@
   "devDependencies": {
     "c8": "^7.11.3",
     "dependency-cruiser": "^11.11.0",
+    "esbuild": "^0.14.48",
     "mocha": "^10.0.0"
   },
   "dependencies": {
