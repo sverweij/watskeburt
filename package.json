@@ -31,14 +31,16 @@
     "test": "mocha \"src/**/*.spec.mjs\"",
     "test:cover": "c8 --check-coverage --statements 100 --branches 100 --functions 100 --lines 100 --exclude \"**/*.spec.mjs\" --reporter text-summary --reporter html --reporter json-summary npm test",
     "depcruise": "depcruise src --config",
-    "depcruise:graph": "depcruise src --include-only '^(src)' --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
+    "depcruise:graph": "depcruise src --include-only '^(src)' --config --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
     "depcruise:graph:archi": "depcruise src --include-only '^(src)' --config --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > docs/high-level-dependency-graph.html",
     "depcruise:graph:dev": "depcruise src --include-only '^(src)' --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
     "depcruise:graph:diff:dev": "depcruise src --include-only '^(src)' --focus \"$(node src/cli.mjs main -T regex)\" --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
     "depcruise:graph:diff:mermaid": "depcruise src --include-only '^(src)' --config --output-type mermaid --output-to - --focus \"$(node src/cli.mjs $SHA -T regex)\"",
     "depcruise:html": "depcruise src --progress --config --output-type err-html --output-to dependency-violation-report.html",
     "depcruise:text": "depcruise src --progress --config --output-type text",
-    "depcruise:focus": "depcruise src --progress --config --output-type text --focus"
+    "depcruise:focus": "depcruise src --progress --config --output-type text --focus",
+    "scm:stage": "git add .",
+    "version": "run-s clean build depcruise:graph scm:stage"
   },
   "keywords": [
     "git",
@@ -50,7 +52,8 @@
     "c8": "^7.11.3",
     "dependency-cruiser": "^11.11.0",
     "esbuild": "^0.14.48",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "commander": "^9.3.0"
