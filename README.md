@@ -1,11 +1,18 @@
 # watskeburt
 
-get git changed files since _any reference_
+get git changed files & their statusses since _any reference_
 
 ## what's this do?
 
 A micro-lib to retrieve an array of file names that were changed (added,
 modified, renamed, deleted, ...) since the reference it got passed.
+
+- :warning: NOT yet published on npm
+- :warning: in the process of getting 'production ready'. It's automatically
+  tested + it's using itself + interface is stable - but a bunch of static
+  analysis still needs be added, as well as a commonjs version.
+- :warning: currently esm only - commonjs compiledown will follow as part of the
+  previous point.
 
 ## sample return value
 
