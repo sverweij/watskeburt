@@ -14,20 +14,18 @@ function stringifyOutStream(pError) {
  * @return {string}
  * @throws {Error}
  */
-function getGitResult(pArguments, pSpawnFunction) {
+function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
   const lGitResult = pSpawnFunction("git", pArguments, {
     cwd: process.cwd(),
     env: process.env,
   });
 
-  if (lGitResult.error) {
-    throw new Error(stringifyOutStream(lGitResult.error));
-  }
-
   if (lGitResult.status === 0) {
     return stringifyOutStream(lGitResult.stdout);
   } else {
-    throw new Error(lGitResult.output);
+    throw new Error(
+      pErrorMap[lGitResult.status] || `unknown error: ${lGitResult.status}`
+    );
   }
 }
 
@@ -37,7 +35,10 @@ function getGitResult(pArguments, pSpawnFunction) {
  * @throws {Error}
  */
 export function getStatusShort(pSpawnFunction = spawnSync) {
-  return getGitResult(["status", "--porcelain"], pSpawnFunction);
+  const lErrorMap = {
+    129: `'${process.cwd()}' does not seem to be a git repository`,
+  };
+  return getGitResult(["status", "--porcelain"], lErrorMap, pSpawnFunction);
 }
 
 /**
@@ -47,5 +48,13 @@ export function getStatusShort(pSpawnFunction = spawnSync) {
  * @throws {Error}
  */
 export function getDiffLines(pOldThing, pSpawnFunction = spawnSync) {
-  return getGitResult(["diff", pOldThing, "--name-status"], pSpawnFunction);
+  const lErrorMap = {
+    128: `revision '${pOldThing}' unknown `,
+    129: `'${process.cwd()}' does not seem to be a git repository`,
+  };
+  return getGitResult(
+    ["diff", pOldThing, "--name-status"],
+    lErrorMap,
+    pSpawnFunction
+  );
 }

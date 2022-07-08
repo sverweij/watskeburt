@@ -14,7 +14,7 @@ if (program.args[0]) {
   try {
     console.log(convert(program.args[0], program.opts()));
   } catch (pError) {
-    console.error(pError);
+    console.error(`ERROR: ${pError.message}`);
   }
 } else {
   program.help();
