@@ -9,7 +9,17 @@ import { extname } from "node:path";
  */
 export default function formatToRegex(
   pChanges,
-  pExtensions = [".js", ".ts", ".mjs", ".cjs"],
+  pExtensions = [
+    ".js",
+    ".jsx",
+    ".mjs",
+    ".cjs",
+    ".ts",
+    ".tsx",
+    ".vue",
+    ".vuex",
+    ".json",
+  ],
   pChangeTypes = ["modified", "added", "renamed", "copied", "untracked"]
 ) {
   const lChanges = pChanges
