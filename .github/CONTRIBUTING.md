@@ -20,7 +20,7 @@ To make this as easy as possible for you, here's some simple guidelines:
 
 - We prefer well documented
   **[pull requests](https://help.github.com/articles/creating-a-pull-request/)**
-  based on the most recent version of the **develop** branch.
+  based on the most recent version of the **main** branch.
 - Code quality
   - watskeburt has a bunch of automated checks (test coverage, depcruise,
     linting, code formatting). They also run on the CI, but you can save yourself

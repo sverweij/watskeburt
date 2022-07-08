@@ -45,6 +45,6 @@
   - it _does_ and I have updated it
 
 - [ ] :balance_scale:
-  - The contribution will be subject to [The MIT license](https://github.com/sverweij/watskeburt/blob/develop/LICENSE), and I'm OK with that.
+  - The contribution will be subject to [The MIT license](https://github.com/sverweij/watskeburt/blob/main/LICENSE), and I'm OK with that.
   - The contribution is my own original work.
-  - I am ok with the stuff in [**CONTRIBUTING.md**](https://github.com/sverweij/watskeburt/blob/develop/.github/CONTRIBUTING.md).
+  - I am ok with the stuff in [**CONTRIBUTING.md**](https://github.com/sverweij/watskeburt/blob/main/.github/CONTRIBUTING.md).
