@@ -16,6 +16,7 @@ import format from "./formatters/format.mjs";
  *
  * @param {string} pOldThing reference to a commit, branch, tag, ...
  * @param {import("../types/watskeburt.js").IOptions} pOptions
+ * @throws {Error}
  * @returns {string|import("../types/watskeburt.js").IChange[]}
  */
 export function convert(pOldThing, pOptions) {
