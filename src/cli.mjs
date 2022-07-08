@@ -2,12 +2,14 @@
 
 import { program } from "commander";
 import { convert } from "./main.mjs";
+import { version } from "./version.mjs";
 
 program
-  .description("lists files & their statuses since <reference>")
+  .description("lists files & their statuses since <revision>")
+  .version(version)
   .option("-T, --output-type <type>", "json,regex", "regex")
   .option("--tracked-only", "only take tracked files into account", false)
-  .arguments("<reference>")
+  .arguments("<revision>")
   .parse(process.argv);
 
 if (program.args[0]) {

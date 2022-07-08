@@ -5,6 +5,7 @@
   "bin": "src/cli.mjs",
   "main": "dist/cjs-bundle.js",
   "module": "src/main.mjs",
+  "sideEffects": false,
   "exports": {
     ".": [
       {
@@ -26,7 +27,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "esbuild src/main.mjs --format=cjs --target=node12 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.js",
+    "build": "run-s build:version build:dist",
+    "build:version": "node tools/get-version.mjs > src/version.mjs",
+    "build:dist": "esbuild src/main.mjs --format=cjs --target=node12 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.js",
     "clean": "rm -rf dist",
     "test": "mocha \"src/**/*.spec.mjs\"",
     "test:cover": "c8 --check-coverage --statements 100 --branches 100 --functions 100 --lines 100 --exclude \"**/*.spec.mjs\" --reporter text-summary --reporter html --reporter json-summary npm test",
@@ -53,7 +56,8 @@
     "dependency-cruiser": "^11.11.0",
     "esbuild": "^0.14.48",
     "mocha": "^10.0.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1"
   },
   "dependencies": {
     "commander": "^9.3.0"
