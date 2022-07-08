@@ -27,7 +27,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "run-s build:version build:dist",
+    "build": "npm-run-all --sequential build:version build:dist",
     "build:version": "node tools/get-version.mjs > src/version.mjs",
     "build:dist": "esbuild src/main.mjs --format=cjs --target=node12 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.js",
     "clean": "rm -rf dist",
@@ -42,8 +42,12 @@
     "depcruise:html": "depcruise src --progress --config --output-type err-html --output-to dependency-violation-report.html",
     "depcruise:text": "depcruise src --progress --config --output-type text",
     "depcruise:focus": "depcruise src --progress --config --output-type text --focus",
+    "lint": "npm-run-all --parallel --aggregate-output lint:format",
+    "lint:fix": "npm-run-all --parallel --aggregate-output lint:format:fix",
+    "lint:format": "prettier --check \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
+    "lint:format:fix": "prettier --loglevel warn --write \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "scm:stage": "git add .",
-    "version": "run-s clean build depcruise:graph scm:stage"
+    "version": "npm-run-all --sequential clean build lint depcruise:graph scm:stage"
   },
   "keywords": [
     "git",
