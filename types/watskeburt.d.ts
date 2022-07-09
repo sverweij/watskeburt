@@ -13,15 +13,58 @@ export type changeTypeType =
   | "ignored";
 
 export interface IChange {
+  /**
+   * name of the file
+   */
   name: string;
+  /**
+   * how the file was changed
+   */
   changeType: changeTypeType;
+  /**
+   * if the file was renamed: the % of similarity (range: 0 - 100)
+   */
   similarity?: Number;
+  /**
+   * if the file was renamed: what the old file's name was
+   */
   oldName?: string;
 }
 
 export type outputTypeType = "regex" | "json" | "object";
 
 export interface IOptions {
+  /**
+   * The type of output to deliver. Defaults to "object" - in which case
+   * the list function returns an IChange[] object
+   */
   outputType: outputTypeType;
+  /**
+   * When true _only_ takes already tracked files into account.
+   * When true also takes untracked files into account.
+   *
+   * Defaults to true.
+   */
   trackedOnly: boolean;
 }
+
+/**
+ * returns a list of files changed since pOldRevision.
+ *
+ * @param pOldRevision the revision against which to compare. E.g. a commit-hash,
+ *                 a branch or a tag.
+ * @param pOptions Options that influence how the changes are returned and that
+ *                 filter what is returned and
+ * @throws {Error}
+ */
+export function list(
+  pOldRevision: string,
+  pOptions: IOptions
+): IChange[] | string;
+
+/**
+ * Returns the SHA1 of the current HEAD
+ *
+ * @throws {Error}
+ */
+export function getSHA(): string;
