@@ -5,7 +5,8 @@ get git changed files & their statuses since _any revision_
 ## what's this do?
 
 A micro-lib to retrieve an array of file names that were changed (added,
-modified, renamed, deleted, ...) since the reference it got passed.
+modified, renamed, deleted, ...) since the revision it got passed. Also
+sports a cli for use outside of JavaScript c.s.
 
 - :warning: in the process of getting 'production ready'. It's automatically
   tested + it's using itself - but a bunch of static analysis and a bit of
@@ -24,20 +25,14 @@ but for just this simple usage they're a bit overkill.
 
 ## usage
 
-### cli
+### :shell: cli
 
 For now there's also a simple command line interface
 
-```
-Usage: cli [options] <revision>
-
-lists files & their statuses since <revision>
-
-Options:
-  -V, --version             output the version number
-  -T, --output-type <type>  json,regex (default: "regex")
-  --tracked-only            only take tracked files into account (default: false)
-  -h, --help                display help for command
+```shell
+# list all JavaScript-ish files changed since main in a regular expression
+$ npx watskeburt main
+^(src/cli.mjs|src/formatters/regex.mjs|src/version.mjs)$
 ```
 
 By default this returns a regex that contains all changed files that could be
@@ -45,18 +40,30 @@ source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...) that can
 be used in e.g. the `--focus` filter of dependency-cruiser:
 
 ```
-^(src/cli.mjs|src/formatters/regex.mjs|src/version.mjs)$
+Usage: cli [options] <revision>
+
+lists files & their statuses since <revision>
+
+Options:
+-V, --version output the version number
+-T, --output-type <type> json,regex (default: "regex")
+--tracked-only only take tracked files into account (default: false)
+-h, --help display help for command
+
 ```
 
-### API
+### :scroll: API
 
 ```javascript
-// const { convert } = require('watskeburt'); // will work in commonjs  contexts  as well
-import { convert } from "watskeburt";
+// const { list } = require('watskeburt'); // will work in commonjs  contexts  as well
+import { list, getSHA } from "watskeburt";
+
+// print the SHA1 of the current HEAD
+console.log(getSHA());
 
 // list all files that differ between 'main' and
 /** @type {import('watskeburt').IChange[]} */
-const lChangedFiles = convert("main");
+const lChangedFiles = list("main");
 ```
 
 An array of changes looks something like this:
@@ -67,14 +74,14 @@ An array of changes looks something like this:
   {
     name: "test/thing.spec.mjs",
     changeType: "renamed",
-    oldName: "test/oldthing.spec.mjs",
+    oldName: "test/old-thing.spec.mjs",
     similarity: 66,
   },
   { name: "src/not-tracked-yet.mjs", changeType: "untracked" },
 ];
 ```
 
-## What's the deal with the name?
+## 🇳🇱 'watskeburt'??
 
 _watskeburt_ is a fast pronunciation of the Dutch sentence "Wat is er gebeurd?"
 (What has happened?), as well as the title of a song by the Dutch hip hop group
