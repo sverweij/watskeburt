@@ -1,7 +1,24 @@
 {
   "name": "watskeburt",
   "version": "0.2.0",
-  "description": "list files changed since a git reference",
+  "description": "List files changed since a git revision",
+  "keywords": [
+    "git",
+    "diff"
+  ],
+  "homepage": "https://github.com/sverweij/watskeburt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sverweij/watskeburt"
+  },
+  "bugs": {
+    "url": "https://github.com/sverweij/watskeburt/issues"
+  },
+  "author": {
+    "name": "Sander Verweij",
+    "url": "https://sverweij.github.io"
+  },
+  "license": "MIT",
   "bin": "src/cli.mjs",
   "main": "dist/cjs-bundle.js",
   "module": "src/main.mjs",
@@ -26,6 +43,20 @@
     "package.json",
     "README.md"
   ],
+  "dependencies": {
+    "commander": "^9.3.0"
+  },
+  "devDependencies": {
+    "c8": "^7.11.3",
+    "dependency-cruiser": "^11.11.0",
+    "esbuild": "^0.14.48",
+    "mocha": "^10.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1"
+  },
+  "engines": {
+    "node": "^12.20||^14||>=16"
+  },
   "scripts": {
     "build": "npm-run-all --sequential build:version build:dist",
     "build:version": "node tools/get-version.mjs > src/version.mjs",
@@ -48,22 +79,5 @@
     "lint:format:fix": "prettier --loglevel warn --write \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "scm:stage": "git add .",
     "version": "npm-run-all --sequential clean build lint depcruise:graph scm:stage"
-  },
-  "keywords": [
-    "git",
-    "diff"
-  ],
-  "author": "Sander Verweij (https://sverweij.github.io/)",
-  "license": "MIT",
-  "devDependencies": {
-    "c8": "^7.11.3",
-    "dependency-cruiser": "^11.11.0",
-    "esbuild": "^0.14.48",
-    "mocha": "^10.0.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1"
-  },
-  "dependencies": {
-    "commander": "^9.3.0"
   }
 }
