@@ -4,7 +4,7 @@ import formatToJSON from "./json.mjs";
 const OUTPUT_TYPE_TO_FUNCTION = {
   regex: formatToRegex,
   json: formatToJSON,
-  object: (x) => x,
+  object: (pX) => pX,
 };
 const DEFAULT_OUTPUT_TYPE = "object";
 

@@ -17,7 +17,7 @@ describe("convert diff line to change object", () => {
     );
   });
 
-  it("recognizes Modified files", () => {
+  it("recognizes Added files", () => {
     deepEqual(
       convertDiffLine("A       test/report/markdown/markdown.spec.mjs"),
       {
@@ -46,16 +46,6 @@ describe("convert diff line to change object", () => {
       changeType: "deleted",
       name: "test/report/markdown/markdown.spec.mjs",
     });
-  });
-
-  it("recognizes Added files", () => {
-    deepEqual(
-      convertDiffLine("A       test/report/markdown/markdown.spec.mjs"),
-      {
-        changeType: "added",
-        name: "test/report/markdown/markdown.spec.mjs",
-      }
-    );
   });
 
   it("files with an unknown change status", () => {
@@ -121,15 +111,9 @@ describe("convert status line to change object", () => {
       changeType: "untracked",
     });
   });
-  it("recognizes untracked files", () => {
-    deepEqual(convertStatusLine("?? new-not-in-source-control"), {
-      name: "new-not-in-source-control",
-      changeType: "untracked",
-    });
-  });
   it("recognizes renamed files", () => {
-    deepEqual(convertStatusLine("R  new -> newrenamed"), {
-      name: "newrenamed",
+    deepEqual(convertStatusLine("R  new -> new-renamed"), {
+      name: "new-renamed",
       changeType: "renamed",
       oldName: "new",
     });

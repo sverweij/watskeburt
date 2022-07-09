@@ -2,7 +2,7 @@ import { deepEqual } from "node:assert";
 import format from "./regex.mjs";
 
 describe("regex formatter", () => {
-  const CHANGES_OF_EACH_TYPE = [
+  const lChangesOfEachType = [
     { changeType: "added", name: "added.mjs" },
     { changeType: "copied", name: "copied.mjs" },
     { changeType: "deleted", name: "deleted.mjs" },
@@ -40,7 +40,7 @@ describe("regex formatter", () => {
 
   it("by default only takes changes into account that changed the contents + untracked files", () => {
     deepEqual(
-      format(CHANGES_OF_EACH_TYPE),
+      format(lChangesOfEachType),
       "^(added.mjs|copied.mjs|modified.mjs|renamed.mjs|untracked.mjs)$"
     );
   });
@@ -48,7 +48,7 @@ describe("regex formatter", () => {
   it("when passed list of change types only emits changes of that type", () => {
     deepEqual(
       format(
-        CHANGES_OF_EACH_TYPE,
+        lChangesOfEachType,
         [".mjs"],
         ["type changed", "pairing broken", "ignored"]
       ),
