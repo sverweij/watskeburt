@@ -5,7 +5,7 @@ const $package = JSON.parse(
   readFileSync(new URL("../package.json", import.meta.url), "utf8")
 );
 process.stdout.write(
-  prettier.format(`export const version = "${$package.version}";\n`, {
+  prettier.format(`export const VERSION = "${$package.version}";\n`, {
     parser: "babel",
   })
 );

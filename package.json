@@ -47,9 +47,19 @@
     "commander": "^9.3.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
     "c8": "^7.11.3",
     "dependency-cruiser": "^11.11.0",
     "esbuild": "^0.14.48",
+    "eslint": "^8.19.0",
+    "eslint-config-moving-meadow": "^3.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-budapestian": "^4.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-mocha": "^10.0.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-security": "^1.5.0",
+    "eslint-plugin-unicorn": "^43.0.1",
     "mocha": "^10.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1"
@@ -73,11 +83,19 @@
     "depcruise:html": "depcruise src --progress --config --output-type err-html --output-to dependency-violation-report.html",
     "depcruise:text": "depcruise src --progress --config --output-type text",
     "depcruise:focus": "depcruise src --progress --config --output-type text --focus",
-    "lint": "npm-run-all --parallel --aggregate-output lint:format",
-    "lint:fix": "npm-run-all --parallel --aggregate-output lint:format:fix",
+    "lint": "npm-run-all --parallel --aggregate-output lint:format lint:eslint",
+    "lint:fix": "npm-run-all --parallel --aggregate-output lint:format:fix lint:eslint:fix",
+    "lint:eslint": "eslint src --cache --cache-location node_modules/.cache/eslint/",
+    "lint:eslint:fix": "eslint src tools --fix --cache --cache-location node_modules/.cache/eslint/",
     "lint:format": "prettier --check \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "lint:format:fix": "prettier --loglevel warn --write \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "scm:stage": "git add .",
     "version": "npm-run-all --sequential clean build lint depcruise:graph scm:stage"
-  }
+  },
+  "eslintIgnore": [
+    "coverage",
+    "docs",
+    "dist",
+    "node_modules"
+  ]
 }

@@ -1,0 +1,47 @@
+{
+  "root": true,
+  "extends": ["moving-meadow"],
+  "overrides": [
+    {
+      "files": ["**/*.mjs"],
+      "rules": {
+        "unicorn/no-null": "off",
+        "unicorn/prefer-spread": "off",
+        "node/no-unsupported-features/es-syntax": "off",
+        "import/no-relative-parent-imports": "off",
+        "sort-imports": "off",
+        "unicorn/prefer-node-protocol": "error",
+        "unicorn/prefer-module": "error"
+      },
+      "parserOptions": {
+        "ecmaVersion": "latest"
+      }
+    },
+    {
+      "files": ["**/*.spec.mjs"],
+      "env": {
+        "mocha": true
+      },
+      "rules": {
+        "no-magic-numbers": "off",
+        "security/detect-non-literal-require": "off",
+        "security/detect-non-literal-fs-filename": "off",
+        "max-lines-per-function": "off",
+        "max-lines": "off",
+        "no-null": "off"
+      }
+    },
+    {
+      "files": ["types/*.ts"],
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": "latest"
+      },
+      "rules": {
+        "node/no-unsupported-features/es-syntax": "off"
+      }
+    }
+  ]
+}

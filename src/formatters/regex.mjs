@@ -25,7 +25,8 @@ export default function formatToRegex(
   const lChanges = pChanges
     .filter((pChange) => pChangeTypes.includes(pChange.changeType))
     .map(
-      ({ name }) => name //.replace(/\./g, "\\\\.")
+      // .replace(/\./g, "\\\\.")
+      ({ name }) => name
     )
     .filter((pName) => pExtensions.includes(extname(pName)))
     .join("|");

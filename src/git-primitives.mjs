@@ -25,6 +25,7 @@ function throwSpawnError(pError) {
 function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
   const lGitResult = pSpawnFunction("git", pArguments, {
     cwd: process.cwd(),
+    // eslint-disable-next-line node/no-process-env
     env: process.env,
   });
 
@@ -78,10 +79,10 @@ export function getDiffLines(pOldRevision, pSpawnFunction = spawnSync) {
  * @returns {string}
  */
 export function getSHA1(pSpawnFunction = spawnSync) {
-  const SHA1_LENGTH = 40;
+  const lSha1Length = 40;
 
   return getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(
     0,
-    SHA1_LENGTH
+    lSha1Length
   );
 }
