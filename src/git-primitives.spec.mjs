@@ -1,7 +1,7 @@
-import { deepEqual, doesNotThrow, throws } from "node:assert";
-import { getDiffLines, getStatusShort } from "./get-diff-lines.mjs";
+import { deepEqual, doesNotThrow, throws, match } from "node:assert";
+import { getDiffLines, getSHA1, getStatusShort } from "./git-primitives.mjs";
 
-describe("get diff lines - diff --name-status ", () => {
+describe("git-primitives - diff --name-status ", () => {
   it("throws in case of an invalid ref", async () => {
     throws(
       () => {
@@ -42,16 +42,40 @@ describe("get diff lines - diff --name-status ", () => {
   });
 });
 
-describe("get diff lines - status", () => {
-  it("throws when the git result contained a non-zero exit code", async () => {
+describe("git-primitives - status", () => {
+  it("throws when the 'git' command couldn't be found", async () => {
     function fakeSpawnSync() {
-      return { status: 666 };
+      return { status: null, stderr: null, error: { code: "ENOENT" } };
     }
     throws(
       () => {
         getStatusShort(fakeSpawnSync);
       },
-      { message: "unknown error: 666" }
+      { message: "git executable not found" }
+    );
+  });
+
+  it("throws when something unforeseen happens with spawnSync itself", async () => {
+    function fakeSpawnSync() {
+      return { status: null, stderr: null, error: { code: "HELICOPTER" } };
+    }
+    throws(
+      () => {
+        getStatusShort(fakeSpawnSync);
+      },
+      { message: /internal spawn error: / }
+    );
+  });
+
+  it("throws when the git result contained a non-zero exit code", async () => {
+    function fakeSpawnSync() {
+      return { status: 667, stderr: Buffer.from("neighbor of the beast") };
+    }
+    throws(
+      () => {
+        getStatusShort(fakeSpawnSync);
+      },
+      { message: "internal git error: 667 (neighbor of the beast)" }
     );
   });
 
@@ -71,5 +95,11 @@ describe("get diff lines - status", () => {
     doesNotThrow(() => {
       getStatusShort();
     });
+  });
+});
+
+describe("git-primitives - get SHA1", () => {
+  it("returns the HEAD's SHA1", () => {
+    match(getSHA1(), /^([a-f0-9]{40})$/);
   });
 });

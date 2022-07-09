@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import { convert } from "./main.mjs";
+import { list } from "./main.mjs";
 import { version } from "./version.mjs";
 
 program
@@ -14,7 +14,7 @@ program
 
 if (program.args[0]) {
   try {
-    console.log(convert(program.args[0], program.opts()));
+    console.log(list(program.args[0], program.opts()));
   } catch (pError) {
     console.error(`ERROR: ${pError.message}`);
   }

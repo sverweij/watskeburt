@@ -8,6 +8,14 @@ function stringifyOutStream(pError) {
   }
 }
 
+function throwSpawnError(pError) {
+  if (pError.code === "ENOENT") {
+    throw new Error("git executable not found");
+  } else {
+    throw new Error(`internal spawn error: ${pError}`);
+  }
+}
+
 /**
  *
  * @param {string[]} pArguments
@@ -20,11 +28,18 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
     env: process.env,
   });
 
+  if (lGitResult.error) {
+    throwSpawnError(lGitResult.error);
+  }
+
   if (lGitResult.status === 0) {
     return stringifyOutStream(lGitResult.stdout);
   } else {
     throw new Error(
-      pErrorMap[lGitResult.status] || `unknown error: ${lGitResult.status}`
+      pErrorMap[lGitResult.status] ||
+        `internal git error: ${lGitResult.status} (${stringifyOutStream(
+          lGitResult.stderr
+        )})`
     );
   }
 }
@@ -43,18 +58,30 @@ export function getStatusShort(pSpawnFunction = spawnSync) {
 
 /**
  *
- * @param {string} pOldThing the target to compare against (e.g. branch name, commit, tag etc)
+ * @param {string} pOldRevision the target to compare against (e.g. branch name, commit, tag etc)
  * @return {string}
  * @throws {Error}
  */
-export function getDiffLines(pOldThing, pSpawnFunction = spawnSync) {
+export function getDiffLines(pOldRevision, pSpawnFunction = spawnSync) {
   const lErrorMap = {
-    128: `revision '${pOldThing}' unknown `,
+    128: `revision '${pOldRevision}' unknown `,
     129: `'${process.cwd()}' does not seem to be a git repository`,
   };
   return getGitResult(
-    ["diff", pOldThing, "--name-status"],
+    ["diff", pOldRevision, "--name-status"],
     lErrorMap,
     pSpawnFunction
+  );
+}
+/**
+ *
+ * @returns {string}
+ */
+export function getSHA1(pSpawnFunction = spawnSync) {
+  const SHA1_LENGTH = 40;
+
+  return getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(
+    0,
+    SHA1_LENGTH
   );
 }
