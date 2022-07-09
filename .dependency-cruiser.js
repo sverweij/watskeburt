@@ -1,6 +1,28 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
   forbidden: [
+    {
+      name: "no-deep-deps-from-cli",
+      severity: "error",
+      from: {
+        path: "src/cli.mjs",
+      },
+      to: {
+        pathNot: "src/(main|version).mjs",
+        dependencyTypesNot: ["npm"],
+      },
+    },
+    {
+      name: "no-unreachable-from-main",
+      from: {
+        path: "src/main.mjs",
+      },
+      to: {
+        path: "^src/",
+        pathNot: ["\\.spec\\.mjs$", "src/(cli|version)\\.mjs"],
+        reachable: false,
+      },
+    },
     /* rules from the 'recommended' preset: */
     {
       name: "no-circular",
@@ -104,7 +126,7 @@ module.exports = {
     {
       name: "no-duplicate-dep-types",
       comment:
-        "Likeley this module depends on an external ('npm') package that occurs more than once " +
+        "Likely this module depends on an external ('npm') package that occurs more than once " +
         "in your package.json i.e. bot as a devDependencies and in dependencies. This will cause " +
         "maintenance problems later on.",
       severity: "warn",
@@ -128,7 +150,7 @@ module.exports = {
       severity: "error",
       from: {},
       to: {
-        path: "\\.(spec|test)\\.(js|mjs|cjs|ts|ls|coffee|litcoffee|coffee\\.md)$",
+        path: "\\.spec\\.mjs$",
       },
     },
     {
@@ -156,7 +178,7 @@ module.exports = {
         "This module depends on an npm package that is declared as an optional dependency " +
         "in your package.json. As this makes sense in limited situations only, it's flagged here. " +
         "If you're using an optional dependency here by design - add an exception to your" +
-        "depdency-cruiser configuration.",
+        "dependency-cruiser configuration.",
       from: {},
       to: {
         dependencyTypes: ["npm-optional"],
