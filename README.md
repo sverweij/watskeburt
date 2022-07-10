@@ -40,16 +40,17 @@ source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...) that can
 be used in e.g. the `--focus` filter of dependency-cruiser:
 
 ```
-Usage: cli [options] <revision>
+Usage: cli [options] [revision]
 
-lists files & their statuses since <revision>
+lists files & their statuses since [revision].
+
+-> When you don't pass a revision the revision defaults to the current one.
 
 Options:
--V, --version output the version number
--T, --output-type <type> json,regex (default: "regex")
---tracked-only only take tracked files into account (default: false)
--h, --help display help for command
-
+  -V, --version             output the version number
+  -T, --output-type <type>  json,regex (default: "regex")
+  --tracked-only            only take tracked files into account (default: false)
+  -h, --help                display help for command
 ```
 
 ### :scroll: API

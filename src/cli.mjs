@@ -6,19 +6,18 @@ import { list } from "./main.mjs";
 import { VERSION } from "./version.mjs";
 
 program
-  .description("lists files & their statuses since <revision>")
+  .description(
+    "lists files & their statuses since [revision].\n\n" +
+      "-> When you don't pass a revision the revision defaults to the current one."
+  )
   .version(VERSION)
   .option("-T, --output-type <type>", "json,regex", "regex")
   .option("--tracked-only", "only take tracked files into account", false)
-  .arguments("<revision>")
+  .arguments("[revision]")
   .parse(process.argv);
 
-if (program.args[0]) {
-  try {
-    console.log(list(program.args[0], program.opts()));
-  } catch (pError) {
-    console.error(`ERROR: ${pError.message}`);
-  }
-} else {
-  program.help();
+try {
+  console.log(list(program.args[0], program.opts()));
+} catch (pError) {
+  console.error(`ERROR: ${pError.message}`);
 }
