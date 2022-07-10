@@ -27,6 +27,7 @@ jobs:
       fail-fast: true
       matrix:
         node-version:
+          - 12.x
           - 18.x
         platform:
           - ubuntu-latest
@@ -54,8 +55,11 @@ jobs:
           node-version: ${{matrix.node-version}}
       - run: npm install
       - run: npm run depcruise
-      - run: npm run lint
+      - name: lint on platforms other than 12.x
+        if: matrix.node-version != '12.x'
+        run: npm run lint
       - run: npm run test:cover
+      - run: npm run build
       - name: emit coverage results to step summary
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
