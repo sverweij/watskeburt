@@ -22,10 +22,6 @@ export interface IChange {
    */
   changeType: changeTypeType;
   /**
-   * if the file was renamed: the % of similarity (range: 0 - 100)
-   */
-  similarity?: Number;
-  /**
    * if the file was renamed: what the old file's name was
    */
   oldName?: string;
