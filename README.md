@@ -75,7 +75,6 @@ An array of changes looks something like this:
     name: "test/thing.spec.mjs",
     changeType: "renamed",
     oldName: "test/old-thing.spec.mjs",
-    similarity: 66,
   },
   { name: "src/not-tracked-yet.mjs", changeType: "untracked" },
 ];

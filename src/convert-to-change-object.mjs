@@ -76,12 +76,6 @@ export function convertDiffLine(pString) {
     lReturnValue.changeType = changeChar2ChangeType(
       lMatchResult.groups.changeType
     );
-    if (lMatchResult.groups.similarity) {
-      lReturnValue.similarity = Number.parseInt(
-        lMatchResult.groups.similarity,
-        10
-      );
-    }
     if (lMatchResult.groups.newName) {
       lReturnValue.name = lMatchResult.groups.newName;
       lReturnValue.oldName = lMatchResult.groups.name;

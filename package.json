@@ -72,6 +72,7 @@
     "build": "npm-run-all --sequential build:version build:dist",
     "build:version": "node tools/get-version.mjs > src/version.mjs",
     "build:dist": "esbuild src/main.mjs --format=cjs --target=node12 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.js",
+    "check": "npm-run-all --parallel --aggregate-output lint depcruise test:cover",
     "clean": "rm -rf dist",
     "test": "mocha \"src/**/*.spec.mjs\"",
     "test:cover": "c8 --check-coverage --statements 100 --branches 100 --functions 100 --lines 100 --exclude \"**/*.spec.mjs\" --reporter text-summary --reporter html --reporter json-summary npm test",

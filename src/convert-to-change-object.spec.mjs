@@ -34,7 +34,6 @@ describe("convert diff line to change object", () => {
       ),
       {
         changeType: "renamed",
-        similarity: 66,
         name: "test/report/markdown/markdown-short.spec.mjs",
         oldName: "test/report/markdown/markdown.spec.mjs",
       }
@@ -85,7 +84,6 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
           changeType: "renamed",
           name: "to",
           oldName: "from",
-          similarity: 100,
         },
       ]
     );
