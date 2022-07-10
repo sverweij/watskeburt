@@ -11,24 +11,28 @@ export default function formatToRegex(
   pChanges,
   pExtensions = [
     ".js",
-    ".jsx",
     ".mjs",
     ".cjs",
+    ".json",
+    ".jsx",
     ".ts",
     ".tsx",
     ".vue",
     ".vuex",
-    ".json",
+    ".svelte",
+    ".coffee",
+    ".litcoffee",
+    ".csx",
+    ".cjsx",
+    ".ls",
   ],
   pChangeTypes = ["modified", "added", "renamed", "copied", "untracked"]
 ) {
   const lChanges = pChanges
     .filter((pChange) => pChangeTypes.includes(pChange.changeType))
-    .map(
-      // .replace(/\./g, "\\\\.")
-      ({ name }) => name
-    )
+    .map(({ name }) => name)
     .filter((pName) => pExtensions.includes(extname(pName)))
+    // .replace(/\./g, "\\\\.")
     .join("|");
   return `^(${lChanges})$`;
 }
