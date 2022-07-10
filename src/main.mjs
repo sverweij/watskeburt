@@ -5,9 +5,15 @@ import {
 import { getDiffLines, getSHA1, getStatusShort } from "./git-primitives.mjs";
 import format from "./formatters/format.mjs";
 
+/** @type {import("../types/watskeburt.js").getSHA} */
+export function getSHA() {
+  return getSHA1();
+}
+
 /** @type {import("../types/watskeburt.js").list} */
 export function list(pOldRevision, pOptions) {
-  let lChanges = convertDiffLines(getDiffLines(pOldRevision));
+  const lOldRevision = pOldRevision || getSHA();
+  let lChanges = convertDiffLines(getDiffLines(lOldRevision));
   const lOptions = pOptions || {};
 
   if (!lOptions.trackedOnly) {
@@ -18,9 +24,4 @@ export function list(pOldRevision, pOptions) {
     );
   }
   return format(lChanges, lOptions.outputType);
-}
-
-/** @type {import("../types/watskeburt.js").getSHA} */
-export function getSHA() {
-  return getSHA1();
 }

@@ -52,14 +52,15 @@ export interface IOptions {
  * returns a list of files changed since pOldRevision.
  *
  * @param pOldRevision the revision against which to compare. E.g. a commit-hash,
- *                 a branch or a tag.
+ *                 a branch or a tag. When not passed defaults to the _current_
+ *                 commit hash (if there's any)
  * @param pOptions Options that influence how the changes are returned and that
  *                 filter what is returned and
  * @throws {Error}
  */
 export function list(
-  pOldRevision: string,
-  pOptions: IOptions
+  pOldRevision?: string,
+  pOptions?: IOptions
 ): IChange[] | string;
 
 /**
