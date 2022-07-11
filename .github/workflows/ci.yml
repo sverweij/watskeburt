@@ -62,12 +62,12 @@ jobs:
       - run: npm run test:cover
       - run: npm run build
       - name: emit coverage results to step summary
-        if: matrix.node-version == env.NODE_LATEST
+        if: always() && matrix.node-version == env.NODE_LATEST
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
           node tools/istanbul-json-summary-to-markdown.mjs < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
       - name: on pushes to the default branch emit full depcruise results to step summary
-        if: matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
         run: |
           yarn --silent depcruise --output-type markdown >> $GITHUB_STEP_SUMMARY
           echo '## Visual overview' >> $GITHUB_STEP_SUMMARY
@@ -75,7 +75,7 @@ jobs:
           yarn --silent depcruise --exclude ".spec.mjs$" --include-only "^(src)" --output-type mermaid >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: on pull requests emit depcruise results + diff graph to step summary
-        if: matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
+        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
         run: |
           yarn --silent depcruise --output-type markdown >> $GITHUB_STEP_SUMMARY
           echo '## Visual diff' >> $GITHUB_STEP_SUMMARY
