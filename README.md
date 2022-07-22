@@ -1,29 +1,67 @@
 # watskeburt
 
-get git changed files & their statuses since _any revision_
+Get git changed files & their statuses since _any revision_
 
 ## what's this do?
 
-A micro-lib to retrieve an array of file names that were changed (added,
-modified, renamed, deleted, ...) since the revision it got passed. Also
-sports a cli for use outside of JavaScript c.s.
+A micro-lib to retrieve an array of file names that were changed since a
+revision. Also sports a cli for use outside of JavaScript c.s.
 
-- :warning: in the process of getting 'production ready'. It's automatically
-  tested + it's using itself - but a bunch of static analysis and a bit of
-  automation still needs be added.
 - :warning: Interface is stable-ish, but can can change until 1.0.0 is published
-- :warning: expect some rough edges for e.g. error scenarios
 
 ## why?
 
-Useful primitives to support e.g. auto-documenting pull requests, or to save
-processing power by only doing static analysis only over stuff that is changed.
+I needed something simple and robust to support some upcoming features in
+[dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and to
+run standalone to use _in combination_ with dependency-cruiser.
 
-There are a few packages like these like this on npm, but it seems they've
-fallen out of maintenance. More generic packages don't get plagued by this
+There are a few specialized packages like these like this on npm, but it seems
+they've fallen out of maintenance. More generic packages don't get plagued by this
 but for just this simple usage they're a bit overkill.
 
-## usage
+## :construction_worker: usage
+
+### :scroll: API
+
+```javascript
+// const { list } = require('watskeburt'); // will work in commonjs  contexts  as well
+import { list, getSHA } from "watskeburt";
+
+// print the SHA1 of the current HEAD
+console.log(getSHA());
+
+// list all files that differ between 'main' and the current revision (including
+// files not staged for commit and files not under revision control)
+/** @type {import('watskeburt').IChange[]} */
+const lChangedFiles = list("main");
+
+// As a second parameter you can pass some options:
+/** @type {import('watskeburt').IChange[]|string} */
+const lChangedFiles = list("main", {
+  trackedOnly: false, // when set to true leaves out files not under revision control
+  outputType: "object", // other options: "json" and "regex" (as used in the CLI)
+});
+```
+
+An array of changes this returns looks something like this:
+
+```javascript
+[
+  {
+    name: "doc/cli.md",
+    changeType: "modified",
+  },
+  {
+    name: "test/thing.spec.mjs",
+    changeType: "renamed",
+    oldName: "test/old-thing.spec.mjs",
+  },
+  {
+    name: "src/not-tracked-yet.mjs",
+    changeType: "untracked",
+  },
+];
+```
 
 ### :shell: cli
 
@@ -37,7 +75,7 @@ $ npx watskeburt main
 
 By default this returns a regex that contains all changed files that could be
 source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...) that can
-be used in e.g. the `--focus` filter of dependency-cruiser:
+be used in e.g. the `--focus` and `--reaches` filters of dependency-cruiser.
 
 ```
 Usage: cli [options] [revision]
@@ -53,36 +91,9 @@ Options:
   -h, --help                display help for command
 ```
 
-### :scroll: API
+## 🇳🇱 what does 'watskeburt' mean?
 
-```javascript
-// const { list } = require('watskeburt'); // will work in commonjs  contexts  as well
-import { list, getSHA } from "watskeburt";
-
-// print the SHA1 of the current HEAD
-console.log(getSHA());
-
-// list all files that differ between 'main' and
-/** @type {import('watskeburt').IChange[]} */
-const lChangedFiles = list("main");
-```
-
-An array of changes looks something like this:
-
-```javascript
-[
-  { name: "doc/cli.md", changeType: "modified" },
-  {
-    name: "test/thing.spec.mjs",
-    changeType: "renamed",
-    oldName: "test/old-thing.spec.mjs",
-  },
-  { name: "src/not-tracked-yet.mjs", changeType: "untracked" },
-];
-```
-
-## 🇳🇱 'watskeburt'??
-
-_watskeburt_ is a fast pronunciation of the Dutch sentence "Wat is er gebeurd?"
-(What has happened?), as well as the title of a song by the Dutch hip hop group
-"De Jeugd van Tegenwoordig".
+_watskeburt_ is a fast pronunciation of the Dutch "wat is er gebeurd?"
+(_what has happened?_) or "wat er is gebeurd" (_what has happened_). It's
+also the title of a song by the Dutch band "De Jeugd van Tegenwoordig"
+(_Youth these days..._).
