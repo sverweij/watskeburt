@@ -47,6 +47,8 @@
     "commander": "^9.3.0"
   },
   "devDependencies": {
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "c8": "^7.12.0",
     "dependency-cruiser": "^11.12.0",
@@ -85,12 +87,13 @@
     "depcruise:html": "depcruise src --progress --config --output-type err-html --output-to dependency-violation-report.html",
     "depcruise:text": "depcruise src --progress --config --output-type text",
     "depcruise:focus": "depcruise src --progress --config --output-type text --focus",
-    "lint": "npm-run-all --parallel --aggregate-output lint:format lint:eslint",
+    "lint": "npm-run-all --parallel --aggregate-output lint:format lint:eslint lint:types",
     "lint:fix": "npm-run-all --parallel --aggregate-output lint:format:fix lint:eslint:fix",
-    "lint:eslint": "eslint src --cache --cache-location node_modules/.cache/eslint/",
-    "lint:eslint:fix": "eslint src tools --fix --cache --cache-location node_modules/.cache/eslint/",
+    "lint:eslint": "eslint src types tools --cache --cache-location node_modules/.cache/eslint/",
+    "lint:eslint:fix": "eslint src types tools --fix --cache --cache-location node_modules/.cache/eslint/",
     "lint:format": "prettier --check \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "lint:format:fix": "prettier --loglevel warn --write \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
+    "lint:types": "tsc",
     "scm:stage": "git add .",
     "version": "npm-run-all --sequential clean build lint depcruise:graph scm:stage"
   },
