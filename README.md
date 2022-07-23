@@ -1,13 +1,13 @@
 # watskeburt
 
-Get git changed files & their statuses since _any revision_
+Get changed files & their statuses since any git _revision_
 
 ## what's this do?
 
 A micro-lib to retrieve an array of file names that were changed since a
 revision. Also sports a cli for use outside of JavaScript c.s.
 
-- :warning: Interface is stable-ish, but can can change until 1.0.0 is published
+- :warning: Interface is stable, but can can change until 1.0.0 is published :warning:
 
 ## why?
 
@@ -15,8 +15,8 @@ I needed something simple and robust to support some upcoming features in
 [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and to
 run standalone to use _in combination_ with dependency-cruiser.
 
-There are a few specialized packages like these like this on npm, but it seems
-they've fallen out of maintenance. More generic packages don't get plagued by this
+There are a few specialized packages like this on npm, but it seems they've
+fallen out of maintenance. More generic packages are still maintained,
 but for just this simple usage they're a bit overkill.
 
 ## :construction_worker: usage
@@ -43,7 +43,7 @@ const lChangedFiles = list("main", {
 });
 ```
 
-An array of changes this returns looks something like this:
+The array of changes this returns looks like this:
 
 ```javascript
 [
@@ -76,6 +76,9 @@ $ npx watskeburt main
 By default this returns a regex that contains all changed files that could be
 source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...) that can
 be used in e.g. the `--focus` and `--reaches` filters of dependency-cruiser.
+
+The JSON output (which looks a lot like the array above) is unfiltered and
+also contains other extensions.
 
 ```
 Usage: cli [options] [revision]
