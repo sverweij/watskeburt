@@ -15,6 +15,7 @@ describe("regex formatter", () => {
     { changeType: "unmodified", name: "unmodified.mjs" },
     { changeType: "untracked", name: "untracked.mjs" },
     { changeType: "ignored", name: "ignored.mjs" },
+    { changeType: "ignored", name: "ignored-too.js" },
   ];
 
   it("empty array yields empty regex", () => {
@@ -49,8 +50,8 @@ describe("regex formatter", () => {
     deepEqual(
       format(
         lChangesOfEachType,
-        [".mjs"],
-        ["type changed", "pairing broken", "ignored"]
+        new Set([".mjs"]),
+        new Set(["type changed", "pairing broken", "ignored"])
       ),
       "^(type-changed.mjs|pairing-broken.mjs|ignored.mjs)$"
     );
@@ -85,7 +86,7 @@ describe("regex formatter", () => {
             name: "added.zus",
           },
         ],
-        [".aap", ".noot", ".mies"]
+        new Set([".aap", ".noot", ".mies"])
       ),
       "^(added.aap|modified.aap|added.noot|added.mies)$"
     );
