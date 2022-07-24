@@ -5,14 +5,14 @@ import {
 import { getDiffLines, getSHA1, getStatusShort } from "./git-primitives.mjs";
 import format from "./formatters/format.mjs";
 
-/** @type {import("../types/watskeburt.js").getSHA} */
-export function getSHA() {
+/** @type {import("../types/watskeburt").getSHASync} */
+export function getSHASync() {
   return getSHA1();
 }
 
-/** @type {import("../types/watskeburt.js").list} */
-export function list(pOldRevision, pOptions) {
-  const lOldRevision = pOldRevision || getSHA();
+/** @type {import("../types/watskeburt").listSync} */
+export function listSync(pOldRevision, pOptions) {
+  const lOldRevision = pOldRevision || getSHA1();
   let lChanges = convertDiffLines(getDiffLines(lOldRevision));
   const lOptions = pOptions || {};
 

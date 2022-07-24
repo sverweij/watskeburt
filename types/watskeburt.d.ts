@@ -32,7 +32,7 @@ export type outputTypeType = "regex" | "json" | "object";
 export interface IOptions {
   /**
    * The type of output to deliver. Defaults to "object" - in which case
-   * the list function returns an IChange[] object
+   * the listSync function returns an IChange[] object
    */
   outputType: outputTypeType;
   /**
@@ -54,14 +54,14 @@ export interface IOptions {
  *                 filter what is returned and
  * @throws {Error}
  */
-export function list(
+export type listSync = (
   pOldRevision?: string,
   pOptions?: IOptions
-): IChange[] | string;
+) => IChange[] | string;
 
 /**
  * Returns the SHA1 of the current HEAD
  *
  * @throws {Error}
  */
-export function getSHA(): string;
+export type getSHASync = () => string;
