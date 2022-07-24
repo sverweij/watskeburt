@@ -11,7 +11,7 @@ To make this as easy as possible for you, here's some simple guidelines:
     proposals
   - [GitHub's issue tracker](https://github.com/sverweij/watskeburt/issues)
     is the easiest way to submit them.
-- In turn, we try to **respond within a week**.  
+- In turn, we try to **respond within two weeks**.  
   This might or might not include an actual code fix.
 - If there's something that doesn't fit an issue, feel free to contact us on
   twitter [@mcmeadow](https://twitter.com/mcmeadow).
@@ -24,7 +24,7 @@ To make this as easy as possible for you, here's some simple guidelines:
 - Code quality
   - watskeburt has a bunch of automated checks (test coverage, depcruise,
     linting, code formatting). They also run on the CI, but you can save yourself
-    time by running them locally already: `npm run check:full` (or `yarn check:full`).
+    time by running them locally already: `npm run check` (or `yarn run check`).
   - Do add tests for new and updated code. It not only helps PR reviewers a lot,
     it'll prevent regressions in the future.
   - Code style (you know, petty things like indentations, where brackets go,
