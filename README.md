@@ -24,20 +24,20 @@ but for just this simple usage they're a bit overkill.
 ### :scroll: API
 
 ```javascript
-// const { list } = require('watskeburt'); // will work in commonjs  contexts  as well
-import { list, getSHA } from "watskeburt";
+// const { listSync, getSHASync } = require("watskeburt"); // in commonjs contexts you can also require it
+import { listSync, getSHASync } from "watskeburt";
 
 // print the SHA1 of the current HEAD
-console.log(getSHA());
+console.log(getSHASync());
 
 // list all files that differ between 'main' and the current revision (including
 // files not staged for commit and files not under revision control)
 /** @type {import('watskeburt').IChange[]} */
-const lChangedFiles = list("main");
+const lChangedFiles = listSync("main");
 
 // As a second parameter you can pass some options:
 /** @type {import('watskeburt').IChange[]|string} */
-const lChangedFiles = list("main", {
+const lChangedFiles = listSync("main", {
   trackedOnly: false, // when set to true leaves out files not under revision control
   outputType: "object", // other options: "json" and "regex" (as used in the CLI)
 });

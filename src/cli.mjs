@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 import { program } from "commander";
-import { list } from "./main.mjs";
+import { listSync } from "./main.mjs";
 import { VERSION } from "./version.mjs";
 
 program
@@ -17,7 +17,7 @@ program
   .parse(process.argv);
 
 try {
-  console.log(list(program.args[0], program.opts()));
+  console.log(listSync(program.args[0], program.opts()));
 } catch (pError) {
   console.error(`ERROR: ${pError.message}`);
 }
