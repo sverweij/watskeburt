@@ -37,9 +37,9 @@ export interface IOptions {
   outputType: outputTypeType;
   /**
    * When true _only_ takes already tracked files into account.
-   * When true also takes untracked files into account.
+   * When false also takes untracked files into account.
    *
-   * Defaults to true.
+   * Defaults to false.
    */
   trackedOnly: boolean;
 }
