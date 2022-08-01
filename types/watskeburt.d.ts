@@ -54,14 +54,14 @@ export interface IOptions {
  *                 filter what is returned and
  * @throws {Error}
  */
-export type listSync = (
+export function listSync(
   pOldRevision?: string,
   pOptions?: IOptions
-) => IChange[] | string;
+): IChange[] | string;
 
 /**
  * Returns the SHA1 of the current HEAD
  *
  * @throws {Error}
  */
-export type getSHASync = () => string;
+export function getSHASync(): string;
