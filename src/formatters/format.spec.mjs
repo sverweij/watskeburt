@@ -5,6 +5,9 @@ describe("format", () => {
   it("by default formats as a plain object", () => {
     deepEqual(format([]), []);
   });
+  it("by formats as a plain object when passed non-existing format", () => {
+    deepEqual(format([], "this format is not known"), []);
+  });
   it("returns a regex when passed regex as a format", () => {
     deepEqual(format([], "regex"), "^()$");
   });
