@@ -11,10 +11,12 @@ export function getSHASync() {
 }
 
 /** @type {import("../types/watskeburt").listSync} */
-export function listSync(pOldRevision, pOptions) {
+export function listSync(pOldRevision, pNewRevision, pOptions) {
   const lOldRevision = pOldRevision || getSHA1();
-  let lChanges = convertDiffLines(getDiffLines(lOldRevision));
+  const lNewRevision = pNewRevision || null;
   const lOptions = pOptions || {};
+
+  let lChanges = convertDiffLines(getDiffLines(lOldRevision, lNewRevision));
 
   if (!lOptions.trackedOnly) {
     lChanges = lChanges.concat(

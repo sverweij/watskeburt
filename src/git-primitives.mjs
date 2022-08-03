@@ -60,16 +60,27 @@ export function getStatusShort(pSpawnFunction = spawnSync) {
 /**
  *
  * @param {string} pOldRevision the target to compare against (e.g. branch name, commit, tag etc)
+ * @param {string} pNewRevision Newer revision against which to compare. Leave out or pass
+ *                 null when you want to compare against the working tree
  * @return {string}
  * @throws {Error}
  */
-export function getDiffLines(pOldRevision, pSpawnFunction = spawnSync) {
+export function getDiffLines(
+  pOldRevision,
+  pNewRevision,
+  pSpawnFunction = spawnSync
+) {
   const lErrorMap = {
-    128: `revision '${pOldRevision}' unknown `,
+    128: `revision '${pOldRevision}' ${
+      pNewRevision ? `(or '${pNewRevision}') ` : ""
+    }unknown`,
     129: `'${process.cwd()}' does not seem to be a git repository`,
   };
+
   return getGitResult(
-    ["diff", pOldRevision, "--name-status"],
+    pNewRevision
+      ? ["diff", pOldRevision, pNewRevision, "--name-status"]
+      : ["diff", pOldRevision, "--name-status"],
     lErrorMap,
     pSpawnFunction
   );

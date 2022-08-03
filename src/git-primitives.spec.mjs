@@ -12,6 +12,15 @@ describe("git-primitives - diff --name-status ", () => {
     );
   });
 
+  it("throws in case of one or two invalid refs", () => {
+    throws(
+      () => {
+        getDiffLines("not-a-revision", "neither-is-this");
+      },
+      { message: "revision 'not-a-revision' (or 'neither-is-this') unknown" }
+    );
+  });
+
   it("does not error in case of a valid ref", () => {
     const lExpected = [
       "M       package.json",
@@ -25,9 +34,47 @@ describe("git-primitives - diff --name-status ", () => {
       };
     }
     doesNotThrow(() => {
-      const lResult = getDiffLines("this-is-a-real-branch", fakeSpawnSync);
+      const lResult = getDiffLines(
+        "this-is-a-real-branch",
+        null,
+        fakeSpawnSync
+      );
       deepEqual(lExpected, lResult);
     });
+  });
+
+  it("requests for a diff between revision and working tree when passed one argument", () => {
+    const lExpected = ["git", "diff", "this-is-a-real-branch", "--name-status"];
+    function fakeSpawnSync(pCommand, pArguments) {
+      return {
+        stdout: [pCommand].concat(pArguments),
+        status: 0,
+      };
+    }
+    const lResult = getDiffLines("this-is-a-real-branch", null, fakeSpawnSync);
+    deepEqual(lExpected, lResult);
+  });
+
+  it("requests for a diff between two revisions when passed two arguments", () => {
+    const lExpected = [
+      "git",
+      "diff",
+      "this-is-a-real-branch",
+      "this-is-a-newer-branch",
+      "--name-status",
+    ];
+    function fakeSpawnSync(pCommand, pArguments) {
+      return {
+        stdout: [pCommand].concat(pArguments),
+        status: 0,
+      };
+    }
+    const lResult = getDiffLines(
+      "this-is-a-real-branch",
+      "this-is-a-newer-branch",
+      fakeSpawnSync
+    );
+    deepEqual(lExpected, lResult);
   });
 
   it("throws with 'not a git repo' when git detects that", () => {
@@ -36,7 +83,7 @@ describe("git-primitives - diff --name-status ", () => {
     }
     throws(
       () => {
-        getDiffLines(fakeSpawnSync, fakeSpawnSync);
+        getDiffLines("main", null, fakeSpawnSync);
       },
       { message: /does not seem to be a git repository/ }
     );
