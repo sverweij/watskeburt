@@ -48,12 +48,12 @@
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",
-    "@types/node": "^18.6.3",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@types/node": "^18.7.8",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
     "c8": "^7.12.0",
-    "dependency-cruiser": "^11.14.1",
-    "esbuild": "^0.14.51",
-    "eslint": "^8.21.0",
+    "dependency-cruiser": "^11.15.0",
+    "esbuild": "^0.15.5",
+    "eslint": "^8.22.0",
     "eslint-config-moving-meadow": "^3.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-budapestian": "^4.0.0",
@@ -65,7 +65,8 @@
     "mocha": "^10.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "upem": "^7.2.0"
   },
   "engines": {
     "node": "^12.20||^14||>=16"
@@ -96,6 +97,9 @@
     "lint:format:fix": "prettier --loglevel warn --write \"{src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "lint:types": "tsc",
     "scm:stage": "git add .",
+    "update-dependencies": "run-s upem:update upem:install lint:fix check",
+    "upem:install": "npm install",
+    "upem:update": "npm outdated --json --long | upem | pbcopy && pbpaste",
     "version": "npm-run-all --sequential clean build lint depcruise:graph scm:stage"
   },
   "eslintIgnore": [
