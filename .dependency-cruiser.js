@@ -228,6 +228,10 @@ module.exports = {
               attributes: { fillcolor: "lime", penwidth: 2 },
             },
             {
+              criteria: { matchesHighlight: true },
+              attributes: { fillcolor: "lime", penwidth: 2 },
+            },
+            {
               criteria: { source: ".spec.mjs" },
               attributes: { fillcolor: "#ccccff" },
             },
