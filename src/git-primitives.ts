@@ -1,6 +1,6 @@
-import { spawnSync } from "node:child_process";
+import { spawnSync, SpawnSyncReturns } from "node:child_process";
 
-function stringifyOutStream(pError) {
+function stringifyOutStream(pError: Buffer | string): string {
   if (pError instanceof Buffer) {
     return pError.toString("utf8");
   } else {
@@ -8,7 +8,8 @@ function stringifyOutStream(pError) {
   }
 }
 
-function throwSpawnError(pError) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function throwSpawnError(pError: any) {
   if (pError.code === "ENOENT") {
     throw new Error("git executable not found");
   } else {
@@ -16,18 +17,27 @@ function throwSpawnError(pError) {
   }
 }
 
+interface IErrorMapType {
+  [index: number]: string;
+}
+
 /**
- *
- * @param {string[]} pArguments
- * @return {string}
  * @throws {Error}
  */
-function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
-  const lGitResult = pSpawnFunction("git", pArguments, {
-    cwd: process.cwd(),
-    // eslint-disable-next-line node/no-process-env
-    env: process.env,
-  });
+function getGitResult(
+  pArguments: string[],
+  pErrorMap: IErrorMapType,
+  pSpawnFunction: typeof spawnSync
+): string {
+  const lGitResult: SpawnSyncReturns<Buffer> = pSpawnFunction(
+    "git",
+    pArguments,
+    {
+      cwd: process.cwd(),
+      // eslint-disable-next-line node/no-process-env
+      env: process.env,
+    }
+  );
 
   if (lGitResult.error) {
     throwSpawnError(lGitResult.error);
@@ -37,7 +47,7 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
     return stringifyOutStream(lGitResult.stdout);
   } else {
     throw new Error(
-      pErrorMap[lGitResult.status] ||
+      pErrorMap[lGitResult.status ?? 0] ||
         `internal git error: ${lGitResult.status} (${stringifyOutStream(
           lGitResult.stderr
         )})`
@@ -46,12 +56,10 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
 }
 
 /**
- *
- * @returns {string}
  * @throws {Error}
  */
-export function getStatusShort(pSpawnFunction = spawnSync) {
-  const lErrorMap = {
+export function getStatusShort(pSpawnFunction = spawnSync): string {
+  const lErrorMap: IErrorMapType = {
     129: `'${process.cwd()}' does not seem to be a git repository`,
   };
   return getGitResult(["status", "--porcelain"], lErrorMap, pSpawnFunction);
@@ -59,18 +67,14 @@ export function getStatusShort(pSpawnFunction = spawnSync) {
 
 /**
  *
- * @param {string} pOldRevision the target to compare against (e.g. branch name, commit, tag etc)
- * @param {string} pNewRevision Newer revision against which to compare. Leave out or pass
- *                 null when you want to compare against the working tree
- * @return {string}
  * @throws {Error}
  */
 export function getDiffLines(
-  pOldRevision,
-  pNewRevision,
+  pOldRevision: string,
+  pNewRevision?: string | undefined,
   pSpawnFunction = spawnSync
-) {
-  const lErrorMap = {
+): string {
+  const lErrorMap: IErrorMapType = {
     128: `revision '${pOldRevision}' ${
       pNewRevision ? `(or '${pNewRevision}') ` : ""
     }unknown`,
@@ -85,11 +89,8 @@ export function getDiffLines(
     pSpawnFunction
   );
 }
-/**
- *
- * @returns {string}
- */
-export function getSHA1(pSpawnFunction = spawnSync) {
+
+export function getSHA1(pSpawnFunction = spawnSync): string {
   const lSha1Length = 40;
 
   return getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(

@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 import { program } from "commander";
-import { listSync } from "./main.mjs";
+import { listSync } from "../dist/esm-bundle.mjs";
 import { VERSION } from "./version.mjs";
 
 program

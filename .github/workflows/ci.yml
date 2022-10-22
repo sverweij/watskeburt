@@ -15,7 +15,7 @@ on:
 
 env:
   CI: true
-  NODE_LATEST: 18.x
+  NODE_LATEST: 19.x
 
 defaults:
   run:
@@ -25,11 +25,11 @@ jobs:
   check:
     name: check
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         node-version:
-          - 12.x
-          - 18.x
+          - 14.x
+          - 19.x
         platform:
           - ubuntu-latest
 
@@ -56,8 +56,8 @@ jobs:
           node-version: ${{matrix.node-version}}
       - run: npm install
       - run: npm run depcruise
-      - name: lint on platforms other than 12.x
-        if: matrix.node-version != '12.x'
+      - name: lint on platforms other than 14.x
+        if: matrix.node-version != '14.x'
         run: npm run lint
       - run: npm run test:cover
       - run: npm run build
@@ -66,19 +66,21 @@ jobs:
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
           node tools/istanbul-json-summary-to-markdown.mjs < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
-      - name: on pushes to the default branch emit full depcruise results to step summary
+      - name: emit full depcruise results to step summary
+        run: |
+            yarn --silent depcruise --output-type markdown >> $GITHUB_STEP_SUMMARY
+      - name: on pushes to the default branch emit graph to the step summary
         if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
         run: |
-          yarn --silent depcruise --output-type markdown >> $GITHUB_STEP_SUMMARY
           echo '## Visual overview' >> $GITHUB_STEP_SUMMARY
           echo '```mermaid' >> $GITHUB_STEP_SUMMARY
-          yarn --silent depcruise --exclude ".spec.mjs$" --include-only "^(src)" --output-type mermaid >> $GITHUB_STEP_SUMMARY
+          yarn --silent depcruise:graph:diff:mermaid >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-      - name: on pull requests emit depcruise results + diff graph to step summary
+      - name: on pull requests emit depcruise graph to step summary with changed modules highlighted
         if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
         run: |
-          yarn --silent depcruise --output-type markdown >> $GITHUB_STEP_SUMMARY
           echo '## Visual diff' >> $GITHUB_STEP_SUMMARY
+          echo Modules changed in this PR have a fluorescent green color. >> $GITHUB_STEP_SUMMARY
           echo '```mermaid' >> $GITHUB_STEP_SUMMARY
           SHA=${{github.event.pull_request.base.sha}} yarn --silent depcruise:graph:diff:mermaid >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY

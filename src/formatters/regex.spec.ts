@@ -1,5 +1,5 @@
 import { deepEqual } from "node:assert";
-import format from "./regex.mjs";
+import format from "./regex.js";
 
 describe("regex formatter", () => {
   const lChangesOfEachType = [
