@@ -5,21 +5,21 @@ module.exports = {
       name: "no-deep-deps-from-cli",
       severity: "error",
       from: {
-        path: "src/cli.mjs",
+        path: "(^bin/)cli.mjs",
       },
       to: {
-        pathNot: "src/(main|version).mjs",
+        pathNot: ["^dist/", "$1"],
         dependencyTypesNot: ["npm"],
       },
     },
     {
       name: "no-unreachable-from-main",
       from: {
-        path: "src/main.mjs",
+        path: "src/main.ts",
       },
       to: {
         path: "^src/",
-        pathNot: ["\\.spec\\.mjs$", "src/(cli|version)\\.mjs"],
+        pathNot: ["\\.spec\\.ts$", "bin/(cli|version)\\.mjs"],
         reachable: false,
       },
     },
@@ -50,7 +50,7 @@ module.exports = {
           "(^|/)\\.[^/]+\\.(js|cjs|mjs|ts|json)$", // dot files
           "\\.d\\.ts$", // TypeScript declaration files
           "(^|/)tsconfig\\.json$", // TypeScript config
-          "(^|/)(babel|webpack)\\.config\\.(js|cjs|mjs|ts|json)$", // other configs
+          "^dist/",
         ],
       },
       to: {},
@@ -163,8 +163,8 @@ module.exports = {
         "section of your package.json. If this module is development only - add it to the " +
         "from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration",
       from: {
-        path: "^(src)",
-        pathNot: "\\.spec\\.mjs$",
+        path: "^(bin|dist|src)",
+        pathNot: "\\.spec\\.ts$",
       },
       to: {
         dependencyTypes: ["npm-dev"],
@@ -203,13 +203,14 @@ module.exports = {
     },
     moduleSystems: ["es6"],
     prefix: "vscode://file/${process.cwd()}/",
+    tsPreCompilationDeps: true,
     tsConfig: {
       fileName: "./tsconfig.json",
     },
     enhancedResolveOptions: {
       exportsFields: ["exports"],
       conditionNames: ["import", "require", "node", "default"],
-      extensions: [".mjs"],
+      extensions: [".ts", ".d.ts", ".js", ".cjs", ".mjs"],
     },
     reporterOptions: {
       dot: {
@@ -232,7 +233,7 @@ module.exports = {
               attributes: { fillcolor: "lime", penwidth: 2 },
             },
             {
-              criteria: { source: ".spec.mjs" },
+              criteria: { source: ".spec.ts" },
               attributes: { fillcolor: "#ccccff" },
             },
           ],

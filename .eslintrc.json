@@ -1,9 +1,17 @@
 {
   "root": true,
-  "extends": ["moving-meadow"],
+  "extends": ["moving-meadow", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
   "overrides": [
     {
-      "files": ["**/*.mjs"],
+      "files": ["**/*.mjs"]
+    },
+    {
+      "files": ["**/*.ts"],
+      "parser": "@typescript-eslint/parser",
       "rules": {
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off",
@@ -11,14 +19,17 @@
         "import/no-relative-parent-imports": "off",
         "sort-imports": "off",
         "unicorn/prefer-node-protocol": "error",
-        "unicorn/prefer-module": "error"
-      },
-      "parserOptions": {
-        "ecmaVersion": "latest"
+        "unicorn/prefer-module": "error",
+        // node/no-missing-import and import/no-unresolved can't handle
+        // .js extensions pointing to seemingly typescript files. No
+        // man overboard as we check this with dependency-cruiser anyway
+        "node/no-missing-import": "off",
+        "import/no-unresolved": "off"
       }
     },
     {
-      "files": ["**/*.spec.mjs"],
+      "files": ["**/*.spec.ts"],
+      "parser": "@typescript-eslint/parser",
       "env": {
         "mocha": true
       },
@@ -33,8 +44,6 @@
     },
     {
       "files": ["types/*.ts"],
-      "plugins": ["@typescript-eslint"],
-      "extends": ["plugin:@typescript-eslint/recommended"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "ecmaVersion": "latest"

@@ -1,5 +1,5 @@
 import { deepEqual } from "node:assert";
-import format from "./json.mjs";
+import format from "./json.js";
 
 describe("json formatter", () => {
   it("empty array yields stringified empty array", () => {

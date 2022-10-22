@@ -1,6 +1,7 @@
+/* eslint-disable no-undefined */
 /* eslint-disable unicorn/consistent-function-scoping */
 import { deepEqual, doesNotThrow, throws, match } from "node:assert";
-import { getDiffLines, getSHA1, getStatusShort } from "./git-primitives.mjs";
+import { getDiffLines, getSHA1, getStatusShort } from "./git-primitives.js";
 
 describe("git-primitives - diff --name-status ", () => {
   it("throws in case of an invalid ref", () => {
@@ -36,7 +37,7 @@ describe("git-primitives - diff --name-status ", () => {
     doesNotThrow(() => {
       const lResult = getDiffLines(
         "this-is-a-real-branch",
-        null,
+        undefined,
         fakeSpawnSync
       );
       deepEqual(lExpected, lResult);
@@ -45,13 +46,17 @@ describe("git-primitives - diff --name-status ", () => {
 
   it("requests for a diff between revision and working tree when passed one argument", () => {
     const lExpected = ["git", "diff", "this-is-a-real-branch", "--name-status"];
-    function fakeSpawnSync(pCommand, pArguments) {
+    function fakeSpawnSync(pCommand: string, pArguments: string[]) {
       return {
         stdout: [pCommand].concat(pArguments),
         status: 0,
       };
     }
-    const lResult = getDiffLines("this-is-a-real-branch", null, fakeSpawnSync);
+    const lResult = getDiffLines(
+      "this-is-a-real-branch",
+      undefined,
+      fakeSpawnSync
+    );
     deepEqual(lExpected, lResult);
   });
 
@@ -83,7 +88,7 @@ describe("git-primitives - diff --name-status ", () => {
     }
     throws(
       () => {
-        getDiffLines("main", null, fakeSpawnSync);
+        getDiffLines("main", undefined, fakeSpawnSync);
       },
       { message: /does not seem to be a git repository/ }
     );
@@ -124,6 +129,18 @@ describe("git-primitives - status", () => {
         getStatusShort(fakeSpawnSync);
       },
       { message: "internal git error: 667 (neighbor of the beast)" }
+    );
+  });
+
+  it("throws when the git result contained no exit code at all", () => {
+    function fakeSpawnSync() {
+      return { stderr: Buffer.from("neighbor of the beast") };
+    }
+    throws(
+      () => {
+        getStatusShort(fakeSpawnSync);
+      },
+      { message: "internal git error: undefined (neighbor of the beast)" }
     );
   });
 

@@ -4,7 +4,7 @@ import {
   convertDiffLines,
   convertStatusLine,
   convertStatusLines,
-} from "./convert-to-change-object.mjs";
+} from "./convert-to-change-object.js";
 
 describe("convert diff line to change object", () => {
   it("recognizes Modified files", () => {
@@ -118,7 +118,7 @@ describe("convert status line to change object", () => {
   });
 });
 
-describe("conver status lines to change objects", () => {
+describe("convert status lines to change objects", () => {
   it("empty string delivers an empty array", () => {
     deepEqual(convertStatusLines(""), []);
   });

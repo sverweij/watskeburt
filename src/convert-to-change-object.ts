@@ -3,13 +3,14 @@
 // to redos  attacks.
 /* eslint-disable unicorn/no-unsafe-regex, security/detect-unsafe-regex */
 import { EOL } from "node:os";
+import { changeTypeType, IChange } from "../types/watskeburt";
 
 const DIFF_NAME_STATUS_LINE_PATTERN =
   /^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
 const DIFF_SHORT_STATUS_LINE_PATTERN =
   /^(?<stagedChangeType>[ ACDMRTUXB?!])(?<unStagedChangeType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
 
-const CHANGE_CHAR_2_CHANGE_TYPE = {
+const CHANGE_CHAR_2_CHANGE_TYPE: { [index: string]: changeTypeType } = {
   A: "added",
   C: "copied",
   D: "deleted",
@@ -24,22 +25,16 @@ const CHANGE_CHAR_2_CHANGE_TYPE = {
   // X: "unknown"
 };
 
-function changeChar2ChangeType(pChar) {
+function changeChar2ChangeType(pChar: string): changeTypeType {
   // eslint-disable-next-line security/detect-object-injection
   return CHANGE_CHAR_2_CHANGE_TYPE[pChar] || "unknown";
 }
 
-/**
- *
- * @param {string} pString
- * @returns {import('../types/watskeburt').IChange}
- */
-export function convertStatusLine(pString) {
+export function convertStatusLine(pString: string): Partial<IChange> {
   const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
-  /**  @type {import('../types/watskeburt').IChange} */
-  let lReturnValue = {};
+  const lReturnValue: Partial<IChange> = {};
 
-  if (lMatchResult) {
+  if (lMatchResult?.groups) {
     const lStagedChangeType = changeChar2ChangeType(
       lMatchResult.groups.stagedChangeType
     );
@@ -62,17 +57,11 @@ export function convertStatusLine(pString) {
   return lReturnValue;
 }
 
-/**
- *
- * @param {string} pString
- * @returns {import('../types/watskeburt').IChange}
- */
-export function convertDiffLine(pString) {
+export function convertDiffLine(pString: string): Partial<IChange> {
   const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
-  /**  @type {import('../types/watskeburt').IChange} */
-  let lReturnValue = {};
+  const lReturnValue: Partial<IChange> = {};
 
-  if (lMatchResult) {
+  if (lMatchResult?.groups) {
     lReturnValue.changeType = changeChar2ChangeType(
       lMatchResult.groups.changeType
     );
@@ -86,28 +75,22 @@ export function convertDiffLine(pString) {
   return lReturnValue;
 }
 
-/**
- *
- * @param {string} pString
- * @returns {import('../types/watskeburt').IChange[]}
- */
-export function convertStatusLines(pString) {
+export function convertStatusLines(pString: string): IChange[] {
   return pString
     .split(EOL)
     .filter(Boolean)
     .map(convertStatusLine)
-    .filter(({ changeType }) => Boolean(changeType));
+    .filter(
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+    ) as IChange[];
 }
 
-/**
- *
- * @param {string} pString
- * @returns {import('../types/watskeburt').IChange[]}
- */
-export function convertDiffLines(pString) {
+export function convertDiffLines(pString: string): IChange[] {
   return pString
     .split(EOL)
     .filter(Boolean)
     .map(convertDiffLine)
-    .filter(({ changeType }) => Boolean(changeType));
+    .filter(
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+    ) as IChange[];
 }

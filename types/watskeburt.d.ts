@@ -34,14 +34,14 @@ export interface IOptions {
    * The type of output to deliver. Defaults to "object" - in which case
    * the listSync function returns an IChange[] object
    */
-  outputType: outputTypeType;
+  outputType?: outputTypeType;
   /**
    * When true _only_ takes already tracked files into account.
    * When false also takes untracked files into account.
    *
    * Defaults to false.
    */
-  trackedOnly: boolean;
+  trackedOnly?: boolean;
 }
 
 /**
