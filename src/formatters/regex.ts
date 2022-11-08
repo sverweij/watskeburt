@@ -28,13 +28,7 @@ const DEFAULT_CHANGE_TYPES: Set<changeTypeType> = new Set([
   "copied",
   "untracked",
 ]);
-/**
- *
- * @param {import('../types/watskeburt').IChange[]} pChanges
- * @param {Set<string>} pExtensions
- * @param {Set<import('../types/watskeburt').changeTypeType>} pChangeTypes
- * @return {string}
- */
+
 export default function formatToRegex(
   pChanges: IChange[],
   pExtensions: Set<string> = DEFAULT_EXTENSIONS,
