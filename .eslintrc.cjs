@@ -1,18 +1,19 @@
-{
-  "root": true,
-  "extends": ["moving-meadow", "plugin:@typescript-eslint/recommended"],
-  "plugins": ["@typescript-eslint"],
-  "parserOptions": {
-    "ecmaVersion": "latest"
+module.exports = {
+  root: true,
+  ignorePatterns: ["coverage", "docs", "dist", "node_modules"],
+  extends: ["moving-meadow", "plugin:@typescript-eslint/recommended"],
+  plugins: ["@typescript-eslint"],
+  parserOptions: {
+    ecmaVersion: "latest",
   },
-  "overrides": [
+  overrides: [
     {
-      "files": ["**/*.mjs"]
+      files: ["**/*.mjs"],
     },
     {
-      "files": ["**/*.ts"],
-      "parser": "@typescript-eslint/parser",
-      "rules": {
+      files: ["**/*.ts"],
+      parser: "@typescript-eslint/parser",
+      rules: {
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off",
         "node/no-unsupported-features/es-syntax": "off",
@@ -24,33 +25,33 @@
         // .js extensions pointing to seemingly typescript files. No
         // man overboard as we check this with dependency-cruiser anyway
         "node/no-missing-import": "off",
-        "import/no-unresolved": "off"
-      }
+        "import/no-unresolved": "off",
+      },
     },
     {
-      "files": ["**/*.spec.ts"],
-      "parser": "@typescript-eslint/parser",
-      "env": {
-        "mocha": true
+      files: ["**/*.spec.ts"],
+      parser: "@typescript-eslint/parser",
+      env: {
+        mocha: true,
       },
-      "rules": {
+      rules: {
         "no-magic-numbers": "off",
         "security/detect-non-literal-require": "off",
         "security/detect-non-literal-fs-filename": "off",
         "max-lines-per-function": "off",
         "max-lines": "off",
-        "no-null": "off"
-      }
+        "no-null": "off",
+      },
     },
     {
-      "files": ["types/*.ts"],
-      "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "ecmaVersion": "latest"
+      files: ["types/*.ts"],
+      parser: "@typescript-eslint/parser",
+      parserOptions: {
+        ecmaVersion: "latest",
       },
-      "rules": {
-        "node/no-unsupported-features/es-syntax": "off"
-      }
-    }
-  ]
-}
+      rules: {
+        "node/no-unsupported-features/es-syntax": "off",
+      },
+    },
+  ],
+};

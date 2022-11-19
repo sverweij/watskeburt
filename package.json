@@ -106,11 +106,5 @@
     "upem:install": "npm install",
     "upem:update": "npm outdated --json --long | upem | pbcopy && pbpaste",
     "version": "npm-run-all --sequential clean build lint depcruise:graph scm:stage"
-  },
-  "eslintIgnore": [
-    "coverage",
-    "docs",
-    "dist",
-    "node_modules"
-  ]
+  }
 }
