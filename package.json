@@ -71,14 +71,14 @@
     "upem": "7.3.1"
   },
   "engines": {
-    "node": "^12.20||^14||>=16"
+    "node": "^14||^16||>=18"
   },
   "scripts": {
     "build": "npm-run-all --sequential build:version build:dist",
     "build:version": "node tools/get-version.mjs > bin/version.mjs",
     "build:dist": "npm-run-all build:dist:*",
-    "build:dist:cjs": "esbuild src/main.ts --format=cjs --target=node12 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.cjs",
-    "build:dist:esm": "esbuild src/main.ts --format=esm --target=node16 --platform=node --bundle --global-name=wkbtesm --minify --outfile=dist/esm-bundle.mjs",
+    "build:dist:cjs": "esbuild src/main.ts --format=cjs --target=node14 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.cjs",
+    "build:dist:esm": "esbuild src/main.ts --format=esm --target=node14 --platform=node --bundle --global-name=wkbtesm --minify --outfile=dist/esm-bundle.mjs",
     "check": "npm-run-all --parallel --aggregate-output lint depcruise test:cover",
     "clean": "rm -rf dist",
     "test": "NODE_OPTIONS=--no-warnings mocha",
@@ -93,12 +93,12 @@
     "depcruise:text": "depcruise bin src types --progress --cache --config --output-type text",
     "depcruise:focus": "depcruise bin src types --progress --cache --config --output-type text --focus",
     "depcruise:reaches": "depcruise bin src types --progress --cache --config --output-type text --reaches",
-    "lint": "npm-run-all --parallel --aggregate-output lint:format lint:eslint lint:types",
-    "lint:fix": "npm-run-all --parallel --aggregate-output lint:format:fix lint:eslint:fix",
+    "format": "prettier --check \"{bin,src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
+    "format:check": "prettier --loglevel warn --write \"{bin,src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
+    "lint": "npm-run-all --parallel --aggregate-output format:check lint:eslint lint:types",
+    "lint:fix": "npm-run-all --parallel --aggregate-output format lint:eslint:fix",
     "lint:eslint": "eslint bin src types tools --cache --cache-location node_modules/.cache/eslint/",
     "lint:eslint:fix": "eslint bin src types tools --fix --cache --cache-location node_modules/.cache/eslint/",
-    "lint:format": "prettier --check \"{bin,src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
-    "lint:format:fix": "prettier --loglevel warn --write \"{bin,src,tools}/**/*.mjs\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "lint:types": "tsc",
     "scm:stage": "git add .",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",

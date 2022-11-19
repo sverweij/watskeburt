@@ -27,7 +27,7 @@ const CHANGE_CHAR_2_CHANGE_TYPE: { [index: string]: changeTypeType } = {
 
 function changeChar2ChangeType(pChar: string): changeTypeType {
   // eslint-disable-next-line security/detect-object-injection
-  return CHANGE_CHAR_2_CHANGE_TYPE[pChar] || "unknown";
+  return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
 }
 
 export function convertStatusLine(pString: string): Partial<IChange> {
