@@ -44,6 +44,12 @@ module.exports = {
       },
     },
     {
+      files: ["tools/**"],
+      rules: {
+        "security/detect-non-literal-fs-filename": "off",
+      },
+    },
+    {
       files: ["types/*.ts"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
