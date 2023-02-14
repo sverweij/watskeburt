@@ -212,6 +212,7 @@ module.exports = {
       conditionNames: ["import", "require", "node", "default"],
       extensions: [".ts", ".d.ts", ".js", ".cjs", ".mjs"],
     },
+    cache: true,
     reporterOptions: {
       dot: {
         collapsePattern: "node_modules/[^/]+",
