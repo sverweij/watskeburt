@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
-
-import { program } from "commander";
+import { EOL } from "node:os";
+import { Option, program } from "commander";
 import { listSync } from "../dist/esm-bundle.mjs";
 import { VERSION } from "./version.mjs";
 
@@ -9,13 +9,17 @@ program
   .description(
     "lists files & their statuses since [old-revision] " +
       "or between [old-revision] and [new-revision]." +
-      "\n\n" +
+      `${EOL}${EOL}` +
       "-> When you don't pass a revision at all old-revision defaults to the current one."
   )
-  .version(VERSION)
-  .option("-T, --output-type <type>", "json,regex", "regex")
+  .addOption(
+    new Option("-T, --output-type <type>", "what format to emit")
+      .choices(["json", "regex"])
+      .default("regex")
+  )
   .option("--tracked-only", "only take tracked files into account", false)
   .arguments("[old-revision] [new-revision]")
+  .version(VERSION)
   .parse(process.argv);
 
 try {
