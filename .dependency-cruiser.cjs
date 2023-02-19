@@ -9,7 +9,7 @@ module.exports = {
       },
       to: {
         pathNot: ["^dist/", "$1"],
-        dependencyTypesNot: ["npm"],
+        dependencyTypesNot: ["npm", "core"],
       },
     },
     {
