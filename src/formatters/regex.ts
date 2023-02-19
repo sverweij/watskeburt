@@ -1,5 +1,5 @@
 import { extname } from "node:path";
-import { IChange, changeTypeType } from "../../types/watskeburt";
+import type { IChange, changeTypeType } from "../../types/watskeburt";
 
 const DEFAULT_EXTENSIONS = new Set([
   ".cjs",

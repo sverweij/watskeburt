@@ -1,4 +1,4 @@
-import { IChange } from "../../types/watskeburt";
+import type { IChange } from "../../types/watskeburt";
 
 const INDENT = 2;
 

@@ -1,4 +1,4 @@
-import { IChange, outputTypeType } from "../../types/watskeburt";
+import type { IChange, outputTypeType } from "../../types/watskeburt";
 import formatToRegex from "./regex.js";
 import formatToJSON from "./json.js";
 
