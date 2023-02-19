@@ -1,6 +1,6 @@
 {
   "name": "watskeburt",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "description": "List files changed since a git revision",
   "keywords": [
     "git",
