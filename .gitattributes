@@ -1,0 +1,11 @@
+* text eol=lf
+dist linguist-generated
+bin/version.mjs linguist-generated
+docs linguist-documentation
+
+*.jpg binary
+*.kra binary
+*.png binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
