@@ -65,7 +65,7 @@ jobs:
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
-          node tools/istanbul-json-summary-to-markdown.mjs < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
+          npx ts-node --esm tools/istanbul-json-summary-to-markdown.mts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
       - name: emit full depcruise results to step summary
         run: |
             yarn --silent depcruise --output-type markdown >> $GITHUB_STEP_SUMMARY

@@ -75,7 +75,7 @@
   },
   "scripts": {
     "build": "npm-run-all --sequential build:version build:dist",
-    "build:version": "node tools/get-version.mjs > bin/version.mjs",
+    "build:version": "ts-node --esm tools/get-version.mts > bin/version.mjs",
     "build:dist": "npm-run-all build:dist:*",
     "build:dist:cjs": "esbuild src/main.ts --format=cjs --target=node14 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.cjs",
     "build:dist:esm": "esbuild src/main.ts --format=esm --target=node14 --platform=node --bundle --global-name=wkbtesm --minify --outfile=dist/esm-bundle.mjs",
