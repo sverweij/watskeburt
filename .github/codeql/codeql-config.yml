@@ -2,6 +2,7 @@ name: 'CodeQL config'
 
 paths:
   - bin/
+  - dist/esm/
   - src/
   - tools/
   - types/
