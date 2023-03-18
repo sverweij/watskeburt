@@ -5,7 +5,7 @@ module.exports = {
       name: "no-deep-deps-from-cli",
       severity: "error",
       from: {
-        path: "(^bin/)cli.mjs",
+        path: "(^bin/)cli.js",
       },
       to: {
         pathNot: ["^dist/", "$1"],
@@ -19,7 +19,7 @@ module.exports = {
       },
       to: {
         path: "^src/",
-        pathNot: ["\\.spec\\.ts$", "bin/(cli|version)\\.mjs"],
+        pathNot: ["\\.spec\\.ts$", "bin/(cli|version)\\.js"],
         reachable: false,
       },
     },
@@ -47,7 +47,7 @@ module.exports = {
       from: {
         orphan: true,
         pathNot: [
-          "(^|/)\\.[^/]+\\.(js|cjs|mjs|ts|json)$", // dot files
+          "(^|/)\\.[^/]+\\.(js|cjs|ts|json)$", // dot files
           "\\.d\\.ts$", // TypeScript declaration files
           "(^|/)tsconfig\\.json$", // TypeScript config
           "^dist/",
@@ -150,7 +150,7 @@ module.exports = {
       severity: "error",
       from: {},
       to: {
-        path: "\\.spec\\.mjs$",
+        path: "\\.spec\\.ts$",
       },
     },
     {
@@ -210,7 +210,7 @@ module.exports = {
     enhancedResolveOptions: {
       exportsFields: ["exports"],
       conditionNames: ["import", "require", "node", "default"],
-      extensions: [".ts", ".d.ts", ".js", ".cjs", ".mjs"],
+      extensions: [".ts", ".d.ts", ".js", ".cjs"],
     },
     cache: true,
     reporterOptions: {

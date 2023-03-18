@@ -2,8 +2,8 @@
 /* eslint-disable no-console */
 import { EOL } from "node:os";
 import { Option, program } from "commander";
-import { listSync } from "../dist/esm-bundle.mjs";
-import { VERSION } from "./version.mjs";
+import { listSync } from "../dist/esm/main.js";
+import { VERSION } from "./version.js";
 
 program
   .description(

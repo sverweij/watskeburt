@@ -3,7 +3,7 @@
 // to redos  attacks.
 /* eslint-disable unicorn/no-unsafe-regex, security/detect-unsafe-regex */
 import { EOL } from "node:os";
-import type { changeTypeType, IChange } from "../types/watskeburt";
+import type { changeTypeType, IChange } from "../types/watskeburt.js";
 
 const DIFF_NAME_STATUS_LINE_PATTERN =
   /^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;

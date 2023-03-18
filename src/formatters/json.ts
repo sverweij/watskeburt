@@ -1,4 +1,4 @@
-import type { IChange } from "../../types/watskeburt";
+import type { IChange } from "../../types/watskeburt.js";
 
 const INDENT = 2;
 

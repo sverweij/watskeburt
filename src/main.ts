@@ -1,4 +1,4 @@
-import type { IChange, IOptions } from "../types/watskeburt";
+import type { IChange, IOptions } from "../types/watskeburt.js";
 import {
   convertDiffLines,
   convertStatusLines,
