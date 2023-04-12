@@ -1,13 +1,17 @@
 /* eslint-disable no-undefined */
 /* eslint-disable unicorn/consistent-function-scoping */
 import { deepEqual, doesNotThrow, throws, match } from "node:assert";
-import { getDiffLines, getSHA1, getStatusShort } from "./git-primitives.js";
+import {
+  getDiffLinesSync,
+  getSHASync,
+  getStatusShortSync,
+} from "./git-primitives.js";
 
 describe("git-primitives - diff --name-status ", () => {
   it("throws in case of an invalid ref", () => {
     throws(
       () => {
-        getDiffLines("this-is-not-a-real-revision");
+        getDiffLinesSync("this-is-not-a-real-revision");
       },
       { message: /revision 'this-is-not-a-real-revision' unknown/ }
     );
@@ -16,7 +20,7 @@ describe("git-primitives - diff --name-status ", () => {
   it("throws in case of one or two invalid refs", () => {
     throws(
       () => {
-        getDiffLines("not-a-revision", "neither-is-this");
+        getDiffLinesSync("not-a-revision", "neither-is-this");
       },
       { message: "revision 'not-a-revision' (or 'neither-is-this') unknown" }
     );
@@ -35,7 +39,7 @@ describe("git-primitives - diff --name-status ", () => {
       };
     }
     doesNotThrow(() => {
-      const lResult = getDiffLines(
+      const lResult = getDiffLinesSync(
         "this-is-a-real-branch",
         undefined,
         fakeSpawnSync
@@ -52,7 +56,7 @@ describe("git-primitives - diff --name-status ", () => {
         status: 0,
       };
     }
-    const lResult = getDiffLines(
+    const lResult = getDiffLinesSync(
       "this-is-a-real-branch",
       undefined,
       fakeSpawnSync
@@ -74,7 +78,7 @@ describe("git-primitives - diff --name-status ", () => {
         status: 0,
       };
     }
-    const lResult = getDiffLines(
+    const lResult = getDiffLinesSync(
       "this-is-a-real-branch",
       "this-is-a-newer-branch",
       fakeSpawnSync
@@ -88,7 +92,7 @@ describe("git-primitives - diff --name-status ", () => {
     }
     throws(
       () => {
-        getDiffLines("main", undefined, fakeSpawnSync);
+        getDiffLinesSync("main", undefined, fakeSpawnSync);
       },
       { message: /does not seem to be a git repository/ }
     );
@@ -102,7 +106,7 @@ describe("git-primitives - status", () => {
     }
     throws(
       () => {
-        getStatusShort(fakeSpawnSync);
+        getStatusShortSync(fakeSpawnSync);
       },
       { message: "git executable not found" }
     );
@@ -114,7 +118,7 @@ describe("git-primitives - status", () => {
     }
     throws(
       () => {
-        getStatusShort(fakeSpawnSync);
+        getStatusShortSync(fakeSpawnSync);
       },
       { message: /internal spawn error: / }
     );
@@ -126,7 +130,7 @@ describe("git-primitives - status", () => {
     }
     throws(
       () => {
-        getStatusShort(fakeSpawnSync);
+        getStatusShortSync(fakeSpawnSync);
       },
       { message: "internal git error: 667 (neighbor of the beast)" }
     );
@@ -138,7 +142,7 @@ describe("git-primitives - status", () => {
     }
     throws(
       () => {
-        getStatusShort(fakeSpawnSync);
+        getStatusShortSync(fakeSpawnSync);
       },
       { message: "internal git error: undefined (neighbor of the beast)" }
     );
@@ -150,7 +154,7 @@ describe("git-primitives - status", () => {
     }
     throws(
       () => {
-        getStatusShort(fakeSpawnSync);
+        getStatusShortSync(fakeSpawnSync);
       },
       { message: /does not seem to be a git repository/ }
     );
@@ -158,13 +162,13 @@ describe("git-primitives - status", () => {
 
   it("does not throw", () => {
     doesNotThrow(() => {
-      getStatusShort();
+      getStatusShortSync();
     });
   });
 });
 
 describe("git-primitives - get SHA1", () => {
   it("returns the HEAD's SHA1", () => {
-    match(getSHA1(), /^([a-f0-9]{40})$/);
+    match(getSHASync(), /^([a-f0-9]{40})$/);
   });
 });
