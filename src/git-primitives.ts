@@ -24,7 +24,7 @@ interface IErrorMapType {
 /**
  * @throws {Error}
  */
-function getGitResult(
+function getGitResultSync(
   pArguments: string[],
   pErrorMap: IErrorMapType,
   pSpawnFunction: typeof spawnSync
@@ -58,18 +58,18 @@ function getGitResult(
 /**
  * @throws {Error}
  */
-export function getStatusShort(pSpawnFunction = spawnSync): string {
+export function getStatusShortSync(pSpawnFunction = spawnSync): string {
   const lErrorMap: IErrorMapType = {
     129: `'${process.cwd()}' does not seem to be a git repository`,
   };
-  return getGitResult(["status", "--porcelain"], lErrorMap, pSpawnFunction);
+  return getGitResultSync(["status", "--porcelain"], lErrorMap, pSpawnFunction);
 }
 
 /**
  *
  * @throws {Error}
  */
-export function getDiffLines(
+export function getDiffLinesSync(
   pOldRevision: string,
   pNewRevision?: string | undefined,
   pSpawnFunction = spawnSync
@@ -81,7 +81,7 @@ export function getDiffLines(
     129: `'${process.cwd()}' does not seem to be a git repository`,
   };
 
-  return getGitResult(
+  return getGitResultSync(
     pNewRevision
       ? ["diff", pOldRevision, pNewRevision, "--name-status"]
       : ["diff", pOldRevision, "--name-status"],
@@ -90,10 +90,10 @@ export function getDiffLines(
   );
 }
 
-export function getSHA1(pSpawnFunction = spawnSync): string {
+export function getSHASync(pSpawnFunction = spawnSync): string {
   const lSha1Length = 40;
 
-  return getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(
+  return getGitResultSync(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(
     0,
     lSha1Length
   );
