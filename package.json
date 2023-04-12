@@ -51,7 +51,7 @@
     "@types/node": "18.15.3",
     "@typescript-eslint/eslint-plugin": "5.55.0",
     "c8": "7.13.0",
-    "dependency-cruiser": "12.10.2",
+    "dependency-cruiser": "13.0.0-beta-1",
     "esbuild": "0.17.12",
     "eslint": "8.36.0",
     "eslint-config-moving-meadow": "4.0.2",
@@ -70,6 +70,15 @@
     "typescript": "5.0.2",
     "upem": "7.3.2"
   },
+  "upem": {
+    "policies": [
+      {
+        "package": "dependency-cruiser",
+        "policy": "wanted",
+        "because": "we're beta testing v13 & policy 'latest' would downgraded it back to v12 again"
+      }
+    ]
+  },
   "engines": {
     "node": "^14||^16||>=18"
   },
@@ -84,16 +93,16 @@
     "clean": "rm -rf dist",
     "test": "NODE_OPTIONS=--no-warnings mocha",
     "test:cover": "NODE_OPTIONS=--no-warnings c8 mocha",
-    "depcruise": "depcruise bin dist src types --config --output-type err",
-    "depcruise:graph": "depcruise bin src types --include-only '^(bin|dist|src|types)' --config --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
-    "depcruise:graph:archi": "depcruise bin src --include-only '^(bin|dist|src|types)' --config --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > docs/high-level-dependency-graph.html",
-    "depcruise:graph:dev": "depcruise bin dist src types --include-only '^(bin|dist|src|types)' --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:graph:diff:dev": "depcruise bin dist src types --include-only '^(bin|dist|src|types)' --highlight \"$(node bin/cli.js main -T regex)\" --prefix vscode://file/$(pwd)/ --config --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:graph:diff:mermaid": "depcruise bin dist src types --include-only '^(bin|dist|src|types)' --config --output-type mermaid --output-to - --highlight \"$(node bin/cli.js $SHA -T regex)\"",
-    "depcruise:html": "depcruise bin src types --progress --config --output-type err-html --output-to dependency-violation-report.html",
-    "depcruise:text": "depcruise bin src types --progress --config --output-type text",
-    "depcruise:focus": "depcruise bin src types --progress --config --output-type text --focus",
-    "depcruise:reaches": "depcruise bin src types --progress --config --output-type text --reaches",
+    "depcruise": "depcruise bin dist src types",
+    "depcruise:graph": "depcruise bin src types --include-only '^(bin|dist|src|types)' --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
+    "depcruise:graph:archi": "depcruise bin src --include-only '^(bin|dist|src|types)' --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > docs/high-level-dependency-graph.html",
+    "depcruise:graph:dev": "depcruise bin dist src types --include-only '^(bin|dist|src|types)' --prefix vscode://file/$(pwd)/ --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:graph:diff:dev": "depcruise bin dist src types --include-only '^(bin|dist|src|types)' --highlight \"$(node bin/cli.js main -T regex)\" --prefix vscode://file/$(pwd)/ --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:graph:diff:mermaid": "depcruise bin dist src types --include-only '^(bin|dist|src|types)' --output-type mermaid --output-to - --highlight \"$(node bin/cli.js $SHA -T regex)\"",
+    "depcruise:html": "depcruise bin src types --progress --output-type err-html --output-to dependency-violation-report.html",
+    "depcruise:text": "depcruise bin src types --progress --output-type text",
+    "depcruise:focus": "depcruise bin src types --progress --output-type text --focus",
+    "depcruise:reaches": "depcruise bin src types --progress --output-type text --reaches",
     "format": "prettier --write \"{bin,src,tools}/**/*.{js,ts}\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "format:check": "prettier --loglevel warn --check \"{bin,src,tools}/**/*.ts\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "lint": "npm-run-all --parallel --aggregate-output format:check lint:eslint lint:types",
