@@ -56,6 +56,7 @@ jobs:
           node-version: ${{matrix.node-version}}
       - run: npm install
       - run: npm run depcruise
+        if: matrix.node-version != '14.x'
       - name: lint on platforms other than 14.x
         if: matrix.node-version != '14.x'
         run: npm run lint
