@@ -1,64 +1,76 @@
-import { spawnSync } from "node:child_process";
-function stringifyOutStream(pError) {
-    if (pError instanceof Buffer) {
-        return pError.toString("utf8");
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { spawn } from "node:child_process";
+function stringifyOutStream(pBufferOrString) {
+    if (pBufferOrString instanceof Buffer) {
+        return pBufferOrString.toString("utf8");
     }
     else {
-        return pError;
-    }
-}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function throwSpawnError(pError) {
-    if (pError.code === "ENOENT") {
-        throw new Error("git executable not found");
-    }
-    else {
-        throw new Error(`internal spawn error: ${pError}`);
+        return pBufferOrString;
     }
 }
 /**
  * @throws {Error}
  */
-function getGitResultSync(pArguments, pErrorMap, pSpawnFunction) {
-    const lGitResult = pSpawnFunction("git", pArguments, {
+function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
+    const lGit = pSpawnFunction("git", pArguments, {
         cwd: process.cwd(),
         // eslint-disable-next-line node/no-process-env
         env: process.env,
     });
-    if (lGitResult.error) {
-        throwSpawnError(lGitResult.error);
-    }
-    if (lGitResult.status === 0) {
-        return stringifyOutStream(lGitResult.stdout);
-    }
-    else {
-        throw new Error(pErrorMap[lGitResult.status ?? 0] ||
-            `internal git error: ${lGitResult.status} (${stringifyOutStream(lGitResult.stderr)})`);
-    }
+    let lStdOutData = "";
+    let lStdErrorData = "";
+    return new Promise((pResolve, pReject) => {
+        lGit.stdout?.on("data", (pData) => {
+            lStdOutData = lStdOutData.concat(pData);
+        });
+        lGit.stderr?.on("data", (pData) => {
+            lStdErrorData = lStdErrorData.concat(pData);
+        });
+        lGit.on("close", (pCode) => {
+            if (pCode === 0) {
+                pResolve(stringifyOutStream(lStdOutData));
+            }
+            else {
+                pReject(new Error(pErrorMap[pCode ?? 0] ||
+                    `internal git error: ${pCode} (${stringifyOutStream(lStdErrorData)})`));
+            }
+        });
+        lGit.on("error", (pError) => {
+            if (pError?.code === "ENOENT") {
+                pReject(new Error("git executable not found"));
+            }
+            else {
+                pReject(new Error(`internal spawn error: ${pError}`));
+            }
+        });
+    });
 }
 /**
  * @throws {Error}
  */
-export function getStatusShortSync(pSpawnFunction = spawnSync) {
+export async function getStatusShort(pSpawnFunction = spawn) {
     const lErrorMap = {
         129: `'${process.cwd()}' does not seem to be a git repository`,
     };
-    return getGitResultSync(["status", "--porcelain"], lErrorMap, pSpawnFunction);
+    const lResult = await getGitResult(["status", "--porcelain"], lErrorMap, pSpawnFunction);
+    return lResult;
 }
 /**
  *
  * @throws {Error}
  */
-export function getDiffLinesSync(pOldRevision, pNewRevision, pSpawnFunction = spawnSync) {
+export async function getDiffLines(pOldRevision, pNewRevision, pSpawnFunction = spawn) {
     const lErrorMap = {
         128: `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,
         129: `'${process.cwd()}' does not seem to be a git repository`,
     };
-    return getGitResultSync(pNewRevision
+    const lResult = await getGitResult(pNewRevision
         ? ["diff", pOldRevision, pNewRevision, "--name-status"]
         : ["diff", pOldRevision, "--name-status"], lErrorMap, pSpawnFunction);
+    return lResult;
 }
-export function getSHASync(pSpawnFunction = spawnSync) {
+export async function getSHA(pSpawnFunction = spawn) {
     const lSha1Length = 40;
-    return getGitResultSync(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(0, lSha1Length);
+    const lResult = await getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction);
+    return lResult.slice(0, lSha1Length);
 }

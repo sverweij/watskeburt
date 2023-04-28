@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { EOL } from "node:os";
 import { Option, program } from "commander";
-import { listSync } from "../dist/esm/main.js";
+import { list } from "../dist/esm/main.js";
 import { VERSION } from "./version.js";
 
 program
@@ -23,7 +23,7 @@ program
   .parse(process.argv);
 
 try {
-  console.log(listSync(program.args[0], program.args[1], program.opts()));
+  console.log(await list(program.args[0], program.args[1], program.opts()));
 } catch (pError) {
   console.error(`ERROR: ${pError.message}`);
 }

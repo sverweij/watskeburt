@@ -63,8 +63,33 @@ export function listSync(
 ): IChange[] | string;
 
 /**
+ * returns a list of files changed since pOldRevision.
+ *
+ * @param pOldRevision The revision against which to compare. E.g. a commit-hash,
+ *                 a branch or a tag. When not passed defaults to the _current_
+ *                 commit hash (if there's any)
+ * @param pNewRevision Newer revision against which to compare. Leave out or pass
+ *                 null when you want to compare against the working tree
+ * @param pOptions Options that influence how the changes are returned and that
+ *                 filter what is returned and
+ * @throws {Error}
+ */
+export function list(
+  pOldRevision?: string,
+  pNewRevision?: string,
+  pOptions?: IOptions
+): Promise<IChange[] | string>;
+
+/**
  * Returns the SHA1 of the current HEAD
  *
  * @throws {Error}
  */
 export function getSHASync(): string;
+
+/**
+ * Returns the SHA1 of the current HEAD
+ *
+ * @throws {Error}
+ */
+export function getSHA(): Promise<string>;
