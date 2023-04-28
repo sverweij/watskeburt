@@ -44,16 +44,16 @@
     "README.md"
   ],
   "dependencies": {
-    "commander": "10.0.0"
+    "commander": "10.0.1"
   },
   "devDependencies": {
     "@types/mocha": "10.0.1",
-    "@types/node": "18.15.11",
-    "@typescript-eslint/eslint-plugin": "5.58.0",
+    "@types/node": "18.16.2",
+    "@typescript-eslint/eslint-plugin": "5.59.1",
     "c8": "7.13.0",
-    "dependency-cruiser": "13.0.0-beta-1",
-    "esbuild": "0.17.16",
-    "eslint": "8.38.0",
+    "dependency-cruiser": "13.0.0-beta-5",
+    "esbuild": "0.17.18",
+    "eslint": "8.39.0",
     "eslint-config-moving-meadow": "4.0.2",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-budapestian": "5.0.1",
@@ -65,7 +65,7 @@
     "eslint-plugin-unicorn": "46.0.0",
     "mocha": "10.2.0",
     "npm-run-all": "4.1.5",
-    "prettier": "2.8.7",
+    "prettier": "2.8.8",
     "ts-node": "10.9.1",
     "typescript": "5.0.4",
     "upem": "7.3.2"
