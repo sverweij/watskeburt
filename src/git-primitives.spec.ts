@@ -5,7 +5,7 @@ import {
   getDiffLinesSync,
   getSHASync,
   getStatusShortSync,
-} from "./git-primitives.js";
+} from "./git-primitives-sync.js";
 
 describe("git-primitives - diff --name-status ", () => {
   it("throws in case of an invalid ref", () => {

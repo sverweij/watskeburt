@@ -7,7 +7,7 @@ import {
   getDiffLinesSync,
   getSHASync,
   getStatusShortSync,
-} from "./git-primitives.js";
+} from "./git-primitives-sync.js";
 import format from "./formatters/format.js";
 
 export function listSync(
@@ -30,4 +30,4 @@ export function listSync(
   return format(lChanges, lOptions.outputType);
 }
 
-export { getSHASync } from "./git-primitives.js";
+export { getSHASync } from "./git-primitives-sync.js";

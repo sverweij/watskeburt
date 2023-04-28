@@ -1,5 +1,5 @@
 import { convertDiffLines, convertStatusLines, } from "./convert-to-change-object.js";
-import { getDiffLinesSync, getSHASync, getStatusShortSync, } from "./git-primitives.js";
+import { getDiffLinesSync, getSHASync, getStatusShortSync, } from "./git-primitives-sync.js";
 import format from "./formatters/format.js";
 export function listSync(pOldRevision, pNewRevision, pOptions) {
     const lOldRevision = pOldRevision || getSHASync();
@@ -10,4 +10,4 @@ export function listSync(pOldRevision, pNewRevision, pOptions) {
     }
     return format(lChanges, lOptions.outputType);
 }
-export { getSHASync } from "./git-primitives.js";
+export { getSHASync } from "./git-primitives-sync.js";
