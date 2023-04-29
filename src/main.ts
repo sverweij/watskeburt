@@ -41,7 +41,9 @@ export async function list(
 
   const [lDiffLines, lStatusLines] = await Promise.all([
     getDiffLines(lOldRevision, pNewRevision),
-    lOptions.trackedOnly ? "" : getStatusShort(),
+    // to stay consistent with the use of trackedOnly below
+    // eslint-disable-next-line no-negated-condition
+    !lOptions.trackedOnly ? getStatusShort() : "",
   ]);
 
   let lChanges = convertDiffLines(lDiffLines);

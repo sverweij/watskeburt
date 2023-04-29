@@ -16,7 +16,7 @@ export async function list(pOldRevision, pNewRevision, pOptions) {
     const lOptions = pOptions || {};
     const [lDiffLines, lStatusLines] = await Promise.all([
         getDiffLines(lOldRevision, pNewRevision),
-        lOptions.trackedOnly ? "" : getStatusShort(),
+        !lOptions.trackedOnly ? getStatusShort() : "",
     ]);
     let lChanges = convertDiffLines(lDiffLines);
     if (!lOptions.trackedOnly) {
