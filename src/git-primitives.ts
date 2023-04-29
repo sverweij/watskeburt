@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChildProcess, spawn } from "node:child_process";
+import { type ChildProcess, spawn } from "node:child_process";
 
 function stringifyOutStream(pBufferOrString: Buffer | string): string {
   if (pBufferOrString instanceof Buffer) {
