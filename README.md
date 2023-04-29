@@ -35,13 +35,14 @@ console.log(getSHASync());
 // files not staged for commit and files not under revision control)
 /** @type {import('watskeburt').IChange[]} */
 const lChangedFiles = await list("main");
-// or, with the sync interface:
+// or with the synchronous interface:
 // const lChangedFiles = listSync("main");
 
 // list all files that differ between 'v0.6.1' and 'v0.7.1' (by definition
 // won't include files staged for commit and/ or not under revision control)
 /** @type {import('watskeburt').IChange[]} */
 const lChangedFiles = await list("v0.6.1", "v0.7.1");
+// or with the synchronous interface:
 // const lChangedFiles = listSync("v0.6.1", "v0.7.1");
 
 // As a third parameter you can pass some options
@@ -52,8 +53,8 @@ const lChangedFiles = await list("main", null, {
   trackedOnly: false, // when set to true leaves out files not under revision control
   outputType: "object", // other options: "json" and "regex" (as used in the CLI)
 });
-// or with synchronous code:
-// const lChangedFiles = listSynd("main", null, {
+// or with the synchronous interface:
+// const lChangedFiles = listSync("main", null, {
 //   trackedOnly: false, // when set to true leaves out files not under revision control
 //   outputType: "object", // other options: "json" and "regex" (as used in the CLI)
 // });
