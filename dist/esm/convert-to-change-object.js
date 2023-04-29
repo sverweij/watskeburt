@@ -1,7 +1,3 @@
-// the security (and unicorn) plugins don't seem to detect named caption
-// groups very well - false-flagging below regular expressions to be susceptible
-// to redos  attacks.
-/* eslint-disable unicorn/no-unsafe-regex, security/detect-unsafe-regex */
 import { EOL } from "node:os";
 const DIFF_NAME_STATUS_LINE_PATTERN = /^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
 const DIFF_SHORT_STATUS_LINE_PATTERN = /^(?<stagedChangeType>[ ACDMRTUXB?!])(?<unStagedChangeType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
@@ -17,10 +13,8 @@ const CHANGE_CHAR_2_CHANGE_TYPE = {
     " ": "unmodified",
     "?": "untracked",
     "!": "ignored",
-    // X: "unknown"
 };
 function changeChar2ChangeType(pChar) {
-    // eslint-disable-next-line security/detect-object-injection
     return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
 }
 export function convertStatusLine(pString) {

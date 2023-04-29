@@ -7,7 +7,6 @@ function stringifyOutStream(pError) {
         return pError;
     }
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function throwSpawnError(pError) {
     if (pError.code === "ENOENT") {
         throw new Error("git executable not found");
@@ -16,13 +15,9 @@ function throwSpawnError(pError) {
         throw new Error(`internal spawn error: ${pError}`);
     }
 }
-/**
- * @throws {Error}
- */
 function getGitResultSync(pArguments, pErrorMap, pSpawnFunction) {
     const lGitResult = pSpawnFunction("git", pArguments, {
         cwd: process.cwd(),
-        // eslint-disable-next-line node/no-process-env
         env: process.env,
     });
     if (lGitResult.error) {
@@ -36,19 +31,12 @@ function getGitResultSync(pArguments, pErrorMap, pSpawnFunction) {
             `internal git error: ${lGitResult.status} (${stringifyOutStream(lGitResult.stderr)})`);
     }
 }
-/**
- * @throws {Error}
- */
 export function getStatusShortSync(pSpawnFunction = spawnSync) {
     const lErrorMap = {
         129: `'${process.cwd()}' does not seem to be a git repository`,
     };
     return getGitResultSync(["status", "--porcelain"], lErrorMap, pSpawnFunction);
 }
-/**
- *
- * @throws {Error}
- */
 export function getDiffLinesSync(pOldRevision, pNewRevision, pSpawnFunction = spawnSync) {
     const lErrorMap = {
         128: `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,

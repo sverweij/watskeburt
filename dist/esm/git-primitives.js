@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { spawn } from "node:child_process";
 function stringifyOutStream(pBufferOrString) {
     if (pBufferOrString instanceof Buffer) {
@@ -8,13 +7,9 @@ function stringifyOutStream(pBufferOrString) {
         return pBufferOrString;
     }
 }
-/**
- * @throws {Error}
- */
 function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
     const lGit = pSpawnFunction("git", pArguments, {
         cwd: process.cwd(),
-        // eslint-disable-next-line node/no-process-env
         env: process.env,
     });
     let lStdOutData = "";
@@ -45,9 +40,6 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
         });
     });
 }
-/**
- * @throws {Error}
- */
 export async function getStatusShort(pSpawnFunction = spawn) {
     const lErrorMap = {
         129: `'${process.cwd()}' does not seem to be a git repository`,
@@ -55,10 +47,6 @@ export async function getStatusShort(pSpawnFunction = spawn) {
     const lResult = await getGitResult(["status", "--porcelain"], lErrorMap, pSpawnFunction);
     return lResult;
 }
-/**
- *
- * @throws {Error}
- */
 export async function getDiffLines(pOldRevision, pNewRevision, pSpawnFunction = spawn) {
     const lErrorMap = {
         128: `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,
