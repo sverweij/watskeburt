@@ -15,7 +15,7 @@ on:
 
 env:
   CI: true
-  NODE_LATEST: 19.x
+  NODE_LATEST: 20.x
 
 defaults:
   run:
@@ -29,7 +29,7 @@ jobs:
       matrix:
         node-version:
           - 14.x
-          - 19.x
+          - 20.x
         platform:
           - ubuntu-latest
 
@@ -66,7 +66,7 @@ jobs:
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
-          npx ts-node --esm tools/istanbul-json-summary-to-markdown.ts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
+          node --no-warnings --loader ts-node/esm tools/istanbul-json-summary-to-markdown.ts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
       - name: emit full depcruise results to step summary
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |

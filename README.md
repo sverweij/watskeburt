@@ -87,7 +87,7 @@ For now there's also a simple command line interface
 ```shell
 # list all JavaScript-ish files changed since main in a regular expression
 $ npx watskeburt main
-^(src/cli.mjs|src/formatters/regex.mjs|src/version.mjs)$
+^(src/cli\.mjs|src/formatters/regex\.mjs|src/version\.mjs)$
 ```
 
 By default this returns a regex that contains all changed files that could be
@@ -116,4 +116,4 @@ Options:
 _watskeburt_ is a fast pronunciation of the Dutch "wat is er gebeurd?"
 (_what has happened?_) or "wat er is gebeurd" (_what has happened_). It's
 also the title of a song by the Dutch band "De Jeugd van Tegenwoordig"
-(_Youth these days..._).
+(_Youth these days_).

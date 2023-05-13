@@ -1,8 +1,9 @@
 import { deepEqual } from "node:assert";
+import type { IChange } from "../../types/watskeburt.js";
 import format from "./regex.js";
 
 describe("regex formatter", () => {
-  const lChangesOfEachType = [
+  const lChangesOfEachType: IChange[] = [
     { changeType: "added", name: "added.mjs" },
     { changeType: "copied", name: "copied.mjs" },
     { changeType: "deleted", name: "deleted.mjs" },
@@ -25,7 +26,7 @@ describe("regex formatter", () => {
   it("one file in diff yields regex with that thing", () => {
     deepEqual(
       format([{ changeType: "added", name: "added.mjs" }]),
-      "^(added.mjs)$"
+      "^(added\\.mjs)$"
     );
   });
 
@@ -35,14 +36,14 @@ describe("regex formatter", () => {
         { changeType: "added", name: "added.mjs" },
         { changeType: "modified", name: "changed.mjs" },
       ]),
-      "^(added.mjs|changed.mjs)$"
+      "^(added\\.mjs|changed\\.mjs)$"
     );
   });
 
   it("by default only takes changes into account that changed the contents + untracked files", () => {
     deepEqual(
       format(lChangesOfEachType),
-      "^(added.mjs|copied.mjs|modified.mjs|renamed.mjs|untracked.mjs)$"
+      "^(added\\.mjs|copied\\.mjs|modified\\.mjs|renamed\\.mjs|untracked\\.mjs)$"
     );
   });
 
@@ -53,7 +54,7 @@ describe("regex formatter", () => {
         new Set([".mjs"]),
         new Set(["type changed", "pairing broken", "ignored"])
       ),
-      "^(type-changed.mjs|pairing-broken.mjs|ignored.mjs)$"
+      "^(type-changed\\.mjs|pairing-broken\\.mjs|ignored\\.mjs)$"
     );
   });
 
@@ -88,7 +89,7 @@ describe("regex formatter", () => {
         ],
         new Set([".aap", ".noot", ".mies"])
       ),
-      "^(added.aap|modified.aap|added.noot|added.mies)$"
+      "^(added\\.aap|modified\\.aap|added\\.noot|added\\.mies)$"
     );
   });
 });
