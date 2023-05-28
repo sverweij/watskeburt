@@ -43,9 +43,6 @@
     "package.json",
     "README.md"
   ],
-  "dependencies": {
-    "commander": "10.0.1"
-  },
   "devDependencies": {
     "@types/mocha": "10.0.1",
     "@types/node": "20.1.4",
@@ -71,11 +68,11 @@
     "upem": "7.3.2"
   },
   "engines": {
-    "node": "^14||^16||>=18"
+    "node": "^16.19||^18.11||>=20"
   },
   "scripts": {
     "build": "npm-run-all --sequential build:clean build:version build:dist",
-    "build:version": "node --no-warnings --loader ts-node/esm tools/get-version.ts > bin/version.js",
+    "build:version": "node --no-warnings --loader ts-node/esm tools/get-version.ts > src/version.ts",
     "build:clean": "rm -rf dist/*",
     "build:dist": "npm-run-all build:dist:*",
     "build:dist:cjs": "esbuild src/main.ts --format=cjs --target=node14 --platform=node --bundle --global-name=wkbtcjs --minify --outfile=dist/cjs-bundle.cjs",
