@@ -1,7 +1,7 @@
 * text eol=lf
-dist linguist-generated
+dist/** linguist-generated
 src/version.ts linguist-generated
-docs linguist-documentation
+docs/** linguist-documentation
 
 *.jpg binary
 *.kra binary
