@@ -30,7 +30,7 @@ export default function formatToRegex(pChanges, pExtensions = DEFAULT_EXTENSIONS
         .filter((pChange) => pChangeTypes.has(pChange.changeType))
         .map(({ name }) => name)
         .filter((pName) => pExtensions.has(extname(pName)))
-        .map((pName) => pName.replace(/\./g, "\\."))
+        .map((pName) => pName.replace(/\\/g, "\\\\").replace(/\./g, "\\."))
         .join("|");
     return `^(${lChanges})$`;
 }

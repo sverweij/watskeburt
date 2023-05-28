@@ -30,6 +30,13 @@ describe("regex formatter", () => {
     );
   });
 
+  it("one file in diff with a backslash in its name (wut) yields regex with that thing", () => {
+    deepEqual(
+      format([{ changeType: "added", name: "ad\\ded.mjs" }]),
+      "^(ad\\\\ded\\.mjs)$"
+    );
+  });
+
   it(">1 file in diff yields regex with these things thing", () => {
     deepEqual(
       format([
