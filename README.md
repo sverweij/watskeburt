@@ -98,7 +98,7 @@ The JSON output (which looks a lot like the array above) is unfiltered and
 also contains other extensions.
 
 ```
-Usage: cli [options] [old-revision] [new-revision]
+Usage: watskeburt [options] [old-revision] [new-revision]
 
 lists files & their statuses since [old-revision] or between [old-revision] and [new-revision].
 
