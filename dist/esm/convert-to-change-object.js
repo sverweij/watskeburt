@@ -14,8 +14,12 @@ const CHANGE_CHAR_2_CHANGE_TYPE = {
     "?": "untracked",
     "!": "ignored",
 };
-function changeChar2ChangeType(pChar) {
-    return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
+export function convertStatusLines(pString) {
+    return pString
+        .split(EOL)
+        .filter(Boolean)
+        .map(convertStatusLine)
+        .filter(({ name, changeType }) => Boolean(name) && Boolean(changeType));
 }
 export function convertStatusLine(pString) {
     const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
@@ -37,6 +41,13 @@ export function convertStatusLine(pString) {
     }
     return lReturnValue;
 }
+export function convertDiffLines(pString) {
+    return pString
+        .split(EOL)
+        .filter(Boolean)
+        .map(convertDiffLine)
+        .filter(({ name, changeType }) => Boolean(name) && Boolean(changeType));
+}
 export function convertDiffLine(pString) {
     const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
     const lReturnValue = {};
@@ -52,17 +63,6 @@ export function convertDiffLine(pString) {
     }
     return lReturnValue;
 }
-export function convertStatusLines(pString) {
-    return pString
-        .split(EOL)
-        .filter(Boolean)
-        .map(convertStatusLine)
-        .filter(({ name, changeType }) => Boolean(name) && Boolean(changeType));
-}
-export function convertDiffLines(pString) {
-    return pString
-        .split(EOL)
-        .filter(Boolean)
-        .map(convertDiffLine)
-        .filter(({ name, changeType }) => Boolean(name) && Boolean(changeType));
+function changeChar2ChangeType(pChar) {
+    return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
 }

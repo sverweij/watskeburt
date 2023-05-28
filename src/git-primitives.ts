@@ -1,16 +1,56 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { type ChildProcess, spawn } from "node:child_process";
 
-function stringifyOutStream(pBufferOrString: Buffer | string): string {
-  if (pBufferOrString instanceof Buffer) {
-    return pBufferOrString.toString("utf8");
-  } else {
-    return pBufferOrString;
-  }
-}
-
 interface IErrorMapType {
   [index: number]: string;
+}
+
+/**
+ * @throws {Error}
+ */
+export async function getStatusShort(pSpawnFunction = spawn): Promise<string> {
+  const lErrorMap: IErrorMapType = {
+    129: `'${process.cwd()}' does not seem to be a git repository`,
+  };
+  const lResult = await getGitResult(
+    ["status", "--porcelain"],
+    lErrorMap,
+    pSpawnFunction
+  );
+  return lResult;
+}
+
+/**
+ *
+ * @throws {Error}
+ */
+export async function getDiffLines(
+  pOldRevision: string,
+  pNewRevision?: string | undefined,
+  pSpawnFunction = spawn
+): Promise<string> {
+  const lErrorMap: IErrorMapType = {
+    128: `revision '${pOldRevision}' ${
+      pNewRevision ? `(or '${pNewRevision}') ` : ""
+    }unknown`,
+    129: `'${process.cwd()}' does not seem to be a git repository`,
+  };
+
+  const lResult = await getGitResult(
+    pNewRevision
+      ? ["diff", pOldRevision, pNewRevision, "--name-status"]
+      : ["diff", pOldRevision, "--name-status"],
+    lErrorMap,
+    pSpawnFunction
+  );
+  return lResult;
+}
+
+export async function getSHA(pSpawnFunction = spawn): Promise<string> {
+  const lSha1Length = 40;
+
+  const lResult = await getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction);
+  return lResult.slice(0, lSha1Length);
 }
 
 /**
@@ -63,50 +103,10 @@ function getGitResult(
   });
 }
 
-/**
- * @throws {Error}
- */
-export async function getStatusShort(pSpawnFunction = spawn): Promise<string> {
-  const lErrorMap: IErrorMapType = {
-    129: `'${process.cwd()}' does not seem to be a git repository`,
-  };
-  const lResult = await getGitResult(
-    ["status", "--porcelain"],
-    lErrorMap,
-    pSpawnFunction
-  );
-  return lResult;
-}
-
-/**
- *
- * @throws {Error}
- */
-export async function getDiffLines(
-  pOldRevision: string,
-  pNewRevision?: string | undefined,
-  pSpawnFunction = spawn
-): Promise<string> {
-  const lErrorMap: IErrorMapType = {
-    128: `revision '${pOldRevision}' ${
-      pNewRevision ? `(or '${pNewRevision}') ` : ""
-    }unknown`,
-    129: `'${process.cwd()}' does not seem to be a git repository`,
-  };
-
-  const lResult = await getGitResult(
-    pNewRevision
-      ? ["diff", pOldRevision, pNewRevision, "--name-status"]
-      : ["diff", pOldRevision, "--name-status"],
-    lErrorMap,
-    pSpawnFunction
-  );
-  return lResult;
-}
-
-export async function getSHA(pSpawnFunction = spawn): Promise<string> {
-  const lSha1Length = 40;
-
-  const lResult = await getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction);
-  return lResult.slice(0, lSha1Length);
+function stringifyOutStream(pBufferOrString: Buffer | string): string {
+  if (pBufferOrString instanceof Buffer) {
+    return pBufferOrString.toString("utf8");
+  } else {
+    return pBufferOrString;
+  }
 }

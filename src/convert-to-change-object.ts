@@ -25,9 +25,14 @@ const CHANGE_CHAR_2_CHANGE_TYPE: { [index: string]: changeTypeType } = {
   // X: "unknown"
 };
 
-function changeChar2ChangeType(pChar: string): changeTypeType {
-  // eslint-disable-next-line security/detect-object-injection
-  return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
+export function convertStatusLines(pString: string): IChange[] {
+  return pString
+    .split(EOL)
+    .filter(Boolean)
+    .map(convertStatusLine)
+    .filter(
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+    ) as IChange[];
 }
 
 export function convertStatusLine(pString: string): Partial<IChange> {
@@ -57,6 +62,16 @@ export function convertStatusLine(pString: string): Partial<IChange> {
   return lReturnValue;
 }
 
+export function convertDiffLines(pString: string): IChange[] {
+  return pString
+    .split(EOL)
+    .filter(Boolean)
+    .map(convertDiffLine)
+    .filter(
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+    ) as IChange[];
+}
+
 export function convertDiffLine(pString: string): Partial<IChange> {
   const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
   const lReturnValue: Partial<IChange> = {};
@@ -75,22 +90,7 @@ export function convertDiffLine(pString: string): Partial<IChange> {
   return lReturnValue;
 }
 
-export function convertStatusLines(pString: string): IChange[] {
-  return pString
-    .split(EOL)
-    .filter(Boolean)
-    .map(convertStatusLine)
-    .filter(
-      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
-    ) as IChange[];
-}
-
-export function convertDiffLines(pString: string): IChange[] {
-  return pString
-    .split(EOL)
-    .filter(Boolean)
-    .map(convertDiffLine)
-    .filter(
-      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
-    ) as IChange[];
+function changeChar2ChangeType(pChar: string): changeTypeType {
+  // eslint-disable-next-line security/detect-object-injection
+  return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
 }

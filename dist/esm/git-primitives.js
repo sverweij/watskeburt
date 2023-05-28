@@ -1,11 +1,25 @@
 import { spawn } from "node:child_process";
-function stringifyOutStream(pBufferOrString) {
-    if (pBufferOrString instanceof Buffer) {
-        return pBufferOrString.toString("utf8");
-    }
-    else {
-        return pBufferOrString;
-    }
+export async function getStatusShort(pSpawnFunction = spawn) {
+    const lErrorMap = {
+        129: `'${process.cwd()}' does not seem to be a git repository`,
+    };
+    const lResult = await getGitResult(["status", "--porcelain"], lErrorMap, pSpawnFunction);
+    return lResult;
+}
+export async function getDiffLines(pOldRevision, pNewRevision, pSpawnFunction = spawn) {
+    const lErrorMap = {
+        128: `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,
+        129: `'${process.cwd()}' does not seem to be a git repository`,
+    };
+    const lResult = await getGitResult(pNewRevision
+        ? ["diff", pOldRevision, pNewRevision, "--name-status"]
+        : ["diff", pOldRevision, "--name-status"], lErrorMap, pSpawnFunction);
+    return lResult;
+}
+export async function getSHA(pSpawnFunction = spawn) {
+    const lSha1Length = 40;
+    const lResult = await getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction);
+    return lResult.slice(0, lSha1Length);
 }
 function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
     const lGit = pSpawnFunction("git", pArguments, {
@@ -40,25 +54,11 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
         });
     });
 }
-export async function getStatusShort(pSpawnFunction = spawn) {
-    const lErrorMap = {
-        129: `'${process.cwd()}' does not seem to be a git repository`,
-    };
-    const lResult = await getGitResult(["status", "--porcelain"], lErrorMap, pSpawnFunction);
-    return lResult;
-}
-export async function getDiffLines(pOldRevision, pNewRevision, pSpawnFunction = spawn) {
-    const lErrorMap = {
-        128: `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,
-        129: `'${process.cwd()}' does not seem to be a git repository`,
-    };
-    const lResult = await getGitResult(pNewRevision
-        ? ["diff", pOldRevision, pNewRevision, "--name-status"]
-        : ["diff", pOldRevision, "--name-status"], lErrorMap, pSpawnFunction);
-    return lResult;
-}
-export async function getSHA(pSpawnFunction = spawn) {
-    const lSha1Length = 40;
-    const lResult = await getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction);
-    return lResult.slice(0, lSha1Length);
+function stringifyOutStream(pBufferOrString) {
+    if (pBufferOrString instanceof Buffer) {
+        return pBufferOrString.toString("utf8");
+    }
+    else {
+        return pBufferOrString;
+    }
 }
