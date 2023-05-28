@@ -21,6 +21,8 @@ module.exports = {
         "sort-imports": "off",
         "unicorn/prefer-node-protocol": "error",
         "unicorn/prefer-module": "error",
+        "no-use-before-define": "off",
+        "import/exports-last": "off",
         // node/no-missing-import and import/no-unresolved can't handle
         // .js extensions pointing to seemingly typescript files. No
         // man overboard as we check this with dependency-cruiser anyway

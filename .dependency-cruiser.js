@@ -5,11 +5,10 @@ export default {
       name: "no-deep-deps-from-cli",
       severity: "error",
       from: {
-        path: "(^bin/)cli.js",
+        path: "^bin/cli\\.js$",
       },
       to: {
         pathNot: ["^dist/", "$1"],
-        dependencyTypesNot: ["npm", "core"],
       },
     },
     {
@@ -19,7 +18,11 @@ export default {
       },
       to: {
         path: "^src/",
-        pathNot: ["\\.spec\\.ts$", "bin/(cli|version)\\.js"],
+        pathNot: [
+          "\\.spec\\.ts$",
+          "^bin/cli\\.js$",
+          "^src/(cli|version)\\.ts$",
+        ],
         reachable: false,
       },
     },

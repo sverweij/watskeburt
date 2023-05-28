@@ -1,6 +1,6 @@
 * text eol=lf
 dist linguist-generated
-bin/version.mjs linguist-generated
+src/version.ts linguist-generated
 docs linguist-documentation
 
 *.jpg binary
