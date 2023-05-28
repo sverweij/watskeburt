@@ -98,17 +98,17 @@ The JSON output (which looks a lot like the array above) is unfiltered and
 also contains other extensions.
 
 ```
-Usage: cli [options] [revision]
+Usage: cli [options] [old-revision] [new-revision]
 
-lists files & their statuses since [revision].
+lists files & their statuses since [old-revision] or between [old-revision] and [new-revision].
 
--> When you don't pass a revision the revision defaults to the current one.
+-> When you don't pass a revision at all old-revision defaults to the current one.
 
 Options:
-  -V, --version             output the version number
-  -T, --output-type <type>  json,regex (default: "regex")
-  --tracked-only            only take tracked files into account (default: false)
-  -h, --help                display help for command
+  -T, --outputType <type>  what format to emit (choices: "json", "regex", default: "regex")
+  --trackedOnly            only take tracked files into account (default: false)
+  -V, --version            output the version number
+  -h, --help               display help for command
 ```
 
 ## 🇳🇱 what does 'watskeburt' mean?
