@@ -1,58 +1,7 @@
 import { spawnSync, SpawnSyncReturns } from "node:child_process";
 
-function stringifyOutStream(pError: Buffer | string): string {
-  if (pError instanceof Buffer) {
-    return pError.toString("utf8");
-  } else {
-    return pError;
-  }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function throwSpawnError(pError: any) {
-  if (pError.code === "ENOENT") {
-    throw new Error("git executable not found");
-  } else {
-    throw new Error(`internal spawn error: ${pError}`);
-  }
-}
-
 interface IErrorMapType {
   [index: number]: string;
-}
-
-/**
- * @throws {Error}
- */
-function getGitResultSync(
-  pArguments: string[],
-  pErrorMap: IErrorMapType,
-  pSpawnFunction: typeof spawnSync
-): string {
-  const lGitResult: SpawnSyncReturns<Buffer> = pSpawnFunction(
-    "git",
-    pArguments,
-    {
-      cwd: process.cwd(),
-      // eslint-disable-next-line node/no-process-env
-      env: process.env,
-    }
-  );
-
-  if (lGitResult.error) {
-    throwSpawnError(lGitResult.error);
-  }
-
-  if (lGitResult.status === 0) {
-    return stringifyOutStream(lGitResult.stdout);
-  } else {
-    throw new Error(
-      pErrorMap[lGitResult.status ?? 0] ||
-        `internal git error: ${lGitResult.status} (${stringifyOutStream(
-          lGitResult.stderr
-        )})`
-    );
-  }
 }
 
 /**
@@ -97,4 +46,55 @@ export function getSHASync(pSpawnFunction = spawnSync): string {
     0,
     lSha1Length
   );
+}
+
+/**
+ * @throws {Error}
+ */
+function getGitResultSync(
+  pArguments: string[],
+  pErrorMap: IErrorMapType,
+  pSpawnFunction: typeof spawnSync
+): string {
+  const lGitResult: SpawnSyncReturns<Buffer> = pSpawnFunction(
+    "git",
+    pArguments,
+    {
+      cwd: process.cwd(),
+      // eslint-disable-next-line node/no-process-env
+      env: process.env,
+    }
+  );
+
+  if (lGitResult.error) {
+    throwSpawnError(lGitResult.error);
+  }
+
+  if (lGitResult.status === 0) {
+    return stringifyOutStream(lGitResult.stdout);
+  } else {
+    throw new Error(
+      pErrorMap[lGitResult.status ?? 0] ||
+        `internal git error: ${lGitResult.status} (${stringifyOutStream(
+          lGitResult.stderr
+        )})`
+    );
+  }
+}
+
+function stringifyOutStream(pError: Buffer | string): string {
+  if (pError instanceof Buffer) {
+    return pError.toString("utf8");
+  } else {
+    return pError;
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function throwSpawnError(pError: any) {
+  if (pError.code === "ENOENT") {
+    throw new Error("git executable not found");
+  } else {
+    throw new Error(`internal spawn error: ${pError}`);
+  }
 }
