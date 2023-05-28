@@ -1,17 +1,16 @@
 import { EOL } from "node:os";
 import { parseArgs } from "node:util";
+import { type IOptions } from "types/watskeburt.js";
 import { list } from "./main.js";
 import { VERSION } from "./version.js";
 
-interface IOptions {
-  outputType: "regex" | "json";
-  trackedOnly: boolean;
+interface ICLIOptions extends Required<IOptions> {
   help: boolean;
   version: boolean;
 }
 
 interface IArguments {
-  values: IOptions;
+  values: ICLIOptions;
   positionals: string[];
 }
 
