@@ -1,5 +1,6 @@
 import { EOL } from "node:os";
 import { parseArgs } from "node:util";
+import { type Writable } from "node:stream";
 import { type IOptions } from "types/watskeburt.js";
 import { list } from "./main.js";
 import { VERSION } from "./version.js";
@@ -29,8 +30,8 @@ Options:
 export async function cli(
   // eslint-disable-next-line no-magic-numbers
   pArguments: string[] = process.argv.slice(2),
-  pOutStream = process.stdout,
-  pErrorStream = process.stderr
+  pOutStream: Writable = process.stdout,
+  pErrorStream: Writable = process.stderr
 ) {
   try {
     const lArguments = getArguments(pArguments);

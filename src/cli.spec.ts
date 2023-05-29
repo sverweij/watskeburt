@@ -22,9 +22,7 @@ describe("cli", () => {
   it("shows the version number when asked for", async () => {
     const lOutStream = new WritableTestStream(/^[0-9]+\.[0-9]+\.[0-9]+(-)?.*/);
     const lErrorStream = new WritableTestStream();
-    // @ts-expect-error can't assign WritableTestSTream to WriteStream
     await cli(["-V"], lOutStream, lErrorStream);
-    // @ts-expect-error can't assign WritableTestSTream to WriteStream
     await cli(["--version"], lOutStream, lErrorStream);
   });
 
@@ -33,9 +31,7 @@ describe("cli", () => {
       /^Usage: watskeburt \[options\] \[old-revision\] \[new-revision\].*/
     );
     const lErrorStream = new WritableTestStream();
-    // @ts-expect-error can't assign WritableTestSTream to WriteStream
     await cli(["-h"], lOutStream, lErrorStream);
-    // @ts-expect-error can't assign WritableTestSTream to WriteStream
     await cli(["--help"], lOutStream, lErrorStream);
   });
 
@@ -44,7 +40,6 @@ describe("cli", () => {
     const lErrorStream = new WritableTestStream(
       /.*ERROR:.*'--thisArgumentDoesNotExist'.*/
     );
-    // @ts-expect-error can't assign WritableTestSTream to WriteStream
     await cli(["--thisArgumentDoesNotExist"], lOutStream, lErrorStream);
   });
 
@@ -55,7 +50,6 @@ describe("cli", () => {
     );
     await cli(
       ["this-is-not-likely-to-be-a-known-revision"],
-      // @ts-expect-error can't assign WritableTestSTream to WriteStream
       lOutStream,
       lErrorStream
     );
@@ -66,12 +60,7 @@ describe("cli", () => {
     const lErrorStream = new WritableTestStream(
       /^error:.*argument 'invalid-reporter-type' is invalid.*/
     );
-    await cli(
-      ["-T", "invalid-reporter-type"],
-      // @ts-expect-error can't assign WritableTestSTream to WriteStream
-      lOutStream,
-      lErrorStream
-    );
+    await cli(["-T", "invalid-reporter-type"], lOutStream, lErrorStream);
   });
 
   it("emits ", async () => {
@@ -79,7 +68,6 @@ describe("cli", () => {
     const lErrorStream = new WritableTestStream();
     await cli(
       ["-T", "json", "--trackedOnly", getSHASync(), getSHASync()],
-      // @ts-expect-error can't assign WritableTestSTream to WriteStream
       lOutStream,
       lErrorStream
     );
