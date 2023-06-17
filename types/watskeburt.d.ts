@@ -29,12 +29,12 @@ export interface IChange {
 
 export type outputTypeType = "regex" | "json" | "object";
 
-export interface IOptions {
+export interface IFormatOptions {
   /**
    * The type of output to deliver. Defaults to "object" - in which case
    * the listSync function returns an IChange[] object
    */
-  outputType?: outputTypeType;
+  outputType: "regex" | "json";
   /**
    * When true _only_ takes already tracked files into account.
    * When false also takes untracked files into account.
@@ -43,6 +43,23 @@ export interface IOptions {
    */
   trackedOnly?: boolean;
 }
+
+export interface IInternalOptions {
+  /**
+   * The type of output to deliver. Defaults to "object" - in which case
+   * the listSync function returns an IChange[] object
+   */
+  outputType?: "object";
+  /**
+   * When true _only_ takes already tracked files into account.
+   * When false also takes untracked files into account.
+   *
+   * Defaults to false.
+   */
+  trackedOnly?: boolean;
+}
+
+export type IOptions = IFormatOptions | IInternalOptions;
 
 /**
  * returns a list of files changed since pOldRevision.
@@ -59,11 +76,30 @@ export interface IOptions {
 export function listSync(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IOptions
-): IChange[] | string;
+  pOptions?: IInternalOptions
+): IChange[];
 
 /**
- * returns a list of files changed since pOldRevision.
+ * returns a list of files changed since pOldRevision formatted into a string
+ * as pOptions.outputType
+ *
+ * @param pOldRevision The revision against which to compare. E.g. a commit-hash,
+ *                 a branch or a tag. When not passed defaults to the _current_
+ *                 commit hash (if there's any)
+ * @param pNewRevision Newer revision against which to compare. Leave out or pass
+ *                 null when you want to compare against the working tree
+ * @param pOptions Options that influence how the changes are returned and that
+ *                 filter what is returned and
+ * @throws {Error}
+ */
+export function listSync(
+  pOldRevision?: string,
+  pNewRevision?: string,
+  pOptions?: IFormatOptions
+): string;
+
+/**
+ * returns promise of a list of files changed since pOldRevision.
  *
  * @param pOldRevision The revision against which to compare. E.g. a commit-hash,
  *                 a branch or a tag. When not passed defaults to the _current_
@@ -77,8 +113,27 @@ export function listSync(
 export function list(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IOptions
-): Promise<IChange[] | string>;
+  pOptions?: IInternalOptions
+): Promise<IChange[]>;
+
+/**
+ * returns promise a list of files changed since pOldRevision, formatted into a
+ * string as a pOptions.outputType
+ *
+ * @param pOldRevision The revision against which to compare. E.g. a commit-hash,
+ *                 a branch or a tag. When not passed defaults to the _current_
+ *                 commit hash (if there's any)
+ * @param pNewRevision Newer revision against which to compare. Leave out or pass
+ *                 null when you want to compare against the working tree
+ * @param pOptions Options that influence how the changes are returned and that
+ *                 filter what is returned and
+ * @throws {Error}
+ */
+export function list(
+  pOldRevision?: string,
+  pNewRevision?: string,
+  pOptions?: IFormatOptions
+): Promise<string>;
 
 /**
  * Returns the SHA1 of the current HEAD
