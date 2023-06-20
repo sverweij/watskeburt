@@ -82,7 +82,8 @@ The array of changes this returns looks like this:
 
 ### :shell: cli
 
-For now there's also a simple command line interface
+For now there's also a simple command line interface (which works from node ^16.19 and
+node >=18.11).
 
 ```shell
 # list all JavaScript-ish files changed since main in a regular expression

@@ -68,7 +68,7 @@
     "upem": "8.0.0"
   },
   "engines": {
-    "node": "^16.19||^18.11||>=20"
+    "node": "^16.14||>=18"
   },
   "scripts": {
     "build": "npm-run-all --sequential build:clean build:version build:dist",
