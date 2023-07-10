@@ -10,9 +10,9 @@ const OUTPUT_TYPE_TO_FUNCTION = new Map([
 
 export default function format(
   pChanges: IChange[],
-  pOutputType?: outputTypeType
+  pOutputType?: outputTypeType,
 ): string | IChange[] {
   return (OUTPUT_TYPE_TO_FUNCTION.get(pOutputType ?? "unknown") || identity)(
-    pChanges
+    pChanges,
   );
 }

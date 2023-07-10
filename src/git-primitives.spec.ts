@@ -23,7 +23,7 @@ describe("git-primitives - diff --name-status ", () => {
     } catch (pError) {
       match(
         pError.message,
-        /revision 'not-a-revision' \(or 'neither-is-this'\) unknown/
+        /revision 'not-a-revision' \(or 'neither-is-this'\) unknown/,
       );
     }
   });
@@ -40,7 +40,7 @@ describe("git-primitives - diff --name-status ", () => {
       "this-is-a-real-branch",
       undefined,
       // @ts-expect-error is only compatible with the spawn call where it matters ...
-      () => lChildProcess
+      () => lChildProcess,
     );
     lChildProcess.stdout.emit("data", lExpected);
     lChildProcess.emit("close", 0);
@@ -61,7 +61,7 @@ describe("git-primitives - diff --name-status ", () => {
       "main",
       undefined,
       // @ts-expect-error is only compatible with the spawn call where it matters ...
-      () => lChildProcess
+      () => lChildProcess,
     );
     lChildProcess.stderr.emit("data", "scary message");
     lChildProcess.emit("close", 129);
@@ -89,7 +89,7 @@ describe("git-primitives - status", () => {
       "main",
       undefined,
       // @ts-expect-error is only compatible with the spawn call where it matters ...
-      () => lChildProcess
+      () => lChildProcess,
     );
     lChildProcess.emit("error", { code: "ENOENT" });
 
@@ -113,7 +113,7 @@ describe("git-primitives - status", () => {
       "main",
       undefined,
       // @ts-expect-error is only compatible with the spawn call where it matters ...
-      () => lChildProcess
+      () => lChildProcess,
     );
     lChildProcess.emit("error", { code: "HELICOPTER" });
 
@@ -138,7 +138,7 @@ describe("git-primitives - status", () => {
       "main",
       undefined,
       // @ts-expect-error is only compatible with the spawn call where it matters ...
-      () => lChildProcess
+      () => lChildProcess,
     );
     lChildProcess.stderr.emit("data", Buffer.from("neighbor of the beast"));
     lChildProcess.emit("close", 667);
@@ -152,7 +152,7 @@ describe("git-primitives - status", () => {
         try {
           match(
             pError.message,
-            /internal git error: 667 \(neighbor of the beast\)/
+            /internal git error: 667 \(neighbor of the beast\)/,
           );
           pDone();
         } catch (_pError) {
@@ -167,7 +167,7 @@ describe("git-primitives - status", () => {
       "main",
       undefined,
       // @ts-expect-error is only compatible with the spawn call where it matters ...
-      () => lChildProcess
+      () => lChildProcess,
     );
     lChildProcess.stderr.emit("data", Buffer.from("neighbor of the beast"));
     lChildProcess.emit("close");
@@ -181,7 +181,7 @@ describe("git-primitives - status", () => {
         try {
           match(
             pError.message,
-            /internal git error: undefined \(neighbor of the beast\)/
+            /internal git error: undefined \(neighbor of the beast\)/,
           );
           pDone();
         } catch (_pError) {

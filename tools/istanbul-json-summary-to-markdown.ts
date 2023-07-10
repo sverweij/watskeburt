@@ -53,7 +53,7 @@ function main(pInStream: Readable, pOutStream: Writable) {
       /* c8 ignore start */
       (pError) => {
         process.stderr.write(`${pError}\n`);
-      }
+      },
       /* c8 ignore stop */
     )
     .on("data", (pChunk) => {

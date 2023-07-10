@@ -13,7 +13,7 @@ describe("convert diff line to change object", () => {
       {
         changeType: "modified",
         name: "test/report/markdown/markdown.spec.mjs",
-      }
+      },
     );
   });
 
@@ -23,20 +23,20 @@ describe("convert diff line to change object", () => {
       {
         changeType: "added",
         name: "test/report/markdown/markdown.spec.mjs",
-      }
+      },
     );
   });
 
   it("recognizes Renamed files", () => {
     deepEqual(
       convertDiffLine(
-        "R066\ttest/report/markdown/markdown.spec.mjs\ttest/report/markdown/markdown-short.spec.mjs"
+        "R066\ttest/report/markdown/markdown.spec.mjs\ttest/report/markdown/markdown-short.spec.mjs",
       ),
       {
         changeType: "renamed",
         name: "test/report/markdown/markdown-short.spec.mjs",
         oldName: "test/report/markdown/markdown.spec.mjs",
-      }
+      },
     );
   });
 
@@ -85,7 +85,7 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
           name: "to",
           oldName: "from",
         },
-      ]
+      ],
     );
   });
 });
@@ -137,7 +137,7 @@ describe("convert status lines to change objects", () => {
           "?? nottracked",
           "!! ignore",
           "D  deleted",
-        ].join("\n")
+        ].join("\n"),
       ),
       [
         {
@@ -165,7 +165,7 @@ describe("convert status lines to change objects", () => {
           changeType: "deleted",
           name: "deleted",
         },
-      ]
+      ],
     );
   });
 });

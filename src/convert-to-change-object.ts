@@ -31,7 +31,7 @@ export function convertStatusLines(pString: string): IChange[] {
     .filter(Boolean)
     .map(convertStatusLine)
     .filter(
-      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType),
     ) as IChange[];
 }
 
@@ -41,10 +41,10 @@ export function convertStatusLine(pString: string): Partial<IChange> {
 
   if (lMatchResult?.groups) {
     const lStagedChangeType = changeChar2ChangeType(
-      lMatchResult.groups.stagedChangeType
+      lMatchResult.groups.stagedChangeType,
     );
     const lUnStagedChangeType = changeChar2ChangeType(
-      lMatchResult.groups.unStagedChangeType
+      lMatchResult.groups.unStagedChangeType,
     );
 
     lReturnValue.changeType =
@@ -68,7 +68,7 @@ export function convertDiffLines(pString: string): IChange[] {
     .filter(Boolean)
     .map(convertDiffLine)
     .filter(
-      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType),
     ) as IChange[];
 }
 
@@ -78,7 +78,7 @@ export function convertDiffLine(pString: string): Partial<IChange> {
 
   if (lMatchResult?.groups) {
     lReturnValue.changeType = changeChar2ChangeType(
-      lMatchResult.groups.changeType
+      lMatchResult.groups.changeType,
     );
     if (lMatchResult.groups.newName) {
       lReturnValue.name = lMatchResult.groups.newName;

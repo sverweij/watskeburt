@@ -76,7 +76,7 @@ export type IOptions = IFormatOptions | IInternalOptions;
 export function listSync(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IInternalOptions
+  pOptions?: IInternalOptions,
 ): IChange[];
 
 /**
@@ -95,7 +95,7 @@ export function listSync(
 export function listSync(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IFormatOptions
+  pOptions?: IFormatOptions,
 ): string;
 
 /**
@@ -113,7 +113,7 @@ export function listSync(
 export function list(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IInternalOptions
+  pOptions?: IInternalOptions,
 ): Promise<IChange[]>;
 
 /**
@@ -132,7 +132,7 @@ export function list(
 export function list(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IFormatOptions
+  pOptions?: IFormatOptions,
 ): Promise<string>;
 
 /**

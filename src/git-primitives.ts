@@ -13,7 +13,7 @@ export async function getStatusShort(pSpawnFunction = spawn): Promise<string> {
   const lResult = await getGitResult(
     ["status", "--porcelain"],
     lErrorMap,
-    pSpawnFunction
+    pSpawnFunction,
   );
   return lResult;
 }
@@ -25,7 +25,7 @@ export async function getStatusShort(pSpawnFunction = spawn): Promise<string> {
 export async function getDiffLines(
   pOldRevision: string,
   pNewRevision?: string | undefined,
-  pSpawnFunction = spawn
+  pSpawnFunction = spawn,
 ): Promise<string> {
   const lErrorMap: IErrorMapType = new Map([
     [
@@ -42,7 +42,7 @@ export async function getDiffLines(
       ? ["diff", pOldRevision, pNewRevision, "--name-status"]
       : ["diff", pOldRevision, "--name-status"],
     lErrorMap,
-    pSpawnFunction
+    pSpawnFunction,
   );
   return lResult;
 }
@@ -53,7 +53,7 @@ export async function getSHA(pSpawnFunction = spawn): Promise<string> {
   const lResult = await getGitResult(
     ["rev-parse", "HEAD"],
     new Map(),
-    pSpawnFunction
+    pSpawnFunction,
   );
   return lResult.slice(0, lSha1Length);
 }
@@ -64,7 +64,7 @@ export async function getSHA(pSpawnFunction = spawn): Promise<string> {
 function getGitResult(
   pArguments: string[],
   pErrorMap: IErrorMapType,
-  pSpawnFunction: typeof spawn
+  pSpawnFunction: typeof spawn,
 ): Promise<string> {
   const lGit: ChildProcess = pSpawnFunction("git", pArguments, {
     cwd: process.cwd(),
@@ -91,9 +91,9 @@ function getGitResult(
           new Error(
             pErrorMap.get(pCode ?? 0) ||
               `internal git error: ${pCode} (${stringifyOutStream(
-                lStdErrorData
-              )})`
-          )
+                lStdErrorData,
+              )})`,
+          ),
         );
       }
     });

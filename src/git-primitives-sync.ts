@@ -20,7 +20,7 @@ export function getStatusShortSync(pSpawnFunction = spawnSync): string {
 export function getDiffLinesSync(
   pOldRevision: string,
   pNewRevision?: string | undefined,
-  pSpawnFunction = spawnSync
+  pSpawnFunction = spawnSync,
 ): string {
   const lErrorMap: IErrorMapType = new Map([
     [
@@ -37,7 +37,7 @@ export function getDiffLinesSync(
       ? ["diff", pOldRevision, pNewRevision, "--name-status"]
       : ["diff", pOldRevision, "--name-status"],
     lErrorMap,
-    pSpawnFunction
+    pSpawnFunction,
   );
 }
 
@@ -47,7 +47,7 @@ export function getSHASync(pSpawnFunction = spawnSync): string {
   return getGitResultSync(
     ["rev-parse", "HEAD"],
     new Map(),
-    pSpawnFunction
+    pSpawnFunction,
   ).slice(0, lSha1Length);
 }
 
@@ -57,7 +57,7 @@ export function getSHASync(pSpawnFunction = spawnSync): string {
 function getGitResultSync(
   pArguments: string[],
   pErrorMap: IErrorMapType,
-  pSpawnFunction: typeof spawnSync
+  pSpawnFunction: typeof spawnSync,
 ): string {
   const lGitResult: SpawnSyncReturns<Buffer> = pSpawnFunction(
     "git",
@@ -66,7 +66,7 @@ function getGitResultSync(
       cwd: process.cwd(),
       // eslint-disable-next-line node/no-process-env
       env: process.env,
-    }
+    },
   );
 
   if (lGitResult.error) {
@@ -79,8 +79,8 @@ function getGitResultSync(
     throw new Error(
       pErrorMap.get(lGitResult.status ?? 0) ||
         `internal git error: ${lGitResult.status} (${stringifyOutStream(
-          lGitResult.stderr
-        )})`
+          lGitResult.stderr,
+        )})`,
     );
   }
 }

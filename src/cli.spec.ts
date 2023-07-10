@@ -28,7 +28,7 @@ describe("cli", () => {
 
   it("shows help when asked for", async () => {
     const lOutStream = new WritableTestStream(
-      /^Usage: watskeburt \[options\] \[old-revision\] \[new-revision\].*/
+      /^Usage: watskeburt \[options\] \[old-revision\] \[new-revision\].*/,
     );
     const lErrorStream = new WritableTestStream();
     await cli(["-h"], lOutStream, lErrorStream);
@@ -38,7 +38,7 @@ describe("cli", () => {
   it("shows an error when passed a non-existing argument", async () => {
     const lOutStream = new WritableTestStream();
     const lErrorStream = new WritableTestStream(
-      /.*ERROR:.*'--thisArgumentDoesNotExist'.*/
+      /.*ERROR:.*'--thisArgumentDoesNotExist'.*/,
     );
     await cli(["--thisArgumentDoesNotExist"], lOutStream, lErrorStream);
   });
@@ -46,19 +46,19 @@ describe("cli", () => {
   it("shows an error when passed a non-existing revision", async () => {
     const lOutStream = new WritableTestStream();
     const lErrorStream = new WritableTestStream(
-      /.*ERROR: revision 'this-is-not-likely-to-be-a-known-revision' unknown.*/
+      /.*ERROR: revision 'this-is-not-likely-to-be-a-known-revision' unknown.*/,
     );
     await cli(
       ["this-is-not-likely-to-be-a-known-revision"],
       lOutStream,
-      lErrorStream
+      lErrorStream,
     );
   });
 
   it("shows an error when passed a non-existing reporter type", async () => {
     const lOutStream = new WritableTestStream();
     const lErrorStream = new WritableTestStream(
-      /^error:.*argument 'invalid-reporter-type' is invalid.*/
+      /^error:.*argument 'invalid-reporter-type' is invalid.*/,
     );
     await cli(["-T", "invalid-reporter-type"], lOutStream, lErrorStream);
   });
@@ -69,7 +69,7 @@ describe("cli", () => {
     await cli(
       ["-T", "json", "--trackedOnly", getSHASync(), getSHASync()],
       lOutStream,
-      lErrorStream
+      lErrorStream,
     );
   });
 });

@@ -32,7 +32,7 @@ const DEFAULT_CHANGE_TYPES: Set<changeTypeType> = new Set([
 export default function formatToRegex(
   pChanges: IChange[],
   pExtensions: Set<string> = DEFAULT_EXTENSIONS,
-  pChangeTypes: Set<changeTypeType> = DEFAULT_CHANGE_TYPES
+  pChangeTypes: Set<changeTypeType> = DEFAULT_CHANGE_TYPES,
 ): string {
   const lChanges = pChanges
     .filter((pChange) => pChangeTypes.has(pChange.changeType))

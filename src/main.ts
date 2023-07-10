@@ -10,7 +10,7 @@ import format from "./formatters/format.js";
 export async function list(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IOptions
+  pOptions?: IOptions,
 ): Promise<IChange[] | string> {
   const lOldRevision: string = pOldRevision || (await primitives.getSHA());
   const lOptions: IOptions = pOptions || {};
@@ -27,8 +27,8 @@ export async function list(
   if (!lOptions.trackedOnly) {
     lChanges = lChanges.concat(
       convertStatusLines(lStatusLines).filter(
-        ({ changeType }) => changeType === "untracked"
-      )
+        ({ changeType }) => changeType === "untracked",
+      ),
     );
   }
   return format(lChanges, lOptions.outputType);
@@ -37,20 +37,20 @@ export async function list(
 export function listSync(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IOptions
+  pOptions?: IOptions,
 ): IChange[] | string {
   const lOldRevision: string = pOldRevision || primitivesSync.getSHASync();
   const lOptions: IOptions = pOptions || {};
 
   let lChanges = convertDiffLines(
-    primitivesSync.getDiffLinesSync(lOldRevision, pNewRevision)
+    primitivesSync.getDiffLinesSync(lOldRevision, pNewRevision),
   );
 
   if (!lOptions.trackedOnly) {
     lChanges = lChanges.concat(
       convertStatusLines(primitivesSync.getStatusShortSync()).filter(
-        ({ changeType }) => changeType === "untracked"
-      )
+        ({ changeType }) => changeType === "untracked",
+      ),
     );
   }
   return format(lChanges, lOptions.outputType);

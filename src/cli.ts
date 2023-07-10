@@ -31,7 +31,7 @@ export async function cli(
   // eslint-disable-next-line no-magic-numbers
   pArguments: string[] = process.argv.slice(2),
   pOutStream: Writable = process.stdout,
-  pErrorStream: Writable = process.stderr
+  pErrorStream: Writable = process.stderr,
 ) {
   try {
     const lArguments = getArguments(pArguments);
@@ -48,7 +48,7 @@ export async function cli(
 
     if (!outputTypeIsValid(lArguments.values.outputType)) {
       pErrorStream.write(
-        `error: option '-T, --outputType <type>' argument '${lArguments.values.outputType}' is invalid. Allowed choices are json, regex.${EOL}`
+        `error: option '-T, --outputType <type>' argument '${lArguments.values.outputType}' is invalid. Allowed choices are json, regex.${EOL}`,
       );
       process.exitCode = 1;
       return;
@@ -57,7 +57,7 @@ export async function cli(
     const lResult = await list(
       lArguments.positionals[0],
       lArguments.positionals[1],
-      lArguments.values
+      lArguments.values,
     );
     pOutStream.write(`${lResult}${EOL}`);
   } catch (pError: unknown) {

@@ -21,7 +21,7 @@ describe("json formatter", () => {
     "changeType": "modified",
     "name": "changed.mjs"
   }
-]`
+]`,
     );
   });
 });
