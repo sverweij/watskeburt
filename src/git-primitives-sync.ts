@@ -1,16 +1,15 @@
+/* eslint-disable no-magic-numbers */
 import { spawnSync, SpawnSyncReturns } from "node:child_process";
 
-interface IErrorMapType {
-  [index: number]: string;
-}
+type IErrorMapType = Map<number, string>;
 
 /**
  * @throws {Error}
  */
 export function getStatusShortSync(pSpawnFunction = spawnSync): string {
-  const lErrorMap: IErrorMapType = {
-    129: `'${process.cwd()}' does not seem to be a git repository`,
-  };
+  const lErrorMap: IErrorMapType = new Map([
+    [129, `'${process.cwd()}' does not seem to be a git repository`],
+  ]);
   return getGitResultSync(["status", "--porcelain"], lErrorMap, pSpawnFunction);
 }
 
@@ -23,12 +22,15 @@ export function getDiffLinesSync(
   pNewRevision?: string | undefined,
   pSpawnFunction = spawnSync
 ): string {
-  const lErrorMap: IErrorMapType = {
-    128: `revision '${pOldRevision}' ${
-      pNewRevision ? `(or '${pNewRevision}') ` : ""
-    }unknown`,
-    129: `'${process.cwd()}' does not seem to be a git repository`,
-  };
+  const lErrorMap: IErrorMapType = new Map([
+    [
+      128,
+      `revision '${pOldRevision}' ${
+        pNewRevision ? `(or '${pNewRevision}') ` : ""
+      }unknown`,
+    ],
+    [129, `'${process.cwd()}' does not seem to be a git repository`],
+  ]);
 
   return getGitResultSync(
     pNewRevision
@@ -42,10 +44,11 @@ export function getDiffLinesSync(
 export function getSHASync(pSpawnFunction = spawnSync): string {
   const lSha1Length = 40;
 
-  return getGitResultSync(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(
-    0,
-    lSha1Length
-  );
+  return getGitResultSync(
+    ["rev-parse", "HEAD"],
+    new Map(),
+    pSpawnFunction
+  ).slice(0, lSha1Length);
 }
 
 /**
@@ -74,7 +77,7 @@ function getGitResultSync(
     return stringifyOutStream(lGitResult.stdout);
   } else {
     throw new Error(
-      pErrorMap[lGitResult.status ?? 0] ||
+      pErrorMap.get(lGitResult.status ?? 0) ||
         `internal git error: ${lGitResult.status} (${stringifyOutStream(
           lGitResult.stderr
         )})`

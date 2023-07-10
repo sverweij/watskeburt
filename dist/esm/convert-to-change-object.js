@@ -1,19 +1,19 @@
 import { EOL } from "node:os";
 const DIFF_NAME_STATUS_LINE_PATTERN = /^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
 const DIFF_SHORT_STATUS_LINE_PATTERN = /^(?<stagedChangeType>[ ACDMRTUXB?!])(?<unStagedChangeType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
-const CHANGE_CHAR_2_CHANGE_TYPE = {
-    A: "added",
-    C: "copied",
-    D: "deleted",
-    M: "modified",
-    R: "renamed",
-    T: "type changed",
-    U: "unmerged",
-    B: "pairing broken",
-    " ": "unmodified",
-    "?": "untracked",
-    "!": "ignored",
-};
+const CHANGE_CHAR_2_CHANGE_TYPE = new Map([
+    ["A", "added"],
+    ["C", "copied"],
+    ["D", "deleted"],
+    ["M", "modified"],
+    ["R", "renamed"],
+    ["T", "type changed"],
+    ["U", "unmerged"],
+    ["B", "pairing broken"],
+    [" ", "unmodified"],
+    ["?", "untracked"],
+    ["!", "ignored"],
+]);
 export function convertStatusLines(pString) {
     return pString
         .split(EOL)
@@ -64,5 +64,5 @@ export function convertDiffLine(pString) {
     return lReturnValue;
 }
 function changeChar2ChangeType(pChar) {
-    return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
+    return CHANGE_CHAR_2_CHANGE_TYPE.get(pChar) ?? "unknown";
 }

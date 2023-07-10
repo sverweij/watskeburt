@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any, no-magic-numbers */
 import { type ChildProcess, spawn } from "node:child_process";
 
-interface IErrorMapType {
-  [index: number]: string;
-}
+type IErrorMapType = Map<number, string>;
 
 /**
  * @throws {Error}
  */
 export async function getStatusShort(pSpawnFunction = spawn): Promise<string> {
-  const lErrorMap: IErrorMapType = {
-    129: `'${process.cwd()}' does not seem to be a git repository`,
-  };
+  const lErrorMap: IErrorMapType = new Map([
+    [129, `'${process.cwd()}' does not seem to be a git repository`],
+  ]);
   const lResult = await getGitResult(
     ["status", "--porcelain"],
     lErrorMap,
@@ -29,12 +27,15 @@ export async function getDiffLines(
   pNewRevision?: string | undefined,
   pSpawnFunction = spawn
 ): Promise<string> {
-  const lErrorMap: IErrorMapType = {
-    128: `revision '${pOldRevision}' ${
-      pNewRevision ? `(or '${pNewRevision}') ` : ""
-    }unknown`,
-    129: `'${process.cwd()}' does not seem to be a git repository`,
-  };
+  const lErrorMap: IErrorMapType = new Map([
+    [
+      128,
+      `revision '${pOldRevision}' ${
+        pNewRevision ? `(or '${pNewRevision}') ` : ""
+      }unknown`,
+    ],
+    [129, `'${process.cwd()}' does not seem to be a git repository`],
+  ]);
 
   const lResult = await getGitResult(
     pNewRevision
@@ -49,7 +50,11 @@ export async function getDiffLines(
 export async function getSHA(pSpawnFunction = spawn): Promise<string> {
   const lSha1Length = 40;
 
-  const lResult = await getGitResult(["rev-parse", "HEAD"], {}, pSpawnFunction);
+  const lResult = await getGitResult(
+    ["rev-parse", "HEAD"],
+    new Map(),
+    pSpawnFunction
+  );
   return lResult.slice(0, lSha1Length);
 }
 
@@ -84,7 +89,7 @@ function getGitResult(
       } else {
         pReject(
           new Error(
-            pErrorMap[pCode ?? 0] ||
+            pErrorMap.get(pCode ?? 0) ||
               `internal git error: ${pCode} (${stringifyOutStream(
                 lStdErrorData
               )})`

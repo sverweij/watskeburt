@@ -1,22 +1,25 @@
 import { spawnSync } from "node:child_process";
 export function getStatusShortSync(pSpawnFunction = spawnSync) {
-    const lErrorMap = {
-        129: `'${process.cwd()}' does not seem to be a git repository`,
-    };
+    const lErrorMap = new Map([
+        [129, `'${process.cwd()}' does not seem to be a git repository`],
+    ]);
     return getGitResultSync(["status", "--porcelain"], lErrorMap, pSpawnFunction);
 }
 export function getDiffLinesSync(pOldRevision, pNewRevision, pSpawnFunction = spawnSync) {
-    const lErrorMap = {
-        128: `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,
-        129: `'${process.cwd()}' does not seem to be a git repository`,
-    };
+    const lErrorMap = new Map([
+        [
+            128,
+            `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,
+        ],
+        [129, `'${process.cwd()}' does not seem to be a git repository`],
+    ]);
     return getGitResultSync(pNewRevision
         ? ["diff", pOldRevision, pNewRevision, "--name-status"]
         : ["diff", pOldRevision, "--name-status"], lErrorMap, pSpawnFunction);
 }
 export function getSHASync(pSpawnFunction = spawnSync) {
     const lSha1Length = 40;
-    return getGitResultSync(["rev-parse", "HEAD"], {}, pSpawnFunction).slice(0, lSha1Length);
+    return getGitResultSync(["rev-parse", "HEAD"], new Map(), pSpawnFunction).slice(0, lSha1Length);
 }
 function getGitResultSync(pArguments, pErrorMap, pSpawnFunction) {
     const lGitResult = pSpawnFunction("git", pArguments, {
@@ -30,7 +33,7 @@ function getGitResultSync(pArguments, pErrorMap, pSpawnFunction) {
         return stringifyOutStream(lGitResult.stdout);
     }
     else {
-        throw new Error(pErrorMap[lGitResult.status ?? 0] ||
+        throw new Error(pErrorMap.get(lGitResult.status ?? 0) ||
             `internal git error: ${lGitResult.status} (${stringifyOutStream(lGitResult.stderr)})`);
     }
 }

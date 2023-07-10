@@ -10,20 +10,20 @@ const DIFF_NAME_STATUS_LINE_PATTERN =
 const DIFF_SHORT_STATUS_LINE_PATTERN =
   /^(?<stagedChangeType>[ ACDMRTUXB?!])(?<unStagedChangeType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
 
-const CHANGE_CHAR_2_CHANGE_TYPE: { [index: string]: changeTypeType } = {
-  A: "added",
-  C: "copied",
-  D: "deleted",
-  M: "modified",
-  R: "renamed",
-  T: "type changed",
-  U: "unmerged",
-  B: "pairing broken",
-  " ": "unmodified",
-  "?": "untracked",
-  "!": "ignored",
-  // X: "unknown"
-};
+const CHANGE_CHAR_2_CHANGE_TYPE: Map<string, changeTypeType> = new Map([
+  ["A", "added"],
+  ["C", "copied"],
+  ["D", "deleted"],
+  ["M", "modified"],
+  ["R", "renamed"],
+  ["T", "type changed"],
+  ["U", "unmerged"],
+  ["B", "pairing broken"],
+  [" ", "unmodified"],
+  ["?", "untracked"],
+  ["!", "ignored"],
+  // ["X", "unknown"]
+]);
 
 export function convertStatusLines(pString: string): IChange[] {
   return pString
@@ -91,6 +91,5 @@ export function convertDiffLine(pString: string): Partial<IChange> {
 }
 
 function changeChar2ChangeType(pChar: string): changeTypeType {
-  // eslint-disable-next-line security/detect-object-injection
-  return CHANGE_CHAR_2_CHANGE_TYPE[pChar] ?? "unknown";
+  return CHANGE_CHAR_2_CHANGE_TYPE.get(pChar) ?? "unknown";
 }
