@@ -13,7 +13,7 @@ Options:
   --trackedOnly            only take tracked files into account (default: false)
   -V, --version            output the version number
   -h, --help               display help for command${EOL}`;
-export async function cli(pArguments = process.argv.slice(2), pOutStream = process.stdout, pErrorStream = process.stderr) {
+export async function cli(pArguments = process.argv.slice(2), pOutStream = process.stdout, pErrorStream = process.stderr, pErrorExitCode = 1) {
     try {
         const lArguments = getArguments(pArguments);
         if (lArguments.values.help) {
@@ -26,7 +26,7 @@ export async function cli(pArguments = process.argv.slice(2), pOutStream = proce
         }
         if (!outputTypeIsValid(lArguments.values.outputType)) {
             pErrorStream.write(`error: option '-T, --outputType <type>' argument '${lArguments.values.outputType}' is invalid. Allowed choices are json, regex.${EOL}`);
-            process.exitCode = 1;
+            process.exitCode = pErrorExitCode;
             return;
         }
         const lResult = await list(lArguments.positionals[0], lArguments.positionals[1], lArguments.values);
@@ -34,7 +34,7 @@ export async function cli(pArguments = process.argv.slice(2), pOutStream = proce
     }
     catch (pError) {
         pErrorStream.write(`${EOL}ERROR: ${pError.message}${EOL}${EOL}`);
-        process.exitCode = 1;
+        process.exitCode = pErrorExitCode;
     }
 }
 function getArguments(pArguments) {
