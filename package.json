@@ -44,7 +44,6 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/mocha": "10.0.1",
     "@types/node": "20.4.1",
     "@typescript-eslint/eslint-plugin": "6.0.0",
     "c8": "8.0.0",
@@ -60,7 +59,6 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.7.1",
     "eslint-plugin-unicorn": "47.0.0",
-    "mocha": "10.2.0",
     "npm-run-all": "4.1.5",
     "prettier": "3.0.0",
     "ts-node": "10.9.1",
@@ -79,8 +77,8 @@
     "build:dist:esm": "tsc",
     "check": "npm-run-all --parallel --aggregate-output lint depcruise test:cover",
     "clean": "rm -rf dist",
-    "test": "NODE_OPTIONS=--no-warnings mocha",
-    "test:cover": "NODE_OPTIONS=--no-warnings c8 mocha",
+    "test": "node --no-warnings --loader 'ts-node/esm' --test-reporter dot --test src/*.spec.ts src/**/*.spec.ts",
+    "test:cover": "c8 npm test",
     "depcruise": "depcruise bin dist src types",
     "depcruise:graph": "depcruise bin src types --include-only '^(bin|dist|src|types)' --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
     "depcruise:graph:archi": "depcruise bin src --include-only '^(bin|dist|src|types)' --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > docs/high-level-dependency-graph.html",

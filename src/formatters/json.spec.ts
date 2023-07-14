@@ -1,4 +1,5 @@
 import { deepEqual } from "node:assert";
+import { describe, it } from "node:test";
 import format from "./json.js";
 
 describe("json formatter", () => {
@@ -21,7 +22,7 @@ describe("json formatter", () => {
     "changeType": "modified",
     "name": "changed.mjs"
   }
-]`,
+]`
     );
   });
 });

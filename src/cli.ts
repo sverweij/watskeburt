@@ -32,6 +32,7 @@ export async function cli(
   pArguments: string[] = process.argv.slice(2),
   pOutStream: Writable = process.stdout,
   pErrorStream: Writable = process.stderr,
+  pErrorExitCode: number = 1
 ) {
   try {
     const lArguments = getArguments(pArguments);
@@ -48,22 +49,22 @@ export async function cli(
 
     if (!outputTypeIsValid(lArguments.values.outputType)) {
       pErrorStream.write(
-        `error: option '-T, --outputType <type>' argument '${lArguments.values.outputType}' is invalid. Allowed choices are json, regex.${EOL}`,
+        `error: option '-T, --outputType <type>' argument '${lArguments.values.outputType}' is invalid. Allowed choices are json, regex.${EOL}`
       );
-      process.exitCode = 1;
+      process.exitCode = pErrorExitCode;
       return;
     }
 
     const lResult = await list(
       lArguments.positionals[0],
       lArguments.positionals[1],
-      lArguments.values,
+      lArguments.values
     );
     pOutStream.write(`${lResult}${EOL}`);
   } catch (pError: unknown) {
     pErrorStream.write(`${EOL}ERROR: ${(pError as Error).message}${EOL}${EOL}`);
     // eslint-disable-next-line require-atomic-updates
-    process.exitCode = 1;
+    process.exitCode = pErrorExitCode;
   }
 }
 

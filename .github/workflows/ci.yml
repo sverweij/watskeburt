@@ -28,7 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 16.x
+          - 18.x
           - 20.x
         platform:
           - ubuntu-latest
@@ -56,9 +56,9 @@ jobs:
           node-version: ${{matrix.node-version}}
       - run: npm install
       - run: npm run depcruise
-        if: matrix.node-version != '16.x'
-      - name: lint on platforms other than 16.x
-        if: matrix.node-version != '16.x'
+        if: matrix.node-version != '18.x'
+      - name: lint on platforms other than 18.x
+        if: matrix.node-version != '18.x'
         run: npm run lint
       - run: npm run test:cover
       - run: npm run build
