@@ -1,4 +1,5 @@
 import { deepEqual } from "node:assert";
+import { describe, it } from "node:test";
 import type { IChange } from "../../types/watskeburt.js";
 import format from "./regex.js";
 

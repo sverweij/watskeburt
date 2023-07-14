@@ -1,4 +1,5 @@
 import { deepEqual } from "node:assert";
+import { describe, it } from "node:test";
 import {
   convertDiffLine,
   convertDiffLines,

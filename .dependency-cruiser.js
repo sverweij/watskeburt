@@ -124,6 +124,9 @@ export default {
       from: {},
       to: {
         couldNotResolve: true,
+        // https://github.com/nodejs/node/issues/42785 - node:test is not enumerated in builtinModules
+        // and won't ever be. Workaround in dependency-cruiser coming up. For now: ignore node:test
+        path: "node:test",
       },
     },
     {

@@ -61,6 +61,9 @@ jobs:
         if: matrix.node-version != '16.x'
         run: npm run lint
       - run: npm run test:cover
+        if: matrix.node-version != '16.x'
+      - run: npm run test:only-for-node-16-without-the-test-reporter
+        if: matrix.node-version == '16.x'
       - run: npm run build
       - name: emit coverage results to step summary
         if: always() && matrix.node-version == env.NODE_LATEST

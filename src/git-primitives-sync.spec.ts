@@ -1,6 +1,7 @@
 /* eslint-disable no-undefined */
 /* eslint-disable unicorn/consistent-function-scoping */
 import { deepEqual, doesNotThrow, throws, match } from "node:assert";
+import { describe, it } from "node:test";
 import {
   getDiffLinesSync,
   getSHASync,

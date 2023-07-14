@@ -1,12 +1,14 @@
-import { match, deepEqual } from "node:assert";
+import { deepEqual, match } from "node:assert";
 import { unlinkSync, writeFileSync } from "node:fs";
+import { after, before, describe, it } from "node:test";
 import { IChange } from "../types/watskeburt.js";
 import { getSHA, getSHASync, list, listSync } from "./main.js";
 
 const UNTRACKED_FILE_NAME = "src/__fixtures__/untracked.txt";
 
 describe("main - list & listSync ", () => {
-  before("create an untracked file", () => {
+  // "create an untracked file"
+  before(() => {
     writeFileSync(
       UNTRACKED_FILE_NAME,
       "temporary file for testing purposes, untracked",
@@ -14,7 +16,8 @@ describe("main - list & listSync ", () => {
     );
   });
 
-  after("remove the untracked file", () => {
+  // "remove the untracked file";
+  after(() => {
     try {
       unlinkSync(UNTRACKED_FILE_NAME);
     } catch (pError) {

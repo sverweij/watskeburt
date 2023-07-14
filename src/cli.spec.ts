@@ -1,7 +1,8 @@
 import { match } from "node:assert";
 import { Writable } from "node:stream";
-import { getSHASync } from "./main.js";
+import { describe, it } from "node:test";
 import { cli } from "./cli.js";
+import { getSHASync } from "./main.js";
 
 class WritableTestStream extends Writable {
   expected = /^$/;
@@ -40,7 +41,7 @@ describe("cli", () => {
     const lErrorStream = new WritableTestStream(
       /.*ERROR:.*'--thisArgumentDoesNotExist'.*/,
     );
-    await cli(["--thisArgumentDoesNotExist"], lOutStream, lErrorStream);
+    await cli(["--thisArgumentDoesNotExist"], lOutStream, lErrorStream, 0);
   });
 
   it("shows an error when passed a non-existing revision", async () => {
@@ -52,6 +53,7 @@ describe("cli", () => {
       ["this-is-not-likely-to-be-a-known-revision"],
       lOutStream,
       lErrorStream,
+      0,
     );
   });
 
@@ -60,7 +62,7 @@ describe("cli", () => {
     const lErrorStream = new WritableTestStream(
       /^error:.*argument 'invalid-reporter-type' is invalid.*/,
     );
-    await cli(["-T", "invalid-reporter-type"], lOutStream, lErrorStream);
+    await cli(["-T", "invalid-reporter-type"], lOutStream, lErrorStream, 0);
   });
 
   it("emits ", async () => {

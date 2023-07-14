@@ -1,6 +1,7 @@
 /* eslint-disable no-undefined */
 import { deepEqual, match, doesNotReject } from "node:assert";
 import { EventEmitter } from "node:events";
+import { describe, it } from "node:test";
 import { getDiffLines, getSHA, getStatusShort } from "./git-primitives.js";
 
 class FakeChildProcess extends EventEmitter {
@@ -28,7 +29,7 @@ describe("git-primitives - diff --name-status ", () => {
     }
   });
 
-  it("does not error in case of a valid ref", (pDone) => {
+  it("does not error in case of a valid ref", (_, pDone) => {
     const lExpected = [
       "M       package.json",
       "M       src/get-diff-lines.mjs",
@@ -55,7 +56,7 @@ describe("git-primitives - diff --name-status ", () => {
       });
   });
 
-  it("throws with 'not a git repo' when git detects that", (pDone) => {
+  it("throws with 'not a git repo' when git detects that", (_, pDone) => {
     const lChildProcess = new FakeChildProcess();
     const lPromise = getDiffLines(
       "main",
@@ -83,7 +84,7 @@ describe("git-primitives - diff --name-status ", () => {
 });
 
 describe("git-primitives - status", () => {
-  it("throws when the 'git' command couldn't be found", (pDone) => {
+  it("throws when the 'git' command couldn't be found", (_, pDone) => {
     const lChildProcess = new FakeChildProcess();
     const lPromise = getDiffLines(
       "main",
@@ -107,7 +108,7 @@ describe("git-primitives - status", () => {
         }
       });
   });
-  it("throws when something unforeseen happens with spawnSync itself", (pDone) => {
+  it("throws when something unforeseen happens with spawnSync itself", (_, pDone) => {
     const lChildProcess = new FakeChildProcess();
     const lPromise = getDiffLines(
       "main",
@@ -132,7 +133,7 @@ describe("git-primitives - status", () => {
       });
   });
 
-  it("throws when the git result contained a non-zero exit code", (pDone) => {
+  it("throws when the git result contained a non-zero exit code", (_, pDone) => {
     const lChildProcess = new FakeChildProcess();
     const lPromise = getDiffLines(
       "main",
@@ -161,7 +162,7 @@ describe("git-primitives - status", () => {
       });
   });
 
-  it("throws when the git result contained no exit code at all", (pDone) => {
+  it("throws when the git result contained no exit code at all", (_, pDone) => {
     const lChildProcess = new FakeChildProcess();
     const lPromise = getDiffLines(
       "main",
