@@ -79,6 +79,7 @@
     "clean": "rm -rf dist",
     "test": "node --no-warnings --loader 'ts-node/esm' --test-reporter dot --test src/*.spec.ts src/**/*.spec.ts",
     "test:cover": "c8 npm test",
+    "test:only-for-node-16-without-the-test-reporter": "node --no-warnings --loader 'ts-node/esm' --test src/*.spec.ts src/**/*.spec.ts",
     "depcruise": "depcruise bin dist src types",
     "depcruise:graph": "depcruise bin src types --include-only '^(bin|dist|src|types)' --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
     "depcruise:graph:archi": "depcruise bin src --include-only '^(bin|dist|src|types)' --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > docs/high-level-dependency-graph.html",
