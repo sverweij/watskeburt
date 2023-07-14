@@ -14,7 +14,7 @@ describe("git-primitives-sync - diff --name-status ", () => {
       () => {
         getDiffLinesSync("this-is-not-a-real-revision");
       },
-      { message: /revision 'this-is-not-a-real-revision' unknown/ }
+      { message: /revision 'this-is-not-a-real-revision' unknown/ },
     );
   });
 
@@ -23,7 +23,7 @@ describe("git-primitives-sync - diff --name-status ", () => {
       () => {
         getDiffLinesSync("not-a-revision", "neither-is-this");
       },
-      { message: "revision 'not-a-revision' (or 'neither-is-this') unknown" }
+      { message: "revision 'not-a-revision' (or 'neither-is-this') unknown" },
     );
   });
 
@@ -43,7 +43,7 @@ describe("git-primitives-sync - diff --name-status ", () => {
       const lResult = getDiffLinesSync(
         "this-is-a-real-branch",
         undefined,
-        fakeSpawnSync
+        fakeSpawnSync,
       );
       deepEqual(lExpected, lResult);
     });
@@ -60,7 +60,7 @@ describe("git-primitives-sync - diff --name-status ", () => {
     const lResult = getDiffLinesSync(
       "this-is-a-real-branch",
       undefined,
-      fakeSpawnSync
+      fakeSpawnSync,
     );
     deepEqual(lExpected, lResult);
   });
@@ -82,7 +82,7 @@ describe("git-primitives-sync - diff --name-status ", () => {
     const lResult = getDiffLinesSync(
       "this-is-a-real-branch",
       "this-is-a-newer-branch",
-      fakeSpawnSync
+      fakeSpawnSync,
     );
     deepEqual(lExpected, lResult);
   });
@@ -95,7 +95,7 @@ describe("git-primitives-sync - diff --name-status ", () => {
       () => {
         getDiffLinesSync("main", undefined, fakeSpawnSync);
       },
-      { message: /does not seem to be a git repository/ }
+      { message: /does not seem to be a git repository/ },
     );
   });
 });
@@ -109,7 +109,7 @@ describe("git-primitives-sync - status", () => {
       () => {
         getStatusShortSync(fakeSpawnSync);
       },
-      { message: "git executable not found" }
+      { message: "git executable not found" },
     );
   });
 
@@ -121,7 +121,7 @@ describe("git-primitives-sync - status", () => {
       () => {
         getStatusShortSync(fakeSpawnSync);
       },
-      { message: /internal spawn error: / }
+      { message: /internal spawn error: / },
     );
   });
 
@@ -133,7 +133,7 @@ describe("git-primitives-sync - status", () => {
       () => {
         getStatusShortSync(fakeSpawnSync);
       },
-      { message: "internal git error: 667 (neighbor of the beast)" }
+      { message: "internal git error: 667 (neighbor of the beast)" },
     );
   });
 
@@ -145,7 +145,7 @@ describe("git-primitives-sync - status", () => {
       () => {
         getStatusShortSync(fakeSpawnSync);
       },
-      { message: "internal git error: undefined (neighbor of the beast)" }
+      { message: "internal git error: undefined (neighbor of the beast)" },
     );
   });
 
@@ -157,7 +157,7 @@ describe("git-primitives-sync - status", () => {
       () => {
         getStatusShortSync(fakeSpawnSync);
       },
-      { message: /does not seem to be a git repository/ }
+      { message: /does not seem to be a git repository/ },
     );
   });
 

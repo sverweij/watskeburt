@@ -12,7 +12,7 @@ describe("main - list & listSync ", () => {
     writeFileSync(
       UNTRACKED_FILE_NAME,
       "temporary file for testing purposes, untracked",
-      { encoding: "utf8" }
+      { encoding: "utf8" },
     );
   });
 
@@ -22,7 +22,7 @@ describe("main - list & listSync ", () => {
       unlinkSync(UNTRACKED_FILE_NAME);
     } catch (pError) {
       process.stderr.write(
-        "cleaning up untracked file failed in test 'main - list & listSync'\n"
+        "cleaning up untracked file failed in test 'main - list & listSync'\n",
       );
     }
   });
@@ -50,7 +50,7 @@ describe("main - list & listSync ", () => {
           name: UNTRACKED_FILE_NAME,
           changeType: "untracked",
         },
-      ]
+      ],
     );
   });
 
@@ -63,7 +63,7 @@ describe("main - list & listSync ", () => {
           name: UNTRACKED_FILE_NAME,
           changeType: "untracked",
         },
-      ]
+      ],
     );
   });
 
@@ -76,7 +76,7 @@ describe("main - list & listSync ", () => {
           name: UNTRACKED_FILE_NAME,
           changeType: "untracked",
         },
-      ]
+      ],
     );
   });
 
@@ -89,7 +89,7 @@ describe("main - list & listSync ", () => {
           name: UNTRACKED_FILE_NAME,
           changeType: "untracked",
         },
-      ]
+      ],
     );
   });
 });

@@ -91,7 +91,7 @@
     "depcruise:focus": "depcruise bin src types --progress --output-type text --focus",
     "depcruise:reaches": "depcruise bin src types --progress --output-type text --reaches",
     "format": "prettier --write \"{bin,src,tools}/**/*.{js,ts}\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
-    "format:check": "prettier --loglevel warn --check \"{bin,src,tools}/**/*.ts\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
+    "format:check": "prettier --log-level warn --check \"{bin,src,tools}/**/*.ts\" \"types/**/*.ts\" \"*.{json,yml,md,js}\"",
     "lint": "npm-run-all --parallel --aggregate-output format:check lint:eslint lint:types",
     "lint:fix": "npm-run-all --parallel --aggregate-output format lint:eslint:fix",
     "lint:eslint": "eslint bin src types tools --cache --cache-location node_modules/.cache/eslint/",
