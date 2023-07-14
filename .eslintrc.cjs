@@ -1,18 +1,16 @@
+/* eslint-disable unicorn/no-empty-file */
 module.exports = {
   root: true,
   ignorePatterns: ["coverage", "docs", "dist", "node_modules"],
   extends: ["moving-meadow", "plugin:@typescript-eslint/recommended"],
   plugins: ["@typescript-eslint"],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
   },
   overrides: [
     {
-      files: ["**/*.mjs"],
-    },
-    {
       files: ["**/*.ts"],
-      parser: "@typescript-eslint/parser",
       rules: {
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off",
@@ -32,13 +30,8 @@ module.exports = {
     },
     {
       files: ["**/*.spec.ts"],
-      parser: "@typescript-eslint/parser",
-      env: {
-        mocha: true,
-      },
       rules: {
         "no-magic-numbers": "off",
-        "security/detect-non-literal-require": "off",
         "security/detect-non-literal-fs-filename": "off",
         "max-lines-per-function": "off",
         "max-lines": "off",
@@ -53,10 +46,6 @@ module.exports = {
     },
     {
       files: ["types/*.ts"],
-      parser: "@typescript-eslint/parser",
-      parserOptions: {
-        ecmaVersion: "latest",
-      },
       rules: {
         "node/no-unsupported-features/es-syntax": "off",
       },
