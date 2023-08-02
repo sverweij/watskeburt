@@ -2,7 +2,7 @@ import { deepEqual, match } from "node:assert";
 import { unlinkSync, writeFileSync } from "node:fs";
 import { after, before, describe, it } from "node:test";
 import { IChange } from "../types/watskeburt.js";
-import { getSHA, getSHASync, list, listSync } from "./main.js";
+import { getSHA, list } from "./main.js";
 
 const UNTRACKED_FILE_NAME = "src/__fixtures__/untracked.txt";
 
@@ -28,34 +28,16 @@ describe("main - list & listSync ", () => {
   });
 
   it("list (trackedOnly) returns an empty array when comparing current SHA, with current SHA", async () => {
-    const lResult = await list(getSHASync(), getSHASync(), {
-      trackedOnly: true,
-    });
-    deepEqual(lResult, []);
-  });
-
-  it("listSync (trackedOnly) returns an empty array when comparing current SHA, with current SHA", () => {
-    const lResult = listSync(getSHASync(), getSHASync(), {
+    const lSHA = await getSHA();
+    const lResult = await list(lSHA, lSHA, {
       trackedOnly: true,
     });
     deepEqual(lResult, []);
   });
 
   it("list result contains the newly created untracked file when comparing current SHA, with current SHA", async () => {
-    const lResult = (await list(getSHASync(), getSHASync())) as IChange[];
-    deepEqual(
-      lResult.filter(({ name }) => name === UNTRACKED_FILE_NAME),
-      [
-        {
-          name: UNTRACKED_FILE_NAME,
-          changeType: "untracked",
-        },
-      ],
-    );
-  });
-
-  it("listSync result contains the newly created untracked file when comparing current SHA, with current SHA", () => {
-    const lResult = listSync(getSHASync(), getSHASync()) as IChange[];
+    const lSHA = await getSHA();
+    const lResult = (await list(lSHA, lSHA)) as IChange[];
     deepEqual(
       lResult.filter(({ name }) => name === UNTRACKED_FILE_NAME),
       [
@@ -79,30 +61,12 @@ describe("main - list & listSync ", () => {
       ],
     );
   });
-
-  it("listSync result contains the newly created untracked file", () => {
-    const lResult = listSync() as IChange[];
-    deepEqual(
-      lResult.filter(({ name }) => name === UNTRACKED_FILE_NAME),
-      [
-        {
-          name: UNTRACKED_FILE_NAME,
-          changeType: "untracked",
-        },
-      ],
-    );
-  });
 });
 
 describe("main - sha & shaSync", () => {
-  it("getSHA returns something SHA1 looking", async () => {
-    const lSha = await getSHA();
+  it("getSHA returns something that looks like a SHA1", async () => {
+    const lSHA = await getSHA();
 
-    match(lSha, /^[a-f0-9]{40}$/);
-  });
-
-  it("getSHASync returns something SHA1 looking", () => {
-    const lSha = getSHASync();
-    match(lSha, /^[a-f0-9]{40}$/);
+    match(lSHA, /^[a-f0-9]{40}$/);
   });
 });

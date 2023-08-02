@@ -62,43 +62,6 @@ export interface IInternalOptions {
 export type IOptions = IFormatOptions | IInternalOptions;
 
 /**
- * returns a list of files changed since pOldRevision.
- *
- * @param pOldRevision The revision against which to compare. E.g. a commit-hash,
- *                 a branch or a tag. When not passed defaults to the _current_
- *                 commit hash (if there's any)
- * @param pNewRevision Newer revision against which to compare. Leave out or pass
- *                 null when you want to compare against the working tree
- * @param pOptions Options that influence how the changes are returned and that
- *                 filter what is returned and
- * @throws {Error}
- */
-export function listSync(
-  pOldRevision?: string,
-  pNewRevision?: string,
-  pOptions?: IInternalOptions,
-): IChange[];
-
-/**
- * returns a list of files changed since pOldRevision formatted into a string
- * as pOptions.outputType
- *
- * @param pOldRevision The revision against which to compare. E.g. a commit-hash,
- *                 a branch or a tag. When not passed defaults to the _current_
- *                 commit hash (if there's any)
- * @param pNewRevision Newer revision against which to compare. Leave out or pass
- *                 null when you want to compare against the working tree
- * @param pOptions Options that influence how the changes are returned and that
- *                 filter what is returned and
- * @throws {Error}
- */
-export function listSync(
-  pOldRevision?: string,
-  pNewRevision?: string,
-  pOptions?: IFormatOptions,
-): string;
-
-/**
  * returns promise of a list of files changed since pOldRevision.
  *
  * @param pOldRevision The revision against which to compare. E.g. a commit-hash,
@@ -134,13 +97,6 @@ export function list(
   pNewRevision?: string,
   pOptions?: IFormatOptions,
 ): Promise<string>;
-
-/**
- * Returns the SHA1 of the current HEAD
- *
- * @throws {Error}
- */
-export function getSHASync(): string;
 
 /**
  * Returns the SHA1 of the current HEAD

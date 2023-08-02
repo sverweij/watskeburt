@@ -3,7 +3,6 @@ import {
   convertDiffLines,
   convertStatusLines,
 } from "./convert-to-change-object.js";
-import * as primitivesSync from "./git-primitives-sync.js";
 import * as primitives from "./git-primitives.js";
 import format from "./formatters/format.js";
 
@@ -34,37 +33,11 @@ export async function list(
   return format(lChanges, lOptions.outputType);
 }
 
-export function listSync(
-  pOldRevision?: string,
-  pNewRevision?: string,
-  pOptions?: IOptions,
-): IChange[] | string {
-  const lOldRevision: string = pOldRevision || primitivesSync.getSHASync();
-  const lOptions: IOptions = pOptions || {};
-
-  let lChanges = convertDiffLines(
-    primitivesSync.getDiffLinesSync(lOldRevision, pNewRevision),
-  );
-
-  if (!lOptions.trackedOnly) {
-    lChanges = lChanges.concat(
-      convertStatusLines(primitivesSync.getStatusShortSync()).filter(
-        ({ changeType }) => changeType === "untracked",
-      ),
-    );
-  }
-  return format(lChanges, lOptions.outputType);
-}
-
-// Although it looks like getSHA and getSHASync could be re-exported e.g.
+// Although it looks like getSHA could be re-exported e.g.
 //   export { getSHA } from "./git-primitives.js"
-// the 'primitives' have a extra parameter we don't want to expose,
+// the 'primitives' has an extra parameter we don't want to expose,
 // so instead we wrap them:
 
 export function getSHA(): Promise<string> {
   return primitives.getSHA();
-}
-
-export function getSHASync(): string {
-  return primitivesSync.getSHASync();
 }
