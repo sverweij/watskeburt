@@ -1,7 +1,7 @@
 import { match } from "node:assert";
 import { Writable } from "node:stream";
 import { describe, it } from "node:test";
-import { cli } from "./cli.js";
+import { cli } from "./execute-cli.js";
 import { getSHASync } from "./main.js";
 
 class WritableTestStream extends Writable {
