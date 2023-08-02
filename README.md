@@ -24,7 +24,6 @@ but for just this simple usage they're a bit overkill.
 ### :scroll: API
 
 ```javascript
-// const { list, getSHA } = require("watskeburt"); // in commonjs contexts you can also require it
 import { list, getSHA } from "watskeburt";
 
 // print the SHA1 of the current HEAD
