@@ -1,7 +1,7 @@
 // the security (and unicorn) plugins don't seem to detect named caption
 // groups very well - false-flagging below regular expressions to be susceptible
 // to redos  attacks.
-/* eslint-disable unicorn/no-unsafe-regex, security/detect-unsafe-regex */
+/* eslint-disable security/detect-unsafe-regex */
 import { EOL } from "node:os";
 import type { changeTypeType, IChange } from "../types/watskeburt.js";
 
