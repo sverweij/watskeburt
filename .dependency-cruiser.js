@@ -5,10 +5,10 @@ export default {
       name: "no-deep-deps-from-cli",
       severity: "error",
       from: {
-        path: "^bin/cli\\.js$",
+        path: "^src/cli\\.ts$",
       },
       to: {
-        pathNot: ["^dist/", "$1"],
+        pathNot: ["^src/execute-cli\\.ts$", "$1"],
       },
     },
     {
@@ -18,11 +18,7 @@ export default {
       },
       to: {
         path: "^src/",
-        pathNot: [
-          "\\.spec\\.ts$",
-          "^bin/cli\\.js$",
-          "^src/(cli|version)\\.ts$",
-        ],
+        pathNot: ["\\.spec\\.ts$", "^src/(cli|execute-cli|version)\\.ts$"],
         reachable: false,
       },
     },
@@ -169,7 +165,7 @@ export default {
         "section of your package.json. If this module is development only - add it to the " +
         "from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration",
       from: {
-        path: "^(bin|dist|src)",
+        path: "^(dist|src)",
         pathNot: "\\.spec\\.ts$",
       },
       to: {
@@ -262,7 +258,7 @@ export default {
       },
       archi: {
         collapsePattern:
-          "^(packages|src|lib|app|bin|test(s?)|spec(s?))/[^/]+|node_modules/[^/]+",
+          "^(packages|src|lib|app|test(s?)|spec(s?))/[^/]+|node_modules/[^/]+",
       },
     },
   },
