@@ -19,17 +19,17 @@
     "url": "https://sverweij.github.io"
   },
   "license": "MIT",
-  "bin": "dist/esm/cli.js",
-  "main": "dist/esm/main.js",
-  "module": "dist/esm/main.js",
+  "bin": "dist/cli.js",
+  "main": "dist/main.js",
+  "module": "dist/main.js",
   "type": "module",
   "sideEffects": false,
   "exports": {
     ".": [
       {
-        "import": "./dist/esm/main.js"
+        "import": "./dist/main.js"
       },
-      "./dist/esm/main.js"
+      "./dist/main.js"
     ]
   },
   "types": "types/watskeburt.d.ts",
@@ -79,8 +79,8 @@
     "depcruise:graph": "depcruise src types --include-only '^(dist|src|types)' --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
     "depcruise:graph:archi": "depcruise src --include-only '^(dist|src|types)' --output-type archi | dot -T svg | depcruise-wrap-stream-in-html > docs/high-level-dependency-graph.html",
     "depcruise:graph:dev": "depcruise dist src types --include-only '^(dist|src|types)' --prefix vscode://file/$(pwd)/ --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:graph:diff:dev": "depcruise dist src types --include-only '^(dist|src|types)' --highlight \"$(node dist/esm/cli.js main -T regex)\" --prefix vscode://file/$(pwd)/ --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:graph:diff:mermaid": "depcruise dist src types --include-only '^(dist|src|types)' --output-type mermaid --output-to - --highlight \"$(node dist/esm/cli.js $SHA -T regex)\"",
+    "depcruise:graph:diff:dev": "depcruise dist src types --include-only '^(dist|src|types)' --highlight \"$(node dist/cli.js main -T regex)\" --prefix vscode://file/$(pwd)/ --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:graph:diff:mermaid": "depcruise dist src types --include-only '^(dist|src|types)' --output-type mermaid --output-to - --highlight \"$(node dist/cli.js $SHA -T regex)\"",
     "depcruise:html": "depcruise src types --progress --output-type err-html --output-to dependency-violation-report.html",
     "depcruise:text": "depcruise src types --progress --output-type text",
     "depcruise:focus": "depcruise src types --progress --output-type text --focus",
