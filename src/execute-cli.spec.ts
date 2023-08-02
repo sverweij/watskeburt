@@ -2,7 +2,7 @@ import { match } from "node:assert";
 import { Writable } from "node:stream";
 import { describe, it } from "node:test";
 import { cli } from "./execute-cli.js";
-import { getSHASync } from "./main.js";
+import { getSHA } from "./main.js";
 
 class WritableTestStream extends Writable {
   expected = /^$/;
@@ -68,8 +68,9 @@ describe("cli", () => {
   it("emits ", async () => {
     const lOutStream = new WritableTestStream(/^\[\]/);
     const lErrorStream = new WritableTestStream();
+    const lSHA = await getSHA();
     await cli(
-      ["-T", "json", "--trackedOnly", getSHASync(), getSHASync()],
+      ["-T", "json", "--trackedOnly", lSHA, lSHA],
       lOutStream,
       lErrorStream,
     );

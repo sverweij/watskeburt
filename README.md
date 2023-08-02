@@ -24,26 +24,21 @@ but for just this simple usage they're a bit overkill.
 ### :scroll: API
 
 ```javascript
-// const { listSync, getSHASync } = require("watskeburt"); // in commonjs contexts you can also require it
-import { list, getSHA, listSync, getSHASync } from "watskeburt";
+// const { list, getSHA } = require("watskeburt"); // in commonjs contexts you can also require it
+import { list, getSHA } from "watskeburt";
 
 // print the SHA1 of the current HEAD
 console.log(await getSHA());
-console.log(getSHASync());
 
 // list all files that differ between 'main' and the current revision (including
 // files not staged for commit and files not under revision control)
 /** @type {import('watskeburt').IChange[]} */
 const lChangedFiles = await list("main");
-// or with the synchronous interface:
-// const lChangedFiles = listSync("main");
 
 // list all files that differ between 'v0.6.1' and 'v0.7.1' (by definition
 // won't include files staged for commit and/ or not under revision control)
 /** @type {import('watskeburt').IChange[]} */
 const lChangedFiles = await list("v0.6.1", "v0.7.1");
-// or with the synchronous interface:
-// const lChangedFiles = listSync("v0.6.1", "v0.7.1");
 
 // As a third parameter you can pass some options
 // (pass null as the second parameter if you only want to compare between
@@ -53,11 +48,6 @@ const lChangedFiles = await list("main", null, {
   trackedOnly: false, // when set to true leaves out files not under revision control
   outputType: "object", // other options: "json" and "regex" (as used in the CLI)
 });
-// or with the synchronous interface:
-// const lChangedFiles = listSync("main", null, {
-//   trackedOnly: false, // when set to true leaves out files not under revision control
-//   outputType: "object", // other options: "json" and "regex" (as used in the CLI)
-// });
 ```
 
 The array of changes this returns looks like this:
