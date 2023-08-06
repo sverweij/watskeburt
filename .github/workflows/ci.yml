@@ -62,7 +62,7 @@ jobs:
         run: npm run lint
       - run: npm run test:cover
         if: matrix.node-version != '16.x'
-      - run: npm run test:only-for-node-16-without-the-test-reporter
+      - run: node --no-warnings --loader 'ts-node/esm' --test src/*.spec.ts src/**/*.spec.ts
         if: matrix.node-version == '16.x'
       - run: npm run build
       - name: emit coverage results to step summary
