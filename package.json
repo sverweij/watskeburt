@@ -72,7 +72,7 @@
     "build:dist": "tsc",
     "check": "npm-run-all --parallel --aggregate-output lint depcruise test:cover",
     "clean": "rm -rf dist",
-    "test": "node --no-warnings --loader 'ts-node/esm' --test-reporter dot --test src/*.spec.ts src/**/*.spec.ts",
+    "test": "node --no-warnings --loader 'ts-node/esm' --test-reporter ./tools/dot-with-summary.reporter.js --test src/*.spec.ts src/**/*.spec.ts",
     "test:cover": "c8 npm test",
     "test:only-for-node-16-without-the-test-reporter": "node --no-warnings --loader 'ts-node/esm' --test src/*.spec.ts src/**/*.spec.ts",
     "depcruise": "depcruise dist src types",

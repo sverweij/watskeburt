@@ -3,6 +3,6 @@
   "branches": 100,
   "functions": 100,
   "lines": 100,
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["{src/**/*.spec.ts,tools/**/*}"],
   "reporter": ["text-summary", "html", "json-summary"]
 }
