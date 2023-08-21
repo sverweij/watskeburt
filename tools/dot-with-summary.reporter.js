@@ -60,7 +60,7 @@ export default async function* dotWithSummaryReporter(pSource) {
   yield `${
     EOL + lFailStack.map(summarizeFailsToText).filter(Boolean).join(EOL)
   }${EOL}${lDiagnostics.pass} passing (${gTimeFormat(
-    lDiagnostics.duration_ms
+    lDiagnostics.duration_ms,
   )})${EOL}` +
     `${lDiagnostics.fail > 0 ? `${lDiagnostics.fail} failing${EOL}` : ""}` +
     `${
