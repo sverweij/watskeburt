@@ -49,7 +49,7 @@ describe("convert status lines to change objects", () => {
           "?? nottracked",
           "!! ignore",
           "D  deleted",
-        ].join("\n")
+        ].join("\n"),
       ),
       [
         {
@@ -77,7 +77,7 @@ describe("convert status lines to change objects", () => {
           changeType: "deleted",
           name: "deleted",
         },
-      ]
+      ],
     );
   });
 });

@@ -20,13 +20,13 @@ describe("convert diff line to change object", () => {
   it("recognizes Renamed files", () => {
     deepEqual(
       parseDiffLine(
-        "R066\ttest/report/markdown/markdown.spec.mjs\ttest/report/markdown/markdown-short.spec.mjs"
+        "R066\ttest/report/markdown/markdown.spec.mjs\ttest/report/markdown/markdown-short.spec.mjs",
       ),
       {
         changeType: "renamed",
         name: "test/report/markdown/markdown-short.spec.mjs",
         oldName: "test/report/markdown/markdown.spec.mjs",
-      }
+      },
     );
   });
 
@@ -75,7 +75,7 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
           name: "to",
           oldName: "from",
         },
-      ]
+      ],
     );
   });
 });

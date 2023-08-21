@@ -15,7 +15,7 @@ export function parseDiffLines(pString: string): IChange[] {
     .filter(Boolean)
     .map(parseDiffLine)
     .filter(
-      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType),
     ) as IChange[];
 }
 
@@ -25,7 +25,7 @@ export function parseDiffLine(pString: string): Partial<IChange> {
 
   if (lMatchResult?.groups) {
     lReturnValue.changeType = changeChar2ChangeType(
-      lMatchResult.groups.changeType
+      lMatchResult.groups.changeType,
     );
     if (lMatchResult.groups.newName) {
       lReturnValue.name = lMatchResult.groups.newName;

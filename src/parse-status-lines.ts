@@ -15,7 +15,7 @@ export function parseStatusLines(pString: string): IChange[] {
     .filter(Boolean)
     .map(parseStatusLine)
     .filter(
-      ({ name, changeType }) => Boolean(name) && Boolean(changeType)
+      ({ name, changeType }) => Boolean(name) && Boolean(changeType),
     ) as IChange[];
 }
 
@@ -25,10 +25,10 @@ export function parseStatusLine(pString: string): Partial<IChange> {
 
   if (lMatchResult?.groups) {
     const lStagedChangeType = changeChar2ChangeType(
-      lMatchResult.groups.stagedChangeType
+      lMatchResult.groups.stagedChangeType,
     );
     const lUnStagedChangeType = changeChar2ChangeType(
-      lMatchResult.groups.unStagedChangeType
+      lMatchResult.groups.unStagedChangeType,
     );
 
     lReturnValue.changeType =

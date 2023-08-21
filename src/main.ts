@@ -7,7 +7,7 @@ import format from "./formatters/format.js";
 export async function list(
   pOldRevision?: string,
   pNewRevision?: string,
-  pOptions?: IOptions
+  pOptions?: IOptions,
 ): Promise<IChange[] | string> {
   const lOldRevision: string = pOldRevision || (await primitives.getSHA());
   const lOptions: IOptions = pOptions || {};
@@ -24,8 +24,8 @@ export async function list(
   if (!lOptions.trackedOnly) {
     lChanges = lChanges.concat(
       parseStatusLines(lStatusLines).filter(
-        ({ changeType }) => changeType === "untracked"
-      )
+        ({ changeType }) => changeType === "untracked",
+      ),
     );
   }
   return format(lChanges, lOptions.outputType);
