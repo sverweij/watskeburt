@@ -1,4 +1,5 @@
-import { convertDiffLines, convertStatusLines, } from "./convert-to-change-object.js";
+import { parseDiffLines } from "./parse-diff-lines.js";
+import { parseStatusLines } from "./parse-status-lines.js";
 import * as primitives from "./git-primitives.js";
 import format from "./formatters/format.js";
 export async function list(pOldRevision, pNewRevision, pOptions) {
@@ -8,9 +9,9 @@ export async function list(pOldRevision, pNewRevision, pOptions) {
         primitives.getDiffLines(lOldRevision, pNewRevision),
         !lOptions.trackedOnly ? primitives.getStatusShort() : "",
     ]);
-    let lChanges = convertDiffLines(lDiffLines);
+    let lChanges = parseDiffLines(lDiffLines);
     if (!lOptions.trackedOnly) {
-        lChanges = lChanges.concat(convertStatusLines(lStatusLines).filter(({ changeType }) => changeType === "untracked"));
+        lChanges = lChanges.concat(parseStatusLines(lStatusLines).filter(({ changeType }) => changeType === "untracked"));
     }
     return format(lChanges, lOptions.outputType);
 }
