@@ -1,4 +1,4 @@
-import { deepEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import { describe, it } from "node:test";
 import { parseDiffLine, parseDiffLines } from "./parse-diff-lines.js";
 

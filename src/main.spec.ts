@@ -1,4 +1,4 @@
-import { deepEqual, match } from "node:assert";
+import { deepEqual, match } from "node:assert/strict";
 import { unlinkSync, writeFileSync } from "node:fs";
 import { after, before, describe, it } from "node:test";
 import { IChange } from "../types/watskeburt.js";

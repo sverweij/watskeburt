@@ -1,4 +1,4 @@
-import { deepEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import { describe, it } from "node:test";
 import { parseStatusLine, parseStatusLines } from "./parse-status-lines.js";
 

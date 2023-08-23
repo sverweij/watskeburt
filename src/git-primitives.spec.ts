@@ -1,5 +1,5 @@
 /* eslint-disable no-undefined */
-import { deepEqual, match, doesNotReject } from "node:assert";
+import { deepEqual, match, doesNotReject } from "node:assert/strict";
 import { EventEmitter } from "node:events";
 import { describe, it } from "node:test";
 import { getDiffLines, getSHA, getStatusShort } from "./git-primitives.js";
