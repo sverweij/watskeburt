@@ -41,9 +41,9 @@
 
     /* Module Resolution Options */
     /* Modules */
-    "module": "ES2022" /* Specify what module code is generated. */,
+    "module": "NodeNext" /* Specify what module code is generated. */,
     "rootDir": "./src/" /* Specify the root folder within your source files. */,
-    "moduleResolution": "nodenext" /* Specify how TypeScript looks up a file from a given module specifier. */,
+    "moduleResolution": "NodeNext" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
@@ -68,9 +68,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["types/**/*", "src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts"],
-  "ts-node": {
-    "transpileOnly": true,
-    "files": true
-  }
+  "exclude": ["src/**/*.spec.ts"]
 }

@@ -62,14 +62,14 @@ jobs:
         run: npm run lint
       - run: npm run test:cover
         if: matrix.node-version != '16.x'
-      - run: node --no-warnings --loader 'ts-node/esm' --test src/*.spec.ts src/**/*.spec.ts
+      - run: node --no-warnings --loader tsx --test src/**/*.spec.ts
         if: matrix.node-version == '16.x'
       - run: npm run build
       - name: emit coverage results to step summary
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
-          node --no-warnings --loader ts-node/esm tools/istanbul-json-summary-to-markdown.ts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
+          node --no-warnings --loader tsx  tools/istanbul-json-summary-to-markdown.ts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
       - name: emit full depcruise results to step summary
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |
