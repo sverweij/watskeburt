@@ -7,8 +7,6 @@ Get changed files & their statuses since any git _revision_
 A micro-lib to retrieve an array of file names that were changed since a
 revision. Also sports a cli for use outside of JavaScript c.s.
 
-- :warning: Interface is stable, but can can change until 1.0.0 is published :warning:
-
 ## why?
 
 I needed something simple and robust to support some upcoming features in
@@ -102,6 +100,8 @@ Options:
 ```
 
 ## 🇳🇱 what does 'watskeburt' mean?
+
+Wazzup.
 
 _watskeburt_ is a fast pronunciation of the Dutch "wat is er gebeurd?"
 (_what has happened?_) or "wat er is gebeurd" (_what has happened_). It's
