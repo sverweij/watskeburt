@@ -13,51 +13,61 @@ Options:
   --trackedOnly            only take tracked files into account (default: false)
   -V, --version            output the version number
   -h, --help               display help for command${EOL}`;
-export async function cli(pArguments = process.argv.slice(2), pOutStream = process.stdout, pErrorStream = process.stderr, pErrorExitCode = 1) {
-    try {
-        const lArguments = getArguments(pArguments);
-        if (lArguments.values.help) {
-            pOutStream.write(HELP_MESSAGE);
-            return;
-        }
-        if (lArguments.values.version) {
-            pOutStream.write(`${VERSION}${EOL}`);
-            return;
-        }
-        if (!outputTypeIsValid(lArguments.values.outputType)) {
-            pErrorStream.write(`error: option '-T, --outputType <type>' argument '${lArguments.values.outputType}' is invalid. Allowed choices are json, regex.${EOL}`);
-            process.exitCode = pErrorExitCode;
-            return;
-        }
-        const lResult = await list(lArguments.positionals[0], lArguments.positionals[1], lArguments.values);
-        pOutStream.write(`${lResult}${EOL}`);
+export async function cli(
+  pArguments = process.argv.slice(2),
+  pOutStream = process.stdout,
+  pErrorStream = process.stderr,
+  pErrorExitCode = 1,
+) {
+  try {
+    const lArguments = getArguments(pArguments);
+    if (lArguments.values.help) {
+      pOutStream.write(HELP_MESSAGE);
+      return;
     }
-    catch (pError) {
-        pErrorStream.write(`${EOL}ERROR: ${pError.message}${EOL}${EOL}`);
-        process.exitCode = pErrorExitCode;
+    if (lArguments.values.version) {
+      pOutStream.write(`${VERSION}${EOL}`);
+      return;
     }
+    if (!outputTypeIsValid(lArguments.values.outputType)) {
+      pErrorStream.write(
+        `error: option '-T, --outputType <type>' argument '${lArguments.values.outputType}' is invalid. Allowed choices are json, regex.${EOL}`,
+      );
+      process.exitCode = pErrorExitCode;
+      return;
+    }
+    const lResult = await list(
+      lArguments.positionals[0],
+      lArguments.positionals[1],
+      lArguments.values,
+    );
+    pOutStream.write(`${lResult}${EOL}`);
+  } catch (pError) {
+    pErrorStream.write(`${EOL}ERROR: ${pError.message}${EOL}${EOL}`);
+    process.exitCode = pErrorExitCode;
+  }
 }
 function getArguments(pArguments) {
-    return parseArgs({
-        args: pArguments,
-        options: {
-            outputType: {
-                type: "string",
-                short: "T",
-                default: "regex",
-            },
-            trackedOnly: {
-                type: "boolean",
-                default: false,
-            },
-            help: { type: "boolean", short: "h", default: false },
-            version: { type: "boolean", short: "V", default: false },
-        },
-        strict: true,
-        allowPositionals: true,
-        tokens: false,
-    });
+  return parseArgs({
+    args: pArguments,
+    options: {
+      outputType: {
+        type: "string",
+        short: "T",
+        default: "regex",
+      },
+      trackedOnly: {
+        type: "boolean",
+        default: false,
+      },
+      help: { type: "boolean", short: "h", default: false },
+      version: { type: "boolean", short: "V", default: false },
+    },
+    strict: true,
+    allowPositionals: true,
+    tokens: false,
+  });
 }
 function outputTypeIsValid(pOutputType) {
-    return ["json", "regex"].includes(pOutputType);
+  return ["json", "regex"].includes(pOutputType);
 }

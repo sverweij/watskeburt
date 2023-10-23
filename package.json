@@ -66,10 +66,11 @@
     "node": "^18||>=20"
   },
   "scripts": {
-    "build": "npm-run-all --sequential build:clean build:version build:dist",
+    "build": "npm-run-all --sequential build:clean build:version build:dist build:format",
     "build:version": "tsx tools/get-version.ts > src/version.ts",
     "build:clean": "rm -rf dist/*",
     "build:dist": "tsc",
+    "build:format": "prettier --log-level warn --write dist/",
     "check": "npm-run-all --parallel --aggregate-output lint depcruise test:cover",
     "clean": "rm -rf dist",
     "test": "tsx --test-reporter ./tools/dot-with-summary.reporter.js --test src/*.spec.ts src/**/*.spec.ts",
