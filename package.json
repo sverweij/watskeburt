@@ -19,7 +19,7 @@
     "url": "https://sverweij.github.io"
   },
   "license": "MIT",
-  "bin": "dist/cli.js",
+  "bin": "dist/run-cli.js",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "type": "module",
