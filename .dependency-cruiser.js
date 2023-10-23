@@ -5,10 +5,10 @@ export default {
       name: "no-deep-deps-from-cli",
       severity: "error",
       from: {
-        path: "^src/cli\\.ts$",
+        path: "^src/run-cli\\.ts$",
       },
       to: {
-        pathNot: ["^src/execute-cli\\.ts$", "$1"],
+        pathNot: ["^src/cli\\.ts$", "$1"],
       },
     },
     {
@@ -18,7 +18,7 @@ export default {
       },
       to: {
         path: "^src/",
-        pathNot: ["\\.spec\\.ts$", "^src/(cli|execute-cli|version)\\.ts$"],
+        pathNot: ["\\.spec\\.ts$", "^src/(run-cli|cli|version)\\.ts$"],
         reachable: false,
       },
     },
