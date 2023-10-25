@@ -9,7 +9,7 @@
   "homepage": "https://github.com/sverweij/watskeburt",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sverweij/watskeburt"
+    "url": "git+https://github.com/sverweij/watskeburt.git"
   },
   "bugs": {
     "url": "https://github.com/sverweij/watskeburt/issues"
@@ -19,7 +19,9 @@
     "url": "https://sverweij.github.io"
   },
   "license": "MIT",
-  "bin": "dist/run-cli.js",
+  "bin": {
+    "watskeburt": "dist/run-cli.js"
+  },
   "main": "dist/main.js",
   "module": "dist/main.js",
   "type": "module",
