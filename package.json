@@ -29,6 +29,7 @@
   "exports": {
     ".": [
       {
+        "types": "./types/watskeburt.d.ts",
         "import": "./dist/main.js"
       },
       "./dist/main.js"
