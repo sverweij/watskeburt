@@ -1,6 +1,6 @@
 import { deepEqual, match } from "node:assert/strict";
-import { unlinkSync, writeFileSync } from "node:fs";
 import { after, before, describe, it } from "node:test";
+import { unlink, writeFile } from "node:fs/promises";
 import { IChange } from "../types/watskeburt.js";
 import { getSHA, list } from "./main.js";
 
@@ -8,8 +8,8 @@ const UNTRACKED_FILE_NAME = "src/__fixtures__/untracked.txt";
 
 describe("main - list & listSync ", () => {
   // "create an untracked file"
-  before(() => {
-    writeFileSync(
+  before(async () => {
+    await writeFile(
       UNTRACKED_FILE_NAME,
       "temporary file for testing purposes, untracked",
       { encoding: "utf8" },
@@ -17,9 +17,9 @@ describe("main - list & listSync ", () => {
   });
 
   // "remove the untracked file";
-  after(() => {
+  after(async () => {
     try {
-      unlinkSync(UNTRACKED_FILE_NAME);
+      await unlink(UNTRACKED_FILE_NAME);
     } catch (pError) {
       process.stderr.write(
         "cleaning up untracked file failed in test 'main - list & listSync'\n",
