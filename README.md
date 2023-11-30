@@ -75,7 +75,7 @@ node >=18.11).
 ```shell
 # list all JavaScript-ish files changed since main in a regular expression
 $ npx watskeburt main
-^(src/cli\.mjs|src/formatters/regex\.mjs|src/version\.mjs)$
+^(src/cli[.]mjs|src/formatters/regex[.]mjs|src/version[.]mjs)$
 ```
 
 By default this returns a regex that contains all changed files that could be

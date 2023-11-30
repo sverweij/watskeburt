@@ -5,10 +5,10 @@ export default {
       name: "no-deep-deps-from-cli",
       severity: "error",
       from: {
-        path: "^src/run-cli\\.ts$",
+        path: "^src/run-cli[.]ts$",
       },
       to: {
-        pathNot: ["^src/cli\\.ts$", "$1"],
+        pathNot: ["^src/cli[.]ts$", "$1"],
       },
     },
     {
@@ -18,7 +18,7 @@ export default {
       },
       to: {
         path: "^src/",
-        pathNot: ["\\.spec\\.ts$", "^src/(run-cli|cli|version)\\.ts$"],
+        pathNot: ["[.]spec[.]ts$", "^src/(run-cli|cli|version)[.]ts$"],
         reachable: false,
       },
     },
@@ -46,9 +46,9 @@ export default {
       from: {
         orphan: true,
         pathNot: [
-          "(^|/)\\.[^/]+\\.(js|cjs|ts|json)$", // dot files
-          "\\.d\\.ts$", // TypeScript declaration files
-          "(^|/)tsconfig\\.json$", // TypeScript config
+          "(^|/)[.][^/]+[.](js|cjs|ts|json)$", // dot files
+          "[.]d[.]ts$", // TypeScript declaration files
+          "(^|/)tsconfig[.]json$", // TypeScript config
           "^dist/",
         ],
       },
@@ -152,7 +152,7 @@ export default {
       severity: "error",
       from: {},
       to: {
-        path: "\\.spec\\.ts$",
+        path: "[.]spec[.]ts$",
       },
     },
     {
@@ -166,7 +166,7 @@ export default {
         "from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration",
       from: {
         path: "^(dist|src)",
-        pathNot: "\\.spec\\.ts$",
+        pathNot: "[.]spec[.]ts$",
       },
       to: {
         dependencyTypes: ["npm-dev"],
