@@ -45,10 +45,10 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/node": "20.9.3",
-    "@typescript-eslint/eslint-plugin": "6.12.0",
+    "@types/node": "20.10.1",
+    "@typescript-eslint/eslint-plugin": "6.13.1",
     "c8": "8.0.1",
-    "dependency-cruiser": "15.3.0",
+    "dependency-cruiser": "15.5.0",
     "eslint": "8.54.0",
     "eslint-config-moving-meadow": "4.0.2",
     "eslint-config-prettier": "9.0.0",
@@ -61,7 +61,7 @@
     "eslint-plugin-unicorn": "49.0.0",
     "npm-run-all": "4.1.5",
     "prettier": "3.1.0",
-    "tsx": "4.2.0",
+    "tsx": "4.6.1",
     "typescript": "5.3.2",
     "upem": "9.0.2"
   },
