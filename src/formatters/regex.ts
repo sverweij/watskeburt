@@ -35,10 +35,12 @@ export default function formatToRegex(
   pChangeTypes: Set<changeTypeType> = DEFAULT_CHANGE_TYPES,
 ): string {
   const lChanges = pChanges
-    .filter((pChange) => pChangeTypes.has(pChange.changeType))
-    .map(({ name }) => name)
-    .filter((pName) => pExtensions.has(extname(pName)))
-    .map((pName) => pName.replace(/\\/g, "\\\\").replace(/\./g, "[.]"))
+    .filter(
+      (pChange) =>
+        pChangeTypes.has(pChange.changeType) &&
+        pExtensions.has(extname(pChange.name)),
+    )
+    .map(({ name }) => name.replace(/\\/g, "\\\\").replace(/\./g, "[.]"))
     .join("|");
   return `^(${lChanges})$`;
 }
