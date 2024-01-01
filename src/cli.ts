@@ -1,7 +1,7 @@
 import { EOL } from "node:os";
 import { parseArgs } from "node:util";
 import { type Writable } from "node:stream";
-import { type IFormatOptions } from "types/watskeburt.js";
+import { type IFormatOptions } from "../types/watskeburt.js";
 import { list } from "./main.js";
 import { VERSION } from "./version.js";
 

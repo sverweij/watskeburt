@@ -1,7 +1,7 @@
 import { deepEqual, match } from "node:assert/strict";
 import { after, before, describe, it } from "node:test";
 import { unlink, writeFile } from "node:fs/promises";
-import { IChange } from "../types/watskeburt.js";
+import type { IChange } from "../types/watskeburt.js";
 import { getSHA, list } from "./main.js";
 
 const UNTRACKED_FILE_NAME = "src/__fixtures__/untracked.txt";

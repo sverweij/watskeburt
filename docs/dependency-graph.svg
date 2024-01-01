@@ -64,46 +64,46 @@
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="188.04,-121.1 194.04,-119 188.04,-116.9 188.04,-121.1"/>
 </g>
 <!-- src/cli.ts&#45;&gt;src/main.ts -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>src/cli.ts&#45;&gt;src/main.ts</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M131.75,-77.11C131.75,-90.44 131.75,-113.5 131.75,-113.5 131.75,-113.5 188.15,-113.5 188.15,-113.5"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="188.15,-115.6 194.15,-113.5 188.15,-111.4 188.15,-115.6"/>
 </g>
-<!-- src/version.ts -->
-<g id="node4" class="node">
-<title>src/version.ts</title>
-<g id="a_node4"><a xlink:href="vscode://file/${process.cwd()}/src/version.ts" xlink:title="version.ts">
-<path fill="#ddfeff" stroke="black" d="M246.08,-35.75C246.08,-35.75 202.92,-35.75 202.92,-35.75 199.96,-35.75 197,-32.79 197,-29.83 197,-29.83 197,-23.92 197,-23.92 197,-20.96 199.96,-18 202.92,-18 202.92,-18 246.08,-18 246.08,-18 249.04,-18 252,-20.96 252,-23.92 252,-23.92 252,-29.83 252,-29.83 252,-32.79 249.04,-35.75 246.08,-35.75"/>
-<text text-anchor="start" x="205" y="-23.2" font-family="Helvetica,sans-Serif" font-size="9.00">version.ts</text>
-</a>
-</g>
-</g>
-<!-- src/cli.ts&#45;&gt;src/version.ts -->
-<g id="edge4" class="edge">
-<title>src/cli.ts&#45;&gt;src/version.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M145.41,-70.42C153.74,-70.42 160.75,-70.42 160.75,-70.42 160.75,-70.42 160.75,-32.17 160.75,-32.17 160.75,-32.17 187.7,-32.17 187.7,-32.17"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="187.7,-34.27 193.7,-32.17 187.7,-30.07 187.7,-34.27"/>
-</g>
 <!-- types/watskeburt.d.ts -->
-<g id="node5" class="node">
+<g id="node4" class="node">
 <title>types/watskeburt.d.ts</title>
-<g id="a_node5"><a xlink:href="vscode://file/${process.cwd()}/types/watskeburt.d.ts" xlink:title="watskeburt.d.ts">
+<g id="a_node4"><a xlink:href="vscode://file/${process.cwd()}/types/watskeburt.d.ts" xlink:title="watskeburt.d.ts">
 <path fill="#ddfeff" stroke="black" d="M599.83,-58.75C599.83,-58.75 534.92,-58.75 534.92,-58.75 531.96,-58.75 529,-55.79 529,-52.83 529,-52.83 529,-46.92 529,-46.92 529,-43.96 531.96,-41 534.92,-41 534.92,-41 599.83,-41 599.83,-41 602.79,-41 605.75,-43.96 605.75,-46.92 605.75,-46.92 605.75,-52.83 605.75,-52.83 605.75,-55.79 602.79,-58.75 599.83,-58.75"/>
 <text text-anchor="start" x="537" y="-46.2" font-family="Helvetica,sans-Serif" font-size="9.00">watskeburt.d.ts</text>
 </a>
 </g>
 </g>
 <!-- src/cli.ts&#45;&gt;types/watskeburt.d.ts -->
-<g id="edge5" class="edge">
+<g id="edge3" class="edge">
 <title>src/cli.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M118.75,-77.14C118.75,-95.9 118.75,-136.58 118.75,-136.58 118.75,-136.58 573.75,-136.58 573.75,-136.58 573.75,-136.58 573.75,-68.18 573.75,-68.18"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="575.85,-68.18 573.75,-62.18 571.65,-68.18 575.85,-68.18"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M118.75,-77.14C118.75,-95.9 118.75,-136.58 118.75,-136.58 118.75,-136.58 573.75,-136.58 573.75,-136.58 573.75,-136.58 573.75,-66.67 573.75,-66.67"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="575.85,-66.67 573.75,-60.67 571.65,-66.67 575.85,-66.67"/>
+</g>
+<!-- src/version.ts -->
+<g id="node5" class="node">
+<title>src/version.ts</title>
+<g id="a_node5"><a xlink:href="vscode://file/${process.cwd()}/src/version.ts" xlink:title="version.ts">
+<path fill="#ddfeff" stroke="black" d="M246.08,-35.75C246.08,-35.75 202.92,-35.75 202.92,-35.75 199.96,-35.75 197,-32.79 197,-29.83 197,-29.83 197,-23.92 197,-23.92 197,-20.96 199.96,-18 202.92,-18 202.92,-18 246.08,-18 246.08,-18 249.04,-18 252,-20.96 252,-23.92 252,-23.92 252,-29.83 252,-29.83 252,-32.79 249.04,-35.75 246.08,-35.75"/>
+<text text-anchor="start" x="205" y="-23.2" font-family="Helvetica,sans-Serif" font-size="9.00">version.ts</text>
+</a>
+</g>
+</g>
+<!-- src/cli.ts&#45;&gt;src/version.ts -->
+<g id="edge5" class="edge">
+<title>src/cli.ts&#45;&gt;src/version.ts</title>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M145.41,-70.42C153.74,-70.42 160.75,-70.42 160.75,-70.42 160.75,-70.42 160.75,-32.17 160.75,-32.17 160.75,-32.17 187.7,-32.17 187.7,-32.17"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="187.7,-34.27 193.7,-32.17 187.7,-30.07 187.7,-34.27"/>
 </g>
 <!-- src/main.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge18" class="edge">
 <title>src/main.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M224.75,-126.01C224.75,-128.81 224.75,-131.17 224.75,-131.17 224.75,-131.17 562.75,-131.17 562.75,-131.17 562.75,-131.17 562.75,-68.23 562.75,-68.23"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="564.85,-68.23 562.75,-62.23 560.65,-68.23 564.85,-68.23"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M224.75,-126.01C224.75,-128.81 224.75,-131.17 224.75,-131.17 224.75,-131.17 562.75,-131.17 562.75,-131.17 562.75,-131.17 562.75,-66.71 562.75,-66.71"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="564.85,-66.71 562.75,-60.71 560.65,-66.71 564.85,-66.71"/>
 </g>
 <!-- src/formatters/format.ts -->
 <g id="node7" class="node">
@@ -183,8 +183,8 @@
 <!-- src/formatters/format.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge7" class="edge">
 <title>src/formatters/format.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M373.59,-176.44C388.43,-176.44 403.75,-176.44 403.75,-176.44 403.75,-176.44 403.75,-53.25 403.75,-53.25 403.75,-53.25 519.57,-53.25 519.57,-53.25"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="519.57,-55.35 525.57,-53.25 519.57,-51.15 519.57,-55.35"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M373.59,-176.44C388.43,-176.44 403.75,-176.44 403.75,-176.44 403.75,-176.44 403.75,-53.25 403.75,-53.25 403.75,-53.25 521.08,-53.25 521.08,-53.25"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="521.08,-55.35 527.08,-53.25 521.08,-51.15 521.08,-55.35"/>
 </g>
 <!-- src/formatters/json.ts -->
 <g id="node8" class="node">
@@ -219,14 +219,14 @@
 <!-- src/formatters/json.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge11" class="edge">
 <title>src/formatters/json.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M483.68,-180.88C524.2,-180.88 595.75,-180.88 595.75,-180.88 595.75,-180.88 595.75,-67.91 595.75,-67.91"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="597.85,-67.91 595.75,-61.91 593.65,-67.91 597.85,-67.91"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M483.68,-180.88C524.2,-180.88 595.75,-180.88 595.75,-180.88 595.75,-180.88 595.75,-66.39 595.75,-66.39"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="597.85,-66.39 595.75,-60.39 593.65,-66.39 597.85,-66.39"/>
 </g>
 <!-- src/formatters/regex.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge14" class="edge">
 <title>src/formatters/regex.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M483.7,-150.88C521.35,-150.88 584.75,-150.88 584.75,-150.88 584.75,-150.88 584.75,-68.22 584.75,-68.22"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="586.85,-68.22 584.75,-62.22 582.65,-68.22 586.85,-68.22"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M483.7,-150.88C521.35,-150.88 584.75,-150.88 584.75,-150.88 584.75,-150.88 584.75,-66.71 584.75,-66.71"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="586.85,-66.71 584.75,-60.71 582.65,-66.71 586.85,-66.71"/>
 </g>
 <!-- src/formatters/json.spec.ts -->
 <g id="node10" class="node">
@@ -255,8 +255,8 @@
 <!-- src/formatters/regex.spec.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge12" class="edge">
 <title>src/formatters/regex.spec.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M381.34,-146.44C391.91,-146.44 400.75,-146.44 400.75,-146.44 400.75,-146.44 400.75,-51.5 400.75,-51.5 400.75,-51.5 519.7,-51.5 519.7,-51.5"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="519.7,-53.6 525.7,-51.5 519.7,-49.4 519.7,-53.6"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M381.34,-146.44C391.91,-146.44 400.75,-146.44 400.75,-146.44 400.75,-146.44 400.75,-51.5 400.75,-51.5 400.75,-51.5 521.22,-51.5 521.22,-51.5"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="521.22,-53.6 527.22,-51.5 521.22,-49.4 521.22,-53.6"/>
 </g>
 <!-- src/formatters/regex.spec.ts&#45;&gt;src/formatters/regex.ts -->
 <g id="edge13" class="edge">
@@ -297,14 +297,14 @@
 <!-- src/main.spec.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge16" class="edge">
 <title>src/main.spec.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M118.75,-24.62C118.75,-14.59 118.75,0 118.75,0 118.75,0 567.75,0 567.75,0 567.75,0 567.75,-31.7 567.75,-31.7"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="565.65,-31.7 567.75,-37.7 569.85,-31.7 565.65,-31.7"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M118.75,-24.62C118.75,-14.59 118.75,0 118.75,0 118.75,0 567.75,0 567.75,0 567.75,0 567.75,-33.21 567.75,-33.21"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="565.65,-33.21 567.75,-39.21 569.85,-33.21 565.65,-33.21"/>
 </g>
 <!-- src/parse&#45;diff&#45;lines.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge25" class="edge">
 <title>src/parse&#45;diff&#45;lines.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M389.23,-104C394.32,-104 397.75,-104 397.75,-104 397.75,-104 397.75,-49.75 397.75,-49.75 397.75,-49.75 519.86,-49.75 519.86,-49.75"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="519.86,-51.85 525.86,-49.75 519.86,-47.65 519.86,-51.85"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M389.23,-104C394.32,-104 397.75,-104 397.75,-104 397.75,-104 397.75,-49.75 397.75,-49.75 397.75,-49.75 521.37,-49.75 521.37,-49.75"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="521.37,-51.85 527.37,-49.75 521.37,-47.65 521.37,-51.85"/>
 </g>
 <!-- src/map&#45;change&#45;type.ts -->
 <g id="node17" class="node">
@@ -324,8 +324,8 @@
 <!-- src/parse&#45;status&#45;lines.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge28" class="edge">
 <title>src/parse&#45;status&#45;lines.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M395.49,-63.42C453.15,-63.42 540.75,-63.42 540.75,-63.42 540.75,-63.42 540.75,-62.99 540.75,-62.99"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="542.85,-68.16 540.75,-62.16 538.65,-68.16 542.85,-68.16"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M395.49,-63.42C453.15,-63.42 540.75,-63.42 540.75,-63.42 540.75,-63.42 540.75,-62.99 540.75,-62.99"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="542.85,-66.65 540.75,-60.65 538.65,-66.65 542.85,-66.65"/>
 </g>
 <!-- src/parse&#45;status&#45;lines.ts&#45;&gt;src/map&#45;change&#45;type.ts -->
 <g id="edge29" class="edge">
@@ -336,8 +336,8 @@
 <!-- src/map&#45;change&#45;type.ts&#45;&gt;types/watskeburt.d.ts -->
 <g id="edge23" class="edge">
 <title>src/map&#45;change&#45;type.ts&#45;&gt;types/watskeburt.d.ts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M505.24,-116.88C528.68,-116.88 551.75,-116.88 551.75,-116.88 551.75,-116.88 551.75,-68.22 551.75,-68.22"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="553.85,-68.22 551.75,-62.22 549.65,-68.22 553.85,-68.22"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M505.24,-116.88C528.68,-116.88 551.75,-116.88 551.75,-116.88 551.75,-116.88 551.75,-66.7 551.75,-66.7"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="553.85,-66.7 551.75,-60.7 549.65,-66.7 553.85,-66.7"/>
 </g>
 <!-- src/parse&#45;diff&#45;lines.spec.ts -->
 <g id="node18" class="node">
