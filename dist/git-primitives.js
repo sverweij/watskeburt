@@ -18,9 +18,7 @@ export async function getDiffLines(
   const lErrorMap = new Map([
     [
       128,
-      `revision '${pOldRevision}' ${
-        pNewRevision ? `(or '${pNewRevision}') ` : ""
-      }unknown`,
+      `revision '${pOldRevision}' ${pNewRevision ? `(or '${pNewRevision}') ` : ""}unknown`,
     ],
     [129, `'${process.cwd()}' does not seem to be a git repository`],
   ]);
@@ -63,9 +61,7 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
         pReject(
           new Error(
             pErrorMap.get(pCode ?? 0) ||
-              `internal git error: ${pCode} (${stringifyOutStream(
-                lStdErrorData,
-              )})`,
+              `internal git error: ${pCode} (${stringifyOutStream(lStdErrorData)})`,
           ),
         );
       }
