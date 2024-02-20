@@ -96,6 +96,7 @@
     "lint:eslint:fix": "eslint src types tools --fix --cache --cache-location node_modules/.cache/eslint/",
     "lint:types": "tsc --noEmit",
     "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo for test, build and static analysis scripts: see the github repository\"}' > smol-package.json && mv smol-package.json package.json",
+    "postpack": "git restore package.json",
     "scm:stage": "git add .",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem-outdated": "npm outdated --json --long | upem --dry-run",
