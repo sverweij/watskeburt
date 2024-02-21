@@ -36,11 +36,11 @@ export async function cli(
       process.exitCode = pErrorExitCode;
       return;
     }
-    const lResult = await list(
-      lArguments.positionals[0],
-      lArguments.positionals[1],
-      lArguments.values,
-    );
+    const lResult = await list({
+      ...lArguments.values,
+      oldRevision: lArguments.positionals[0],
+      newRevision: lArguments.positionals[1],
+    });
     pOutStream.write(`${lResult}${EOL}`);
   } catch (pError) {
     pErrorStream.write(`${EOL}ERROR: ${pError.message}${EOL}${EOL}`);

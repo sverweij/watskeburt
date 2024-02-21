@@ -4,16 +4,13 @@ import { parseStatusLines } from "./parse-status-lines.js";
 import * as primitives from "./git-primitives.js";
 import format from "./formatters/format.js";
 
-export async function list(
-  pOldRevision?: string,
-  pNewRevision?: string,
-  pOptions?: IOptions,
-): Promise<IChange[] | string> {
-  const lOldRevision: string = pOldRevision || (await primitives.getSHA());
+export async function list(pOptions?: IOptions): Promise<IChange[] | string> {
+  const lOldRevision: string =
+    pOptions?.oldRevision || (await primitives.getSHA());
   const lOptions: IOptions = pOptions || {};
 
   const [lDiffLines, lStatusLines] = await Promise.all([
-    primitives.getDiffLines(lOldRevision, pNewRevision),
+    primitives.getDiffLines(lOldRevision, pOptions?.newRevision),
     // to stay consistent with the use of trackedOnly below: negated condition
     // eslint-disable-next-line no-negated-condition
     !lOptions.trackedOnly ? primitives.getStatusShort() : "",

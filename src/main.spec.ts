@@ -29,7 +29,9 @@ describe("main - list & listSync ", () => {
 
   it("list (trackedOnly) returns an empty array when comparing current SHA, with current SHA", async () => {
     const lSHA = await getSHA();
-    const lResult = await list(lSHA, lSHA, {
+    const lResult = await list({
+      oldRevision: lSHA,
+      newRevision: lSHA,
       trackedOnly: true,
     });
     deepEqual(lResult, []);
@@ -37,7 +39,10 @@ describe("main - list & listSync ", () => {
 
   it("list result contains the newly created untracked file when comparing current SHA, with current SHA", async () => {
     const lSHA = await getSHA();
-    const lResult = (await list(lSHA, lSHA)) as IChange[];
+    const lResult = (await list({
+      oldRevision: lSHA,
+      newRevision: lSHA,
+    })) as IChange[];
     deepEqual(
       lResult.filter(({ name }) => name === UNTRACKED_FILE_NAME),
       [
