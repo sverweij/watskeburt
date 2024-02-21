@@ -37,11 +37,11 @@ const lChangedFiles = await list("main");
 /** @type {import('watskeburt').IChange[]} */
 const lChangedFiles = await list("v0.6.1", "v0.7.1");
 
-// As a third parameter you can pass some options
-// (pass null as the second parameter if you only want to compare between
-// a revision and the working tree):
 /** @type {import('watskeburt').IChange[]|string} */
-const lChangedFiles = await list("main", null, {
+const lChangedFiles = await list({
+  oldRevision: "main",
+  // this compares the working tree with the oldRevision. If you want to compare
+  // to another branch or revision you can pass that in a `newRevision` field
   trackedOnly: false, // when set to true leaves out files not under revision control
   outputType: "object", // other options: "json" and "regex" (as used in the CLI)
 });
@@ -69,8 +69,7 @@ The array of changes this returns looks like this:
 
 ### :shell: cli
 
-For now there's also a simple command line interface (which works from node ^16.19 and
-node >=18.11).
+There's also a simple command line interface (which works from node >=18.11).
 
 ```shell
 # list all JavaScript-ish files changed since main in a regular expression

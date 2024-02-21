@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-empty-file */
 module.exports = {
   root: true,
   ignorePatterns: ["coverage", "docs", "dist", "node_modules"],
@@ -17,6 +16,7 @@ module.exports = {
         "node/no-unsupported-features/es-syntax": "off",
         "import/no-relative-parent-imports": "off",
         "sort-imports": "off",
+        "unicorn/no-keyword-prefix": "off",
         "unicorn/prefer-node-protocol": "error",
         "unicorn/prefer-module": "error",
         "no-use-before-define": "off",

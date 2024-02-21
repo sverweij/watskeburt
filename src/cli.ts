@@ -55,11 +55,11 @@ export async function cli(
       return;
     }
 
-    const lResult = await list(
-      lArguments.positionals[0],
-      lArguments.positionals[1],
-      lArguments.values,
-    );
+    const lResult = await list({
+      ...lArguments.values,
+      oldRevision: lArguments.positionals[0],
+      newRevision: lArguments.positionals[1],
+    });
     pOutStream.write(`${lResult}${EOL}`);
   } catch (pError: unknown) {
     pErrorStream.write(`${EOL}ERROR: ${(pError as Error).message}${EOL}${EOL}`);
