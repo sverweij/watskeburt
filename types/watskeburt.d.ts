@@ -41,6 +41,13 @@ export interface IBaseOptions {
    * null when you want to compare against the working tree
    */
   newRevision?: string;
+  /**
+   * When true _only_ takes already tracked files into account.
+   * When false also takes untracked files into account.
+   *
+   * Defaults to false.
+   */
+  trackedOnly?: boolean;
 }
 
 export interface IFormatOptions extends IBaseOptions {
@@ -49,13 +56,6 @@ export interface IFormatOptions extends IBaseOptions {
    * the listSync function returns an IChange[] object
    */
   outputType: "regex" | "json";
-  /**
-   * When true _only_ takes already tracked files into account.
-   * When false also takes untracked files into account.
-   *
-   * Defaults to false.
-   */
-  trackedOnly?: boolean;
 }
 
 export interface IInternalOptions extends IBaseOptions {
@@ -64,13 +64,6 @@ export interface IInternalOptions extends IBaseOptions {
    * the listSync function returns an IChange[] object
    */
   outputType?: "object";
-  /**
-   * When true _only_ takes already tracked files into account.
-   * When false also takes untracked files into account.
-   *
-   * Defaults to false.
-   */
-  trackedOnly?: boolean;
 }
 
 export type IOptions = IFormatOptions | IInternalOptions;
