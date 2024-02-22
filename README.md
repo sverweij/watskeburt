@@ -5,17 +5,7 @@ Get changed files & their statuses since any git _revision_
 ## what's this do?
 
 A micro-lib to retrieve an array of file names that were changed since a
-revision. Also sports a cli for use outside of JavaScript c.s.
-
-## why?
-
-I needed something simple and robust to support some upcoming features in
-[dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and to
-run standalone to use _in combination_ with dependency-cruiser.
-
-There are a few specialized packages like this on npm, but it seems they've
-fallen out of maintenance. More generic packages are still maintained,
-but for just this simple usage they're a bit overkill.
+revision. Also sports a cli.
 
 ## :construction_worker: usage
 
@@ -30,20 +20,23 @@ console.log(await getSHA());
 // list all files that differ between 'main' and the current revision (including
 // files not staged for commit and files not under revision control)
 /** @type {import('watskeburt').IChange[]} */
-const lChangedFiles = await list("main");
+const lChangedFiles = await list({ oldRevision: "main" });
 
 // list all files that differ between 'v0.6.1' and 'v0.7.1' (by definition
 // won't include files staged for commit and/ or not under revision control)
 /** @type {import('watskeburt').IChange[]} */
-const lChangedFiles = await list("v0.6.1", "v0.7.1");
+const lChangedFiles = await list({
+  oldRevision: "v0.6.1",
+  newRevision: "v0.7.1",
+});
 
+// list all files that differ between 'main' and the current revision
+// (_excluding_ files not staged for commit)
 /** @type {import('watskeburt').IChange[]|string} */
 const lChangedFiles = await list({
   oldRevision: "main",
-  // this compares the working tree with the oldRevision. If you want to compare
-  // to another branch or revision you can pass that in a `newRevision` field
   trackedOnly: false, // when set to true leaves out files not under revision control
-  outputType: "object", // other options: "json" and "regex" (as used in the CLI)
+  outputType: "json", // options: "object", "json" and "regex"
 });
 ```
 
@@ -69,7 +62,7 @@ The array of changes this returns looks like this:
 
 ### :shell: cli
 
-There's also a simple command line interface (which works from node >=18.11).
+Works with node >=18.11
 
 ```shell
 # list all JavaScript-ish files changed since main in a regular expression
@@ -77,11 +70,11 @@ $ npx watskeburt main
 ^(src/cli[.]mjs|src/formatters/regex[.]mjs|src/version[.]mjs)$
 ```
 
-By default this returns a regex that contains all changed files that could be
-source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...) that can
-be used in e.g. the `--focus` and `--reaches` filters of dependency-cruiser.
+By default this emits a regex that contains all changed files that could be
+source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...). It's can
+be used in e.g. dependency-cruiser's `--focus` and `--reaches` filters.
 
-The JSON output (which looks a lot like the array above) is unfiltered and
+The JSON output (= the array above, serialized) is unfiltered and
 also contains other extensions.
 
 ```
@@ -97,6 +90,16 @@ Options:
   -V, --version            output the version number
   -h, --help               display help for command
 ```
+
+## why?
+
+I needed something robust to support caching in
+[dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and to
+run standalone to use _in combination_ with dependency-cruiser.
+
+A few specialized packages like this exist, but it they've fallen out of
+maintenance. More generic packages are still maintained, but for my simple use
+case they're overkill.
 
 ## 🇳🇱 what does 'watskeburt' mean?
 
