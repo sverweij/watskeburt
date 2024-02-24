@@ -19,7 +19,7 @@ const HELP_MESSAGE = `Usage: watskeburt [options] [old-revision] [new-revision]
 
 lists files & their statuses since [old-revision] or between [old-revision] and [new-revision].
 
--> When you don't pass a revision at all old-revision defaults to the current one.
+-> When you don't pass a revision old-revision defaults to the current one.
 
 Options:
   -T, --outputType <type>  what format to emit (choices: "json", "regex", default: "regex")

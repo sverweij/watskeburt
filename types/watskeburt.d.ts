@@ -1,4 +1,4 @@
-export type changeTypeType =
+export type changeType =
   | "added"
   | "copied"
   | "deleted"
@@ -20,63 +20,59 @@ export interface IChange {
   /**
    * how the file was changed
    */
-  changeType: changeTypeType;
+  type: changeType;
   /**
    * if the file was renamed: what the old file's name was
    */
   oldName?: string;
 }
 
-export type outputTypeType = "regex" | "json" | "object";
+export type outputTypeType = "regex" | "json";
 
 export interface IBaseOptions {
   /**
-   * The revision against which to compare. E.g. a commit-hash,
-   * a branch or a tag. When not passed defaults to the _current_
-   * commit hash (if there's any)
+   * The revision against which to compare. When not passed defaults to the
+   * _current_ commit hash (if there's any)
    */
   oldRevision?: string;
   /**
-   * Newer revision against which to compare. Leave out or pass
-   * null when you want to compare against the working tree
+   * Newer revision against which to compare. Leave out when you want to
+   * compare against the working tree
    */
   newRevision?: string;
   /**
-   * When true _only_ takes already tracked files into account.
-   * When false also takes untracked files into account.
-   *
-   * Defaults to false.
+   * When true only takes already tracked files into account.
+   * When false also takes untracked files into account (default)
    */
   trackedOnly?: boolean;
 }
 
 export interface IFormatOptions extends IBaseOptions {
   /**
-   * The type of output to deliver. Defaults to "object" - in which case
-   * the listSync function returns an IChange[] object
+   * The type of output to deliver.
    */
   outputType: "regex" | "json";
 }
 
 export interface IInternalOptions extends IBaseOptions {
   /**
-   * The type of output to deliver. Defaults to "object" - in which case
-   * the listSync function returns an IChange[] object
+   * The type of output to deliver. undefined/ left out
+   * the outputType defaults to a list of `IChange`s
    */
-  outputType?: "object";
+  outputType?: undefined;
 }
 
 export type IOptions = IFormatOptions | IInternalOptions;
 
 /**
- * returns a promise of a list of files changed since pOldRevision.
+ * promises a list of files changed since pOldRevision.
  *
  * @throws {Error}
  */
 export function list(pOptions?: IInternalOptions): Promise<IChange[]>;
 
 /**
- * returns a promise of a list of files changed since pOldRevision, formatted
+ * promises a list of files changed since pOldRevision, formatted
  * into a string as a pOptions.outputType
  *
  * @throws {Error}
@@ -84,7 +80,7 @@ export function list(pOptions?: IInternalOptions): Promise<IChange[]>;
 export function list(pOptions?: IFormatOptions): Promise<string>;
 
 /**
- * Returns the SHA1 of the current HEAD
+ * Promises the SHA1 of the current HEAD
  *
  * @throws {Error}
  */

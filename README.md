@@ -2,11 +2,6 @@
 
 Get changed files & their statuses since any git _revision_
 
-## what's this do?
-
-A micro-lib to retrieve an array of file names that were changed since a
-revision. Also sports a cli.
-
 ## :construction_worker: usage
 
 ### :scroll: API
@@ -31,7 +26,7 @@ const lChangedFiles = await list({
 });
 
 // list all files that differ between 'main' and the current revision
-// (_excluding_ files not staged for commit)
+// (excluding files not staged for commit)
 /** @type {import('watskeburt').IChange[]|string} */
 const lChangedFiles = await list({
   oldRevision: "main",
@@ -46,16 +41,16 @@ The array of changes this returns looks like this:
 [
   {
     name: "doc/cli.md",
-    changeType: "modified",
+    type: "modified",
   },
   {
     name: "test/thing.spec.mjs",
-    changeType: "renamed",
+    type: "renamed",
     oldName: "test/old-thing.spec.mjs",
   },
   {
     name: "src/not-tracked-yet.mjs",
-    changeType: "untracked",
+    type: "untracked",
   },
 ];
 ```
@@ -70,19 +65,18 @@ $ npx watskeburt main
 ^(src/cli[.]mjs|src/formatters/regex[.]mjs|src/version[.]mjs)$
 ```
 
-By default this emits a regex that contains all changed files that could be
-source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...). It's can
+This emits a regex that contains all changed files that could be
+source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...). It can
 be used in e.g. dependency-cruiser's `--focus` and `--reaches` filters.
 
-The JSON output (= the array above, serialized) is unfiltered and
-also contains other extensions.
+The JSON output (= the array above, serialized) also contains other extensions.
 
 ```
 Usage: watskeburt [options] [old-revision] [new-revision]
 
 lists files & their statuses since [old-revision] or between [old-revision] and [new-revision].
 
--> When you don't pass a revision at all old-revision defaults to the current one.
+-> When you don't pass a revision old-revision defaults to the current one.
 
 Options:
   -T, --outputType <type>  what format to emit (choices: "json", "regex", default: "regex")
@@ -97,15 +91,13 @@ I needed something robust to support caching in
 [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and to
 run standalone to use _in combination_ with dependency-cruiser.
 
-A few specialized packages like this exist, but it they've fallen out of
-maintenance. More generic packages are still maintained, but for my simple use
-case they're overkill.
+A few specialized packages like this existed, but they had fallen out of
+maintenance. More generic packages still were maintained, but for my use
+case they were overkill.
 
 ## 🇳🇱 what does 'watskeburt' mean?
 
 Wazzup.
 
 _watskeburt_ is a fast pronunciation of the Dutch "wat is er gebeurd?"
-(_what has happened?_) or "wat er is gebeurd" (_what has happened_). It's
-also the title of a song by the Dutch band "De Jeugd van Tegenwoordig"
-(_Youth these days_).
+(_what has happened?_) or "wat er is gebeurd" (_what has happened_).

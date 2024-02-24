@@ -48,7 +48,7 @@ describe("main - list & listSync ", () => {
       [
         {
           name: UNTRACKED_FILE_NAME,
-          changeType: "untracked",
+          type: "untracked",
         },
       ],
     );
@@ -61,7 +61,7 @@ describe("main - list & listSync ", () => {
       [
         {
           name: UNTRACKED_FILE_NAME,
-          changeType: "untracked",
+          type: "untracked",
         },
       ],
     );

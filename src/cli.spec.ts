@@ -1,4 +1,4 @@
-import { match } from "node:assert";
+import { match } from "node:assert/strict";
 import { Writable } from "node:stream";
 import { describe, it } from "node:test";
 import { cli } from "./cli.js";

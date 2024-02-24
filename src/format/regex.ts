@@ -1,4 +1,6 @@
 import { extname } from "node:path";
+import type { IChange, changeType } from "../../types/watskeburt.js";
+
 const DEFAULT_EXTENSIONS = new Set([
   ".cjs",
   ".cjsx",
@@ -18,22 +20,24 @@ const DEFAULT_EXTENSIONS = new Set([
   ".vue",
   ".vuex",
 ]);
-const DEFAULT_CHANGE_TYPES = new Set([
+
+const DEFAULT_CHANGE_TYPES: Set<changeType> = new Set([
   "modified",
   "added",
   "renamed",
   "copied",
   "untracked",
 ]);
-export default function formatToRegex(
-  pChanges,
-  pExtensions = DEFAULT_EXTENSIONS,
-  pChangeTypes = DEFAULT_CHANGE_TYPES,
-) {
+
+export default function formatAsRegex(
+  pChanges: IChange[],
+  pExtensions: Set<string> = DEFAULT_EXTENSIONS,
+  pChangeTypes: Set<changeType> = DEFAULT_CHANGE_TYPES,
+): string {
   const lChanges = pChanges
     .filter(
       (pChange) =>
-        pChangeTypes.has(pChange.changeType) &&
+        pChangeTypes.has(pChange.type) &&
         pExtensions.has(extname(pChange.name)),
     )
     .map(({ name }) => name.replace(/\\/g, "\\\\").replace(/\./g, "[.]"))

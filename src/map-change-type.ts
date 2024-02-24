@@ -1,6 +1,6 @@
-import type { changeTypeType } from "../types/watskeburt.js";
+import type { changeType } from "../types/watskeburt.js";
 
-const CHANGE_CHAR_2_CHANGE_TYPE: Map<string, changeTypeType> = new Map([
+const CHANGE_CHAR_2_CHANGE_TYPE: Map<string, changeType> = new Map([
   ["A", "added"],
   ["C", "copied"],
   ["D", "deleted"],
@@ -14,6 +14,6 @@ const CHANGE_CHAR_2_CHANGE_TYPE: Map<string, changeTypeType> = new Map([
   ["!", "ignored"],
   // ["X", "unknown"]
 ]);
-export function changeChar2ChangeType(pChar: string): changeTypeType {
+export function changeChar2ChangeType(pChar: string): changeType {
   return CHANGE_CHAR_2_CHANGE_TYPE.get(pChar) ?? "unknown";
 }

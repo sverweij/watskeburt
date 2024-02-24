@@ -6,25 +6,25 @@ describe("convert status line to change object", () => {
   it("recognizes unstaged modified files", () => {
     deepEqual(parseStatusLine(" M src/convert-to-change-object.mjs"), {
       name: "src/convert-to-change-object.mjs",
-      changeType: "modified",
+      type: "modified",
     });
   });
   it("recognizes staged modified files", () => {
     deepEqual(parseStatusLine("M  src/convert-to-change-object.mjs"), {
       name: "src/convert-to-change-object.mjs",
-      changeType: "modified",
+      type: "modified",
     });
   });
   it("recognizes untracked files", () => {
     deepEqual(parseStatusLine("?? new-not-in-source-control"), {
       name: "new-not-in-source-control",
-      changeType: "untracked",
+      type: "untracked",
     });
   });
   it("recognizes renamed files", () => {
     deepEqual(parseStatusLine("R  new -> new-renamed"), {
       name: "new-renamed",
-      changeType: "renamed",
+      type: "renamed",
       oldName: "new",
     });
   });
@@ -53,28 +53,28 @@ describe("convert status lines to change objects", () => {
       ),
       [
         {
-          changeType: "renamed",
+          type: "renamed",
           name: "new",
           oldName: "old",
         },
         {
-          changeType: "modified",
+          type: "modified",
           name: "modstaged",
         },
         {
-          changeType: "modified",
+          type: "modified",
           name: "modboth",
         },
         {
-          changeType: "untracked",
+          type: "untracked",
           name: "nottracked",
         },
         {
-          changeType: "ignored",
+          type: "ignored",
           name: "ignore",
         },
         {
-          changeType: "deleted",
+          type: "deleted",
           name: "deleted",
         },
       ],
