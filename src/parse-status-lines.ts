@@ -15,7 +15,7 @@ export function parseStatusLines(pString: string): IChange[] {
     .filter(Boolean)
     .map(parseStatusLine)
     .filter(
-      ({ name, changeType }) => Boolean(name) && Boolean(changeType),
+      ({ name, type: changeType }) => Boolean(name) && Boolean(changeType),
     ) as IChange[];
 }
 
@@ -31,7 +31,7 @@ export function parseStatusLine(pString: string): Partial<IChange> {
       lMatchResult.groups.unStagedChangeType,
     );
 
-    lReturnValue.changeType =
+    lReturnValue.type =
       lStagedChangeType === "unmodified"
         ? lUnStagedChangeType
         : lStagedChangeType;

@@ -2,7 +2,6 @@ import type { IChange, IOptions } from "../types/watskeburt.js";
 import { parseDiffLines } from "./parse-diff-lines.js";
 import { parseStatusLines } from "./parse-status-lines.js";
 import * as primitives from "./git-primitives.js";
-import format from "./formatters/format.js";
 
 export async function list(pOptions?: IOptions): Promise<IChange[] | string> {
   const lOldRevision: string =
@@ -21,10 +20,15 @@ export async function list(pOptions?: IOptions): Promise<IChange[] | string> {
   if (!lOptions.trackedOnly) {
     lChanges = lChanges.concat(
       parseStatusLines(lStatusLines).filter(
-        ({ changeType }) => changeType === "untracked",
+        ({ type: changeType }) => changeType === "untracked",
       ),
     );
   }
+
+  if (!lOptions.outputType) {
+    return lChanges;
+  }
+  const { format } = await import("./format/format.js");
   return format(lChanges, lOptions.outputType);
 }
 
@@ -32,7 +36,6 @@ export async function list(pOptions?: IOptions): Promise<IChange[] | string> {
 //   export { getSHA } from "./git-primitives.js"
 // the 'primitives' has an extra parameter we don't want to expose,
 // so instead we wrap them:
-
 export function getSHA(): Promise<string> {
   return primitives.getSHA();
 }

@@ -7,15 +7,15 @@ export function parseDiffLines(pString) {
     .split(EOL)
     .filter(Boolean)
     .map(parseDiffLine)
-    .filter(({ name, changeType }) => Boolean(name) && Boolean(changeType));
+    .filter(
+      ({ name, type: changeType }) => Boolean(name) && Boolean(changeType),
+    );
 }
 export function parseDiffLine(pString) {
   const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
   const lReturnValue = {};
   if (lMatchResult?.groups) {
-    lReturnValue.changeType = changeChar2ChangeType(
-      lMatchResult.groups.changeType,
-    );
+    lReturnValue.type = changeChar2ChangeType(lMatchResult.groups.changeType);
     if (lMatchResult.groups.newName) {
       lReturnValue.name = lMatchResult.groups.newName;
       lReturnValue.oldName = lMatchResult.groups.name;

@@ -7,7 +7,9 @@ export function parseStatusLines(pString) {
     .split(EOL)
     .filter(Boolean)
     .map(parseStatusLine)
-    .filter(({ name, changeType }) => Boolean(name) && Boolean(changeType));
+    .filter(
+      ({ name, type: changeType }) => Boolean(name) && Boolean(changeType),
+    );
 }
 export function parseStatusLine(pString) {
   const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
@@ -19,7 +21,7 @@ export function parseStatusLine(pString) {
     const lUnStagedChangeType = changeChar2ChangeType(
       lMatchResult.groups.unStagedChangeType,
     );
-    lReturnValue.changeType =
+    lReturnValue.type =
       lStagedChangeType === "unmodified"
         ? lUnStagedChangeType
         : lStagedChangeType;

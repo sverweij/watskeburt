@@ -5,14 +5,14 @@ import { parseDiffLine, parseDiffLines } from "./parse-diff-lines.js";
 describe("convert diff line to change object", () => {
   it("recognizes Modified files", () => {
     deepEqual(parseDiffLine("M       test/report/markdown/markdown.spec.mjs"), {
-      changeType: "modified",
+      type: "modified",
       name: "test/report/markdown/markdown.spec.mjs",
     });
   });
 
   it("recognizes Added files", () => {
     deepEqual(parseDiffLine("A       test/report/markdown/markdown.spec.mjs"), {
-      changeType: "added",
+      type: "added",
       name: "test/report/markdown/markdown.spec.mjs",
     });
   });
@@ -23,7 +23,7 @@ describe("convert diff line to change object", () => {
         "R066\ttest/report/markdown/markdown.spec.mjs\ttest/report/markdown/markdown-short.spec.mjs",
       ),
       {
-        changeType: "renamed",
+        type: "renamed",
         name: "test/report/markdown/markdown-short.spec.mjs",
         oldName: "test/report/markdown/markdown.spec.mjs",
       },
@@ -32,14 +32,14 @@ describe("convert diff line to change object", () => {
 
   it("recognizes Deleted files", () => {
     deepEqual(parseDiffLine("D\ttest/report/markdown/markdown.spec.mjs"), {
-      changeType: "deleted",
+      type: "deleted",
       name: "test/report/markdown/markdown.spec.mjs",
     });
   });
 
   it("files with an unknown change status", () => {
     deepEqual(parseDiffLine("X\ttest/report/markdown/markdown.spec.mjs"), {
-      changeType: "unknown",
+      type: "unknown",
       name: "test/report/markdown/markdown.spec.mjs",
     });
   });
@@ -67,11 +67,11 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
       parseDiffLines(["A\tthisjusadded", "R100\tfrom\tto"].join("\n")),
       [
         {
-          changeType: "added",
+          type: "added",
           name: "thisjusadded",
         },
         {
-          changeType: "renamed",
+          type: "renamed",
           name: "to",
           oldName: "from",
         },

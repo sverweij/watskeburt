@@ -22,6 +22,17 @@ export default {
         reachable: false,
       },
     },
+    {
+      name: "use-assert-strict",
+      comment:
+        "This module uses 'node:assert'. It's better to use 'node:assert/strict' instead.",
+      severity: "error",
+      from: {},
+      to: {
+        path: "^assert$",
+        dependencyTypes: ["core"],
+      },
+    },
     /* rules from the 'recommended' preset: */
     {
       name: "no-circular",
@@ -245,7 +256,7 @@ export default {
       path: "node_modules",
     },
     moduleSystems: ["es6"],
-    prefix: "vscode://file/${process.cwd()}/",
+    prefix: `vscode://file/${process.cwd()}/`,
     tsPreCompilationDeps: true,
     tsConfig: {
       fileName: "./tsconfig.json",
@@ -278,7 +289,11 @@ export default {
             },
             {
               criteria: { source: ".spec.ts" },
-              attributes: { fillcolor: "#ccccff" },
+              attributes: {
+                fontcolor: "gray",
+                color: "gray",
+                fillcolor: "#faffff",
+              },
             },
           ],
           dependencies: [

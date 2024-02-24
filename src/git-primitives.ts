@@ -19,7 +19,6 @@ export async function getStatusShort(pSpawnFunction = spawn): Promise<string> {
 }
 
 /**
- *
  * @throws {Error}
  */
 export async function getDiffLines(

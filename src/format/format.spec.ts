@@ -1,14 +1,11 @@
-import { deepEqual } from "node:assert";
+import { deepEqual, throws } from "node:assert/strict";
 import { describe, it } from "node:test";
-import format from "./format.js";
+import { format } from "./format.js";
 
 describe("format", () => {
-  it("by default formats as a plain object", () => {
-    deepEqual(format([]), []);
-  });
-  it("by formats as a plain object when passed non-existing format", () => {
+  it("throws when passed non-existing format", () => {
     // @ts-expect-error passing an invalid value for the outputType on purpose
-    deepEqual(format([], "this format is not known"), []);
+    throws(() => format([], "this format is not known"));
   });
   it("returns a regex when passed regex as a format", () => {
     deepEqual(format([], "regex"), "^()$");

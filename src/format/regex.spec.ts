@@ -1,23 +1,23 @@
-import { deepEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import { describe, it } from "node:test";
 import type { IChange } from "../../types/watskeburt.js";
 import format from "./regex.js";
 
 describe("regex formatter", () => {
   const lChangesOfEachType: IChange[] = [
-    { changeType: "added", name: "added.mjs" },
-    { changeType: "copied", name: "copied.mjs" },
-    { changeType: "deleted", name: "deleted.mjs" },
-    { changeType: "modified", name: "modified.mjs" },
-    { changeType: "renamed", name: "renamed.mjs", oldName: "oldname.mjs" },
-    { changeType: "type changed", name: "type-changed.mjs" },
-    { changeType: "unmerged", name: "unmerged.mjs" },
-    { changeType: "pairing broken", name: "pairing-broken.mjs" },
-    { changeType: "unknown", name: "unknown.mjs" },
-    { changeType: "unmodified", name: "unmodified.mjs" },
-    { changeType: "untracked", name: "untracked.mjs" },
-    { changeType: "ignored", name: "ignored.mjs" },
-    { changeType: "ignored", name: "ignored-too.js" },
+    { type: "added", name: "added.mjs" },
+    { type: "copied", name: "copied.mjs" },
+    { type: "deleted", name: "deleted.mjs" },
+    { type: "modified", name: "modified.mjs" },
+    { type: "renamed", name: "renamed.mjs", oldName: "oldname.mjs" },
+    { type: "type changed", name: "type-changed.mjs" },
+    { type: "unmerged", name: "unmerged.mjs" },
+    { type: "pairing broken", name: "pairing-broken.mjs" },
+    { type: "unknown", name: "unknown.mjs" },
+    { type: "unmodified", name: "unmodified.mjs" },
+    { type: "untracked", name: "untracked.mjs" },
+    { type: "ignored", name: "ignored.mjs" },
+    { type: "ignored", name: "ignored-too.js" },
   ];
 
   it("empty array yields empty regex", () => {
@@ -26,14 +26,14 @@ describe("regex formatter", () => {
 
   it("one file in diff yields regex with that thing", () => {
     deepEqual(
-      format([{ changeType: "added", name: "added.mjs" }]),
+      format([{ type: "added", name: "added.mjs" }]),
       "^(added[.]mjs)$",
     );
   });
 
   it("one file in diff with a backslash in its name (wut) yields regex with that thing", () => {
     deepEqual(
-      format([{ changeType: "added", name: "ad\\ded.mjs" }]),
+      format([{ type: "added", name: "ad\\ded.mjs" }]),
       "^(ad\\\\ded[.]mjs)$",
     );
   });
@@ -41,8 +41,8 @@ describe("regex formatter", () => {
   it(">1 file in diff yields regex with these things thing", () => {
     deepEqual(
       format([
-        { changeType: "added", name: "added.mjs" },
-        { changeType: "modified", name: "changed.mjs" },
+        { type: "added", name: "added.mjs" },
+        { type: "modified", name: "changed.mjs" },
       ]),
       "^(added[.]mjs|changed[.]mjs)$",
     );
@@ -71,27 +71,27 @@ describe("regex formatter", () => {
       format(
         [
           {
-            changeType: "added",
+            type: "added",
             name: "added.aap",
           },
           {
-            changeType: "modified",
+            type: "modified",
             name: "modified.aap",
           },
           {
-            changeType: "added",
+            type: "added",
             name: "added.noot",
           },
           {
-            changeType: "added",
+            type: "added",
             name: "added.mies",
           },
           {
-            changeType: "added",
+            type: "added",
             name: "added.wim",
           },
           {
-            changeType: "added",
+            type: "added",
             name: "added.zus",
           },
         ],
