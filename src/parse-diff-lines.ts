@@ -7,16 +7,14 @@ import type { IChange } from "../types/watskeburt.js";
 import { changeChar2ChangeType } from "./map-change-type.js";
 
 const DIFF_NAME_STATUS_LINE_PATTERN =
-  /^(?<changeType>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
+  /^(?<type>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
 
 export function parseDiffLines(pString: string): IChange[] {
   return pString
     .split(EOL)
     .filter(Boolean)
     .map(parseDiffLine)
-    .filter(
-      ({ name, type: changeType }) => Boolean(name) && Boolean(changeType),
-    ) as IChange[];
+    .filter(({ name, type }) => Boolean(name) && Boolean(type)) as IChange[];
 }
 
 export function parseDiffLine(pString: string): Partial<IChange> {
@@ -24,7 +22,7 @@ export function parseDiffLine(pString: string): Partial<IChange> {
   const lReturnValue: Partial<IChange> = {};
 
   if (lMatchResult?.groups) {
-    lReturnValue.type = changeChar2ChangeType(lMatchResult.groups.changeType);
+    lReturnValue.type = changeChar2ChangeType(lMatchResult.groups.type);
     if (lMatchResult.groups.newName) {
       lReturnValue.name = lMatchResult.groups.newName;
       lReturnValue.oldName = lMatchResult.groups.name;
