@@ -15,7 +15,7 @@ on:
 
 env:
   CI: true
-  NODE_LATEST: 21.x
+  NODE_LATEST: 22.x
 
 defaults:
   run:
@@ -29,7 +29,7 @@ jobs:
       matrix:
         node-version:
           - 18.x
-          - 21.x
+          - 22.x
         platform:
           - ubuntu-latest
 
@@ -56,12 +56,11 @@ jobs:
           node-version: ${{matrix.node-version}}
       - run: npm install
       - run: npm run depcruise
-        if: matrix.node-version != '18.x'
-      - name: lint on platforms other than 18.x
-        if: matrix.node-version != '18.x'
-        run: npm run lint
+        if: matrix.node-version == env.NODE_LATEST
+      - run: npm run lint
+        if: matrix.node-version == env.NODE_LATEST
       - run: npm run test:cover
-        if: matrix.node-version != '18.x'
+        if: matrix.node-version == env.NODE_LATEST
       - run: npx tsx --test src/*.spec.ts src/**/*.spec.ts
         if: matrix.node-version == '18.x'
       - run: npm run build
