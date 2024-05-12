@@ -14,7 +14,10 @@ describe("git-primitives - diff --name-status ", () => {
     try {
       await getDiffLines("this-is-not-a-real-revision");
     } catch (pError) {
-      match(pError.message, /revision 'this-is-not-a-real-revision' unknown/);
+      match(
+        (pError as { message: string }).message,
+        /revision 'this-is-not-a-real-revision' unknown/,
+      );
     }
   });
 
@@ -23,7 +26,7 @@ describe("git-primitives - diff --name-status ", () => {
       await getDiffLines("not-a-revision", "neither-is-this");
     } catch (pError) {
       match(
-        pError.message,
+        (pError as { message: string }).message,
         /revision 'not-a-revision' \(or 'neither-is-this'\) unknown/,
       );
     }

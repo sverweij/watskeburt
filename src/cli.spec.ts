@@ -13,7 +13,7 @@ class WritableTestStream extends Writable {
       this.expected = pExpected;
     }
   }
-  write(pChunk) {
+  override write(pChunk: string): boolean {
     match(pChunk, this.expected);
     return true;
   }

@@ -109,6 +109,7 @@ function getGitResult(
 
 function stringifyOutStream(pBufferOrString: Buffer | string): string {
   if (pBufferOrString instanceof Buffer) {
+    // not covered by tests
     return pBufferOrString.toString("utf8");
   } else {
     return pBufferOrString;

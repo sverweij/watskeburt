@@ -9,7 +9,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["**/*.ts"],
+      files: ["**/*.ts", "**/*.js"],
       rules: {
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off",
