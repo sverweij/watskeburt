@@ -47,7 +47,6 @@
   "devDependencies": {
     "@types/node": "20.12.7",
     "@typescript-eslint/eslint-plugin": "7.6.0",
-    "c8": "9.1.0",
     "clean-pkg-json": "1.2.0",
     "dependency-cruiser": "16.3.0",
     "eslint": "8.57.0",
@@ -87,7 +86,7 @@
     "check": "npm-run-all --parallel --aggregate-output lint depcruise test:cover",
     "clean": "rm -rf dist",
     "test": "tsx --test-reporter ./tools/dot-with-summary.reporter.js --test src/*.spec.ts src/**/*.spec.ts",
-    "test:cover": "c8 npm test",
+    "test:cover": "tsx --experimental-test-coverage --test-reporter ./tools/dot-with-summary.reporter.js --test src/*.spec.ts src/**/*.spec.ts",
     "depcruise": "depcruise dist src types",
     "depcruise:graph": "depcruise src types --include-only '^(dist|src|types)' --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
     "depcruise:graph:dev": "depcruise dist src types --include-only '^(dist|src|types)' --prefix vscode://file/$(pwd)/ --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
