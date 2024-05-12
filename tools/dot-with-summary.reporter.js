@@ -237,7 +237,7 @@ function determineExitCode(pFailStack, pTotals) {
     // coverage might be reported as something lower.
     //
     // So far b.t.w. the results on node 20, up to 20.12.2 _are_ consistent.
-    return 1;
+    return 0;
   }
   return 0;
 }
