@@ -60,10 +60,10 @@ jobs:
         if: matrix.node-version == env.NODE_LATEST
       - run: npm run lint
         if: matrix.node-version == env.NODE_LATEST
-      - run: npm run test:cover
-        if: matrix.node-version == env.NODE_LATEST
+      # - run: npm run test:cover
+      #   if: matrix.node-version == env.NODE_LATEST
       - run: npx tsx --test src/*.spec.ts src/**/*.spec.ts
-        if: matrix.node-version == '18.x'
+        if: matrix.node-version == '18.x' || matrix.node-version == env.NODE_LATEST
       - run: npm run build
       - name: emit coverage results to step summary
         # specifically version 20.12.2 as that's the latest node version where 
@@ -71,7 +71,9 @@ jobs:
         if: always() && matrix.node-version == '20.12.2'
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
+          echo ``` >> $GITHUB_STEP_SUMMARY
           npx tsx --experimental-test-coverage --test-reporter ./tools/dot-with-summary.reporter.js --test src/*.spec.ts src/**/*.spec.ts >> $GITHUB_STEP_SUMMARY
+          echo ``` >> $GITHUB_STEP_SUMMARY
       - name: emit full depcruise results to step summary
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |

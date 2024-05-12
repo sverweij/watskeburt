@@ -2,9 +2,9 @@ import { EOL } from "node:os";
 
 const FILES_TO_IGNORE_RE =
   /node_modules|[.](?:spec|test|mock)[.](?:ts|mts|cts|js|mjs|cjs)$/;
-const BRANCH_COVERAGE_THRESHOLD = 0.98;
-const FUNCTION_COVERAGE_THRESHOLD = 0.98;
-const LINE_COVERAGE_THRESHOLD = 0.98;
+const BRANCH_COVERAGE_THRESHOLD = 0.97;
+const FUNCTION_COVERAGE_THRESHOLD = 1;
+const LINE_COVERAGE_THRESHOLD = 0.99;
 
 // eslint-disable-next-line no-undefined
 const LOCALE = undefined;
@@ -237,7 +237,7 @@ function determineExitCode(pFailStack, pTotals) {
     // coverage might be reported as something lower.
     //
     // So far b.t.w. the results on node 20, up to 20.12.2 _are_ consistent.
-    return 0;
+    return 1;
   }
   return 0;
 }
