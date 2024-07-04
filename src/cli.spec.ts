@@ -65,6 +65,14 @@ describe("cli", () => {
     await cli(["-T", "invalid-reporter-type"], lOutStream, lErrorStream, 0);
   });
 
+  it("shows an error when --extensions didn't get a string passed", async () => {
+    const lOutStream = new WritableTestStream();
+    const lErrorStream = new WritableTestStream(
+      /ERROR: Option '-x, --extensions <value>' argument missing.*/,
+    );
+    await cli(["-x"], lOutStream, lErrorStream, 0);
+  });
+
   it("emits ", async () => {
     const lOutStream = new WritableTestStream(/^\[\]/);
     const lErrorStream = new WritableTestStream();

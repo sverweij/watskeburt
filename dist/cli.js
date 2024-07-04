@@ -60,6 +60,12 @@ function getArguments(pArguments) {
 				type: "boolean",
 				default: false,
 			},
+			extensions: {
+				type: "string",
+				short: "x",
+				default:
+					"cjs,cjsx,coffee,csx,cts,js,json,jsx,litcoffee,ls,mjs,mts,svelte,ts,tsx,vue,vuex",
+			},
 			help: { type: "boolean", short: "h", default: false },
 			version: { type: "boolean", short: "V", default: false },
 		},

@@ -52,6 +52,11 @@ export interface IFormatOptions extends IBaseOptions {
    * The type of output to deliver.
    */
   outputType: "regex" | "json";
+
+  /**
+   * A comma-separated list of file extensions to include in the output
+   */
+  extensions: string;
 }
 
 export interface IInternalOptions extends IBaseOptions {

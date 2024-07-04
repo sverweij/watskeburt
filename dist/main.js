@@ -20,7 +20,7 @@ export async function list(pOptions) {
 		return lChanges;
 	}
 	const { format } = await import("./format/format.js");
-	return format(lChanges, lOptions.outputType);
+	return format(lChanges, lOptions.outputType, lOptions.extensions);
 }
 export function getSHA() {
 	return primitives.getSHA();

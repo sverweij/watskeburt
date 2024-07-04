@@ -29,7 +29,7 @@ export async function list(pOptions?: IOptions): Promise<IChange[] | string> {
     return lChanges;
   }
   const { format } = await import("./format/format.js");
-  return format(lChanges, lOptions.outputType);
+  return format(lChanges, lOptions.outputType, lOptions.extensions);
 }
 
 // Although it looks like getSHA could be re-exported e.g.
