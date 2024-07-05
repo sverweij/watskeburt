@@ -1,25 +1,7 @@
 import { extname } from "node:path";
 import type { IChange, changeType } from "../../types/watskeburt.js";
 
-const DEFAULT_EXTENSIONS = new Set([
-  ".cjs",
-  ".cjsx",
-  ".coffee",
-  ".csx",
-  ".cts",
-  ".js",
-  ".json",
-  ".jsx",
-  ".litcoffee",
-  ".ls",
-  ".mjs",
-  ".mts",
-  ".svelte",
-  ".ts",
-  ".tsx",
-  ".vue",
-  ".vuex",
-]);
+const DEFAULT_EXTENSIONS = new Set([]);
 
 const DEFAULT_CHANGE_TYPES: Set<changeType> = new Set([
   "modified",

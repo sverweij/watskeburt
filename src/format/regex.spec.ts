@@ -3,6 +3,8 @@ import { describe, it } from "node:test";
 import type { IChange } from "../../types/watskeburt.js";
 import format from "./regex.js";
 
+const EXTENSION_SET = new Set([".mjs"]);
+
 describe("regex formatter", () => {
   const lChangesOfEachType: IChange[] = [
     { type: "added", name: "added.mjs" },
@@ -26,31 +28,34 @@ describe("regex formatter", () => {
 
   it("one file in diff yields regex with that thing", () => {
     deepEqual(
-      format([{ type: "added", name: "added.mjs" }]),
+      format([{ type: "added", name: "added.mjs" }], EXTENSION_SET),
       "^(added[.]mjs)$",
     );
   });
 
   it("one file in diff with a backslash in its name (wut) yields regex with that thing", () => {
     deepEqual(
-      format([{ type: "added", name: "ad\\ded.mjs" }]),
+      format([{ type: "added", name: "ad\\ded.mjs" }], EXTENSION_SET),
       "^(ad\\\\ded[.]mjs)$",
     );
   });
 
   it(">1 file in diff yields regex with these things thing", () => {
     deepEqual(
-      format([
-        { type: "added", name: "added.mjs" },
-        { type: "modified", name: "changed.mjs" },
-      ]),
+      format(
+        [
+          { type: "added", name: "added.mjs" },
+          { type: "modified", name: "changed.mjs" },
+        ],
+        EXTENSION_SET,
+      ),
       "^(added[.]mjs|changed[.]mjs)$",
     );
   });
 
   it("by default only takes changes into account that changed the contents + untracked files", () => {
     deepEqual(
-      format(lChangesOfEachType),
+      format(lChangesOfEachType, EXTENSION_SET),
       "^(added[.]mjs|copied[.]mjs|modified[.]mjs|renamed[.]mjs|untracked[.]mjs)$",
     );
   });

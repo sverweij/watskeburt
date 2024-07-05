@@ -1,23 +1,5 @@
 import { extname } from "node:path";
-const DEFAULT_EXTENSIONS = new Set([
-	".cjs",
-	".cjsx",
-	".coffee",
-	".csx",
-	".cts",
-	".js",
-	".json",
-	".jsx",
-	".litcoffee",
-	".ls",
-	".mjs",
-	".mts",
-	".svelte",
-	".ts",
-	".tsx",
-	".vue",
-	".vuex",
-]);
+const DEFAULT_EXTENSIONS = new Set([]);
 const DEFAULT_CHANGE_TYPES = new Set([
 	"modified",
 	"added",
