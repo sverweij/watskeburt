@@ -1,4 +1,4 @@
-const CHANGE_CHAR_2_CHANGE_TYPE = new Map([
+const CHANGE_TYPE_MAP = new Map([
 	["A", "added"],
 	["C", "copied"],
 	["D", "deleted"],
@@ -11,6 +11,6 @@ const CHANGE_CHAR_2_CHANGE_TYPE = new Map([
 	["?", "untracked"],
 	["!", "ignored"],
 ]);
-export function changeChar2ChangeType(pChar) {
-	return CHANGE_CHAR_2_CHANGE_TYPE.get(pChar) ?? "unknown";
+export function mapChangeType(pChar) {
+	return CHANGE_TYPE_MAP.get(pChar) ?? "unknown";
 }

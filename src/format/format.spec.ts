@@ -8,9 +8,9 @@ describe("format", () => {
     throws(() => format([], "this format is not known"));
   });
   it("returns a regex when passed regex as a format", () => {
-    deepEqual(format([], "regex"), "^()$");
+    deepEqual(format([], "regex", ""), "^()$");
   });
   it("returns json when passed json as a format", () => {
-    deepEqual(format([], "json"), "[]");
+    deepEqual(format([], "json", ""), "[]");
   });
 });

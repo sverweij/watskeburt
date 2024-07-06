@@ -1,5 +1,5 @@
 import { EOL } from "node:os";
-import { changeChar2ChangeType } from "./map-change-type.js";
+import { mapChangeType } from "./map-change-type.js";
 const DIFF_SHORT_STATUS_LINE_PATTERN =
 	/^(?<stagedType>[ ACDMRTUXB?!])(?<unStagedType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
 export function parseStatusLines(pString) {
@@ -13,10 +13,8 @@ export function parseStatusLine(pString) {
 	const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
 	const lReturnValue = {};
 	if (lMatchResult?.groups) {
-		const lStagedType = changeChar2ChangeType(lMatchResult.groups.stagedType);
-		const lUnStagedType = changeChar2ChangeType(
-			lMatchResult.groups.unStagedType,
-		);
+		const lStagedType = mapChangeType(lMatchResult.groups.stagedType);
+		const lUnStagedType = mapChangeType(lMatchResult.groups.unStagedType);
 		lReturnValue.type =
 			lStagedType === "unmodified" ? lUnStagedType : lStagedType;
 		if (lMatchResult.groups.newName) {

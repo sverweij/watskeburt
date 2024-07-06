@@ -69,7 +69,8 @@ This emits a regex that contains all changed files that could be
 source files in the JavaScript ecosystem (.js, .mjs, .ts, .tsx ...). It can
 be used in e.g. dependency-cruiser's `--focus` and `--reaches` filters.
 
-The JSON output (= the array above, serialized) also contains other extensions.
+The JSON output (= the array above, serialized) also contains all other
+extensions.
 
 ```
 Usage: watskeburt [options] [old-revision] [new-revision]

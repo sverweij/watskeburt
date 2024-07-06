@@ -4,7 +4,7 @@
 /* eslint-disable security/detect-unsafe-regex */
 import { EOL } from "node:os";
 import type { IChange } from "../types/watskeburt.js";
-import { changeChar2ChangeType } from "./map-change-type.js";
+import { mapChangeType } from "./map-change-type.js";
 
 const DIFF_NAME_STATUS_LINE_PATTERN =
   /^(?<type>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
@@ -22,7 +22,7 @@ export function parseDiffLine(pString: string): Partial<IChange> {
   const lReturnValue: Partial<IChange> = {};
 
   if (lMatchResult?.groups) {
-    lReturnValue.type = changeChar2ChangeType(lMatchResult.groups.type);
+    lReturnValue.type = mapChangeType(lMatchResult.groups.type);
     if (lMatchResult.groups.newName) {
       lReturnValue.name = lMatchResult.groups.newName;
       lReturnValue.oldName = lMatchResult.groups.name;
