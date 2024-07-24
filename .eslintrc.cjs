@@ -21,6 +21,8 @@ module.exports = {
         "unicorn/prefer-module": "error",
         "no-use-before-define": "off",
         "import/exports-last": "off",
+        // We use the typescript compiler to check for unused vars
+        "@typescript-eslint/no-unused-vars": "off",
         // node/no-missing-import and import/no-unresolved can't handle
         // .js extensions pointing to seemingly typescript files. No
         // man overboard as we check this with dependency-cruiser anyway
