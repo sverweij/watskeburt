@@ -50,7 +50,7 @@
     "c8": "10.1.2",
     "clean-pkg-json": "1.2.0",
     "dependency-cruiser": "16.3.10",
-    "eslint": "8.57.0",
+    "eslint": "^8.57.0",
     "eslint-config-moving-meadow": "4.0.2",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-budapestian": "6.0.0",
@@ -74,7 +74,7 @@
       {
         "package": "eslint",
         "policy": "wanted",
-        "because": "@typescript-eslint/eslint-plugin 7.6.0 uses @typescript-eslint/parser 7.6.0 (currently _latest_) which isn't on eslint 9 yet (it peer requires ^8.56.0)"
+        "because": "@typescript-eslint/eslint-plugin 7.6.0 uses @typescript-eslint/parser 7.6.0 (currently _latest_) which isn't on eslint 9 yet (it peer requires ^8.56.0). Also many plugins/ configs we use don't support flat configs yet, so we'll stay on eslint 8"
       }
     ]
   },
