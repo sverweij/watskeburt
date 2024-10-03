@@ -16,10 +16,7 @@ export function format(
   pExtensions: string,
 ): string {
   const lExtensions: Set<string> = new Set(
-    pExtensions
-      .split(",")
-      .map((pExtension) => pExtension.trim())
-      .map((pExtension) => `.${pExtension}`),
+    pExtensions.split(",").map((pExtension) => `.${pExtension.trim()}`),
   );
   // @ts-expect-error ts(2722) - Object is possibly 'undefined' - that's not
   // possible // because the OUTPUT_TYPE_TO_FUNCTION map contains all possible

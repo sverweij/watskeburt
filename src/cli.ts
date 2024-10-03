@@ -33,7 +33,7 @@ export async function cli(
   pOutStream: Writable = process.stdout,
   pErrorStream: Writable = process.stderr,
   pErrorExitCode: number = 1,
-) {
+): Promise<void> {
   try {
     const lArguments = getArguments(pArguments);
 

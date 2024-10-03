@@ -6,10 +6,7 @@ const OUTPUT_TYPE_TO_FUNCTION = new Map([
 ]);
 export function format(pChanges, pOutputType, pExtensions) {
 	const lExtensions = new Set(
-		pExtensions
-			.split(",")
-			.map((pExtension) => pExtension.trim())
-			.map((pExtension) => `.${pExtension}`),
+		pExtensions.split(",").map((pExtension) => `.${pExtension.trim()}`),
 	);
 	return OUTPUT_TYPE_TO_FUNCTION.get(pOutputType)(pChanges, lExtensions);
 }
