@@ -10,7 +10,7 @@ export function parseStatusLines(pString) {
 		.filter(({ name, type }) => Boolean(name) && Boolean(type));
 }
 export function parseStatusLine(pString) {
-	const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
+	const lMatchResult = DIFF_SHORT_STATUS_LINE_PATTERN.exec(pString);
 	const lReturnValue = {};
 	if (lMatchResult?.groups) {
 		const lStagedType = mapChangeType(lMatchResult.groups.stagedType);

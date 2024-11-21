@@ -88,7 +88,7 @@ function getGitResult(
       } else {
         pReject(
           new Error(
-            pErrorMap.get(pCode ?? 0) ||
+            pErrorMap.get(pCode ?? 0) ??
               `internal git error: ${pCode} (${stringifyOutStream(
                 lStdErrorData,
               )})`,

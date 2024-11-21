@@ -21,7 +21,7 @@ class WritableTestStream extends Writable {
 
 describe("cli", () => {
   it("shows the version number when asked for", async () => {
-    const lOutStream = new WritableTestStream(/^[0-9]+\.[0-9]+\.[0-9]+(-)?.*/);
+    const lOutStream = new WritableTestStream(/^\d+\.\d+\.\d+(-)?.*/);
     const lErrorStream = new WritableTestStream();
     await cli(["-V"], lOutStream, lErrorStream);
     await cli(["--version"], lOutStream, lErrorStream);

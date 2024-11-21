@@ -1,7 +1,7 @@
 import { EOL } from "node:os";
 import { mapChangeType } from "./map-change-type.js";
 const DIFF_NAME_STATUS_LINE_PATTERN =
-	/^(?<type>[ACDMRTUXB])(?<similarity>[0-9]{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
+	/^(?<type>[ACDMRTUXB])(?<similarity>\d{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
 export function parseDiffLines(pString) {
 	return pString
 		.split(EOL)
@@ -10,7 +10,7 @@ export function parseDiffLines(pString) {
 		.filter(({ name, type }) => Boolean(name) && Boolean(type));
 }
 export function parseDiffLine(pString) {
-	const lMatchResult = pString.match(DIFF_NAME_STATUS_LINE_PATTERN);
+	const lMatchResult = DIFF_NAME_STATUS_LINE_PATTERN.exec(pString);
 	const lReturnValue = {};
 	if (lMatchResult?.groups) {
 		lReturnValue.type = mapChangeType(lMatchResult.groups.type);

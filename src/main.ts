@@ -5,7 +5,7 @@ import * as primitives from "./git-primitives.js";
 
 export async function list(pOptions?: IOptions): Promise<IChange[] | string> {
   const lOldRevision: string =
-    pOptions?.oldRevision || (await primitives.getSHA());
+    pOptions?.oldRevision ?? (await primitives.getSHA());
   const lOptions: IOptions = pOptions || {};
 
   const [lDiffLines, lStatusLines] = await Promise.all([

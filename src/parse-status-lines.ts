@@ -18,7 +18,7 @@ export function parseStatusLines(pString: string): IChange[] {
 }
 
 export function parseStatusLine(pString: string): Partial<IChange> {
-  const lMatchResult = pString.match(DIFF_SHORT_STATUS_LINE_PATTERN);
+  const lMatchResult = DIFF_SHORT_STATUS_LINE_PATTERN.exec(pString);
   const lReturnValue: Partial<IChange> = {};
 
   if (lMatchResult?.groups) {
