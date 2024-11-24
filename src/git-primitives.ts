@@ -67,7 +67,7 @@ function getGitResult(
 ): Promise<string> {
   const lGit: ChildProcess = pSpawnFunction("git", pArguments, {
     cwd: process.cwd(),
-    // eslint-disable-next-line node/no-process-env
+    // eslint-disable-next-line n/no-process-env
     env: process.env,
   });
   let lStdOutData = "";

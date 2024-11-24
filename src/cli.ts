@@ -1,4 +1,5 @@
 import { EOL } from "node:os";
+/* eslint n/no-unsupported-features/node-builtins: "off" */
 import { parseArgs } from "node:util";
 import { type Writable } from "node:stream";
 import { type IFormatOptions } from "../types/watskeburt.js";

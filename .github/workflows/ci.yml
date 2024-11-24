@@ -54,6 +54,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node-version}}
+      - name: remove .npmrc on node 18 so npm install works
+        if: matrix.node-version == '18.x'
+        run: |
+          rm -f .npmrc
+          npm config set package-lock=true
+          npm config set save-exact=true
       - run: npm install
       - run: npm run depcruise
         if: matrix.node-version == env.NODE_LATEST
