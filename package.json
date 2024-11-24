@@ -103,7 +103,7 @@
     "lint:eslint": "eslint src types tools --cache --cache-location node_modules/.cache/eslint/",
     "lint:eslint:fix": "eslint src types tools --fix --cache --cache-location node_modules/.cache/eslint/",
     "lint:types": "tsc --noEmit",
-    "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo for test, build and static analysis scripts: see the github repository\"}' > smol-package.json && mv smol-package.json package.json && prettier --log-level warn --write --use-tabs package.json types",
+    "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo see github for test, build and analysis scripts\"}' > smol-package.json && mv smol-package.json package.json && prettier --log-level warn --write --use-tabs package.json types",
     "postpack": "git restore package.json types",
     "scm:stage": "git add .",
     "update-dependencies": "npm-run-all --sequential upem:update upem:install lint:fix check",
