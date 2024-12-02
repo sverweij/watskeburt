@@ -55,7 +55,7 @@ export interface IFormatOptions extends IBaseOptions {
 
   /**
    * A comma-separated list of file extensions to include in the output.
-   * When list includes "*" all files are included. Currently applicable
+   * When the list includes "*" all files are included. Currently applicable
    * to the "regex" outputType only.
    */
   extensions: string;
