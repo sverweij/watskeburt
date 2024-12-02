@@ -105,4 +105,38 @@ describe("regex formatter", () => {
       "^(added[.]aap|modified[.]aap|added[.]noot|added[.]mies)$",
     );
   });
+  it("when list of extensions contains '.*', returns all the things", () => {
+    deepEqual(
+      format(
+        [
+          {
+            type: "added",
+            name: "added.aap",
+          },
+          {
+            type: "modified",
+            name: "modified.aap",
+          },
+          {
+            type: "added",
+            name: "added.noot",
+          },
+          {
+            type: "added",
+            name: "added.mies",
+          },
+          {
+            type: "added",
+            name: "added.wim",
+          },
+          {
+            type: "added",
+            name: "added.zus",
+          },
+        ],
+        new Set([".*"]),
+      ),
+      "^(added[.]aap|modified[.]aap|added[.]noot|added[.]mies|added[.]wim|added[.]zus)$",
+    );
+  });
 });

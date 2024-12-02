@@ -18,7 +18,7 @@ export default function formatAsRegex(
     .filter(
       (pChange) =>
         pChangeTypes.has(pChange.type) &&
-        pExtensions.has(extname(pChange.name)),
+        (pExtensions.has(".*") || pExtensions.has(extname(pChange.name))),
     )
     .map(({ name }) => name.replace(/\\/g, "\\\\").replace(/\./g, "[.]"))
     .join("|");

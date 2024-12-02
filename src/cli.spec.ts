@@ -68,9 +68,9 @@ describe("cli", () => {
   it("shows an error when --extensions didn't get a string passed", async () => {
     const lOutStream = new WritableTestStream();
     const lErrorStream = new WritableTestStream(
-      /ERROR: Option '-x, --extensions <value>' argument missing.*/,
+      /ERROR: Option '-e, --extensions <value>' argument missing.*/,
     );
-    await cli(["-x"], lOutStream, lErrorStream, 0);
+    await cli(["-e"], lOutStream, lErrorStream, 0);
   });
 
   it("emits ", async () => {
