@@ -111,6 +111,7 @@ function stringifyOutStream(pBufferOrString: Buffer | string): string {
   if (pBufferOrString instanceof Buffer) {
     return pBufferOrString.toString("utf8");
   } else {
+    // @ts-expect-error TS2322 - TS 5.7(.2?) doesn't recognize anymore that `pBufferOrString` is a string
     return pBufferOrString;
   }
 }
