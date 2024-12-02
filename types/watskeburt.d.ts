@@ -54,7 +54,9 @@ export interface IFormatOptions extends IBaseOptions {
   outputType: "regex" | "json";
 
   /**
-   * A comma-separated list of file extensions to include in the output
+   * A comma-separated list of file extensions to include in the output.
+   * When the list includes "*" all files are included. Currently applicable
+   * to the "regex" outputType only.
    */
   extensions: string;
 }

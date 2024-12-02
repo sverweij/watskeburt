@@ -84,7 +84,7 @@ function getArguments(pArguments: string[]): IArguments {
       },
       extensions: {
         type: "string",
-        short: "x",
+        short: "e",
         default:
           "cjs,cjsx,coffee,csx,cts,js,json,jsx,litcoffee,ls,mjs,mts,svelte,ts,tsx,vue,vuex",
       },
