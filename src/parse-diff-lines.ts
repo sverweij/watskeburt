@@ -9,11 +9,17 @@ const DIFF_NAME_STATUS_LINE_PATTERN =
   /^(?<type>[ACDMRTUXB])(?<similarity>\d{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
 
 export function parseDiffLines(pString: string): IChange[] {
-  return pString
-    .split(/\r?\n/)
-    .filter(Boolean)
-    .map(parseDiffLine)
-    .filter(({ name, type }) => Boolean(name) && Boolean(type)) as IChange[];
+  return (
+    pString
+      // os.EOL looks like the better choice here, however, even though os.EOL
+      // might report `\n` as a line ending, the output of the git command
+      // might still use `\r\n` as a line ending - or the other way around.
+      // Hence, for parsing, we use this platform independent regex.
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map(parseDiffLine)
+      .filter(({ name, type }) => Boolean(name) && Boolean(type)) as IChange[]
+  );
 }
 
 export function parseDiffLine(pString: string): Partial<IChange> {

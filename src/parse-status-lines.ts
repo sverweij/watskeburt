@@ -9,11 +9,17 @@ const DIFF_SHORT_STATUS_LINE_PATTERN =
   /^(?<stagedType>[ ACDMRTUXB?!])(?<unStagedType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
 
 export function parseStatusLines(pString: string): IChange[] {
-  return pString
-    .split(/\r?\n/)
-    .filter(Boolean)
-    .map(parseStatusLine)
-    .filter(({ name, type }) => Boolean(name) && Boolean(type)) as IChange[];
+  return (
+    pString
+      // os.EOL looks like the better choice here, however, even though os.EOL
+      // might report `\n` as a line ending, the output of the git command
+      // might still use `\r\n` as a line ending - or the other way around.
+      // Hence, for parsing, we use this platform independent regex.
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map(parseStatusLine)
+      .filter(({ name, type }) => Boolean(name) && Boolean(type)) as IChange[]
+  );
 }
 
 export function parseStatusLine(pString: string): Partial<IChange> {

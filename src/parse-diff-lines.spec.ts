@@ -78,4 +78,21 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
       ],
     );
   });
+
+  it("bunch of valid lines deliver array of change records - even with windows style EOL", () => {
+    deepEqual(
+      parseDiffLines(["A\tthisjusadded", "R100\tfrom\tto"].join("\r\n")),
+      [
+        {
+          type: "added",
+          name: "thisjusadded",
+        },
+        {
+          type: "renamed",
+          name: "to",
+          oldName: "from",
+        },
+      ],
+    );
+  });
 });
