@@ -2,7 +2,6 @@
 // groups very well - false-flagging below regular expressions to be susceptible
 // to redos  attacks.
 /* eslint-disable security/detect-unsafe-regex */
-import { EOL } from "node:os";
 import type { IChange } from "../types/watskeburt.js";
 import { mapChangeType } from "./map-change-type.js";
 
@@ -11,7 +10,7 @@ const DIFF_NAME_STATUS_LINE_PATTERN =
 
 export function parseDiffLines(pString: string): IChange[] {
   return pString
-    .split(EOL)
+    .split(/\r?\n/)
     .filter(Boolean)
     .map(parseDiffLine)
     .filter(({ name, type }) => Boolean(name) && Boolean(type)) as IChange[];
