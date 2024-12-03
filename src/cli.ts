@@ -25,6 +25,11 @@ lists files & their statuses since [old-revision] or between [old-revision] and 
 Options:
   -T, --outputType <type>  what format to emit (choices: "json", "regex", default: "regex")
   --trackedOnly            only take tracked files into account (default: false)
+  -e, --extensions <list>  comma separated list of file extensions to consider 
+                           - pass "*" to consider all extensions
+                           - currently applicable only to the "regex" reporter
+                           - defaults to to most popular extensions in the 
+                             JavaScript/ TypeScript ecosystem
   -V, --version            output the version number
   -h, --help               display help for command${EOL}`;
 
