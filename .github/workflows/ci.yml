@@ -95,3 +95,24 @@ jobs:
           SHA=${{github.event.pull_request.base.sha}} yarn --silent depcruise:graph:diff:mermaid >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+
+  check-windows:
+    env:
+      PLATFORM: windows-latest
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-${{hashFiles('package-lock.json')}}
+          restore-keys: |
+            ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{env.NODE_LATEST}}
+      - name: install & build
+        run: |
+          npm install
+          npm run build
+      - run: npm test
