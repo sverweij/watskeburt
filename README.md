@@ -83,8 +83,16 @@ Options:
   -T, --outputType <type>  what format to emit (choices: "json", "regex", default: "regex")
   --trackedOnly            only take tracked files into account (default: false)
   -V, --version            output the version number
+  -e, --extensions <list>  comma separated list of file extensions to consider
+                           - pass "*" to consider all extensions
+                           - currently applicable only to the "regex" reporter
+                           - defaults to to most popular extensions in the
+                             JavaScript/ TypeScript ecosystem
   -h, --help               display help for command
 ```
+
+Default list of extensions (cli, regex reporter only):
+`"cjs, cjsx, coffee, csx, cts, js, json, jsx, litcoffee, ls, mjs, mts, svelte, ts, tsx, vue, vuex"`.
 
 ## why?
 
