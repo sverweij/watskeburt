@@ -15,7 +15,7 @@ on:
 
 env:
   CI: true
-  NODE_LATEST: 22.x
+  NODE_LATEST: 23.x
 
 defaults:
   run:
@@ -29,7 +29,7 @@ jobs:
       matrix:
         node-version:
           - 18.x
-          - 22.x
+          - 23.x
         platform:
           - ubuntu-latest
 
