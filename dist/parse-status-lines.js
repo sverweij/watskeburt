@@ -1,10 +1,9 @@
-import { EOL } from "node:os";
 import { mapChangeType } from "./map-change-type.js";
 const DIFF_SHORT_STATUS_LINE_PATTERN =
 	/^(?<stagedType>[ ACDMRTUXB?!])(?<unStagedType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
 export function parseStatusLines(pString) {
 	return pString
-		.split(EOL)
+		.split(/\r?\n/)
 		.filter(Boolean)
 		.map(parseStatusLine)
 		.filter(({ name, type }) => Boolean(name) && Boolean(type));
