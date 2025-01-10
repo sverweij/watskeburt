@@ -268,6 +268,7 @@ export default {
       extensions: [".ts", ".d.ts", ".js", ".cjs"],
     },
     cache: true,
+    skipAnalysisNotInRules: true,
     reporterOptions: {
       dot: {
         collapsePattern: "node_modules/[^/]+",
