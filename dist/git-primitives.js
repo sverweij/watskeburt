@@ -1,14 +1,15 @@
 import { spawn } from "node:child_process";
+const SHA1_LENGTH = 40;
 export async function getStatusShort(pSpawnFunction = spawn) {
 	const lErrorMap = new Map([
 		[129, `'${process.cwd()}' does not seem to be a git repository`],
 	]);
-	const lResult = await getGitResult(
+	const lStatusOutput = await getGitResult(
 		["status", "--porcelain"],
 		lErrorMap,
 		pSpawnFunction,
 	);
-	return lResult;
+	return lStatusOutput;
 }
 export async function getDiffLines(
 	pOldRevision,
@@ -22,23 +23,22 @@ export async function getDiffLines(
 		],
 		[129, `'${process.cwd()}' does not seem to be a git repository`],
 	]);
-	const lResult = await getGitResult(
+	const lDiffOutput = await getGitResult(
 		pNewRevision
 			? ["diff", pOldRevision, pNewRevision, "--name-status"]
 			: ["diff", pOldRevision, "--name-status"],
 		lErrorMap,
 		pSpawnFunction,
 	);
-	return lResult;
+	return lDiffOutput;
 }
 export async function getSHA(pSpawnFunction = spawn) {
-	const lSha1Length = 40;
-	const lResult = await getGitResult(
+	const lRevParseOutput = await getGitResult(
 		["rev-parse", "HEAD"],
 		new Map(),
 		pSpawnFunction,
 	);
-	return lResult.slice(0, lSha1Length);
+	return lRevParseOutput.slice(0, SHA1_LENGTH);
 }
 function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
 	const lGit = pSpawnFunction("git", pArguments, {
