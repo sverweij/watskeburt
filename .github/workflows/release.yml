@@ -9,6 +9,7 @@ on:
 
 jobs:
   publish:
+    environment: npm
     if: github.repository == 'sverweij/watskeburt'
     runs-on: ubuntu-latest
     permissions:
