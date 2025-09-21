@@ -28,7 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 18.x
+          - 20.x
           - 24.x
         platform:
           - ubuntu-latest
@@ -54,12 +54,6 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: ${{matrix.node-version}}
-      - name: remove .npmrc on node 18 so npm install works
-        if: matrix.node-version == '18.x'
-        run: |
-          rm -f .npmrc
-          npm config set package-lock=true
-          npm config set save-exact=true
       - run: npm install
       - run: npm run depcruise
         if: matrix.node-version == env.NODE_LATEST
@@ -67,8 +61,6 @@ jobs:
         if: matrix.node-version == env.NODE_LATEST
       - run: npm run test:cover
         if: matrix.node-version == env.NODE_LATEST
-      - run: npx tsx --test src/*.spec.ts src/**/*.spec.ts
-        if: matrix.node-version == '18.x'
       - run: npm run build
       - name: emit coverage results to step summary
         if: always() && matrix.node-version == env.NODE_LATEST
