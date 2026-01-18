@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 const SHA1_LENGTH = 40;
+const EMPTY_ERROR_MAP = new Map([]);
 export async function getStatusShort(pSpawnFunction = spawn) {
 	const lErrorMap = new Map([
 		[129, `'${process.cwd()}' does not seem to be a git repository`],
@@ -35,7 +36,7 @@ export async function getDiffLines(
 export async function getSHA(pSpawnFunction = spawn) {
 	const lRevParseOutput = await getGitResult(
 		["rev-parse", "HEAD"],
-		new Map(),
+		EMPTY_ERROR_MAP,
 		pSpawnFunction,
 	);
 	return lRevParseOutput.slice(0, SHA1_LENGTH);
@@ -45,23 +46,23 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
 		cwd: process.cwd(),
 		env: process.env,
 	});
-	let lStdOutData = "";
-	let lStdErrorData = "";
+	const lStdOutChunks = [];
+	const lStdErrorChunks = [];
 	return new Promise((pResolve, pReject) => {
 		lGit.stdout?.on("data", (pData) => {
-			lStdOutData = lStdOutData.concat(pData);
+			lStdOutChunks.push(pData);
 		});
 		lGit.stderr?.on("data", (pData) => {
-			lStdErrorData = lStdErrorData.concat(pData);
+			lStdErrorChunks.push(pData);
 		});
 		lGit.on("close", (pCode) => {
 			if (pCode === 0) {
-				pResolve(stringifyOutStream(lStdOutData));
+				pResolve(lStdOutChunks.join(""));
 			} else {
 				pReject(
 					new Error(
 						pErrorMap.get(pCode ?? 0) ??
-							`internal git error: ${pCode} (${stringifyOutStream(lStdErrorData)})`,
+							`internal git error: ${pCode} (${lStdErrorChunks.join("")})`,
 					),
 				);
 			}
@@ -74,11 +75,4 @@ function getGitResult(pArguments, pErrorMap, pSpawnFunction) {
 			}
 		});
 	});
-}
-function stringifyOutStream(pBufferOrString) {
-	if (pBufferOrString instanceof Buffer) {
-		return pBufferOrString.toString("utf8");
-	} else {
-		return pBufferOrString;
-	}
 }
