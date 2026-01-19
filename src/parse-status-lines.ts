@@ -5,8 +5,10 @@
 import type { IChange } from "../types/watskeburt.js";
 import { mapChangeType } from "./map-change-type.js";
 
+// Checked against https://devina.io/redos-checker which classified it as
+// complexity 'safe'
 const DIFF_SHORT_STATUS_LINE_PATTERN =
-  /^(?<stagedType>[ ACDMRTUXB?!])(?<unStagedType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
+  /^(?<stagedType>[ ACDMRTUXB?!])(?<unStagedType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(?:(?: -> )(?<newName>[^ \t]+))?$/;
 
 export function parseStatusLines(pString: string): IChange[] {
   return (

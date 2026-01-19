@@ -95,4 +95,31 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
       ],
     );
   });
+
+  it("handles trailing whitespace without ReDoS vulnerability", () => {
+    deepEqual(parseDiffLine("M\tfilename.txt "), {});
+    deepEqual(parseDiffLine("M\tfilename.txt\t"), {});
+    deepEqual(parseDiffLine("M\tfilename.txt   \t  "), {});
+  });
+
+  it("handles long trailing whitespace without ReDoS vulnerability", () => {
+    const longWhitespace = " ".repeat(1000);
+    deepEqual(parseDiffLine(`M\tfilename.txt${longWhitespace}`), {});
+  });
+
+  it("correctly parses renamed files with tab separator", () => {
+    deepEqual(parseDiffLine("R100\told.txt\tnew.txt"), {
+      type: "renamed",
+      name: "new.txt",
+      oldName: "old.txt",
+    });
+  });
+
+  it("correctly parses renamed files with space separator", () => {
+    deepEqual(parseDiffLine("R100 oldname.txt newname.txt"), {
+      type: "renamed",
+      name: "newname.txt",
+      oldName: "oldname.txt",
+    });
+  });
 });

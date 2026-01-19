@@ -5,8 +5,10 @@
 import type { IChange } from "../types/watskeburt.js";
 import { mapChangeType } from "./map-change-type.js";
 
+// Checked against https://devina.io/redos-checker which classified it as
+// complexity 'safe'
 const DIFF_NAME_STATUS_LINE_PATTERN =
-  /^(?<type>[ACDMRTUXB])(?<similarity>\d{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
+  /^(?<type>[ACDMRTUXB])(?<similarity>\d{3})?[ \t]+(?<name>[^ \t]+)(?:[ \t]+(?<newName>[^ \t]+))?$/;
 
 export function parseDiffLines(pString: string): IChange[] {
   return (

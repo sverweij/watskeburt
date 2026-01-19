@@ -1,6 +1,6 @@
 import { mapChangeType } from "./map-change-type.js";
 const DIFF_SHORT_STATUS_LINE_PATTERN =
-	/^(?<stagedType>[ ACDMRTUXB?!])(?<unStagedType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(( -> )(?<newName>[^ \t]+))?$/;
+	/^(?<stagedType>[ ACDMRTUXB?!])(?<unStagedType>[ ACDMRTUXB?!])[ \t]+(?<name>[^ \t]+)(?:(?: -> )(?<newName>[^ \t]+))?$/;
 export function parseStatusLines(pString) {
 	return pString
 		.split(/\r?\n/)

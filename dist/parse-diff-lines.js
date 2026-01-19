@@ -1,6 +1,6 @@
 import { mapChangeType } from "./map-change-type.js";
 const DIFF_NAME_STATUS_LINE_PATTERN =
-	/^(?<type>[ACDMRTUXB])(?<similarity>\d{3})?[ \t]+(?<name>[^ \t]+)[ \t]*(?<newName>[^ \t]+)?$/;
+	/^(?<type>[ACDMRTUXB])(?<similarity>\d{3})?[ \t]+(?<name>[^ \t]+)(?:[ \t]+(?<newName>[^ \t]+))?$/;
 export function parseDiffLines(pString) {
 	return pString
 		.split(/\r?\n/)

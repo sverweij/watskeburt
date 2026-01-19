@@ -121,4 +121,35 @@ describe("convert status lines to change objects", () => {
       ],
     );
   });
+
+  it("handles invalid rename separator without ReDoS vulnerability", () => {
+    deepEqual(parseStatusLine("R  filename - > newname"), {});
+    deepEqual(parseStatusLine("R  filename  newname"), {});
+  });
+
+  it("handles trailing characters without ReDoS vulnerability", () => {
+    deepEqual(parseStatusLine("R  file -> name "), {});
+    deepEqual(parseStatusLine("R  file -> name\t"), {});
+    deepEqual(parseStatusLine("R  file -> name   "), {});
+  });
+
+  it("handles long trailing characters without ReDoS vulnerability", () => {
+    // Test with excessive trailing characters to ensure no exponential backtracking
+    const longWhitespace = " ".repeat(1000);
+    deepEqual(parseStatusLine(`R  file -> name${longWhitespace}`), {});
+  });
+
+  it("correctly parses renamed files with arrow separator", () => {
+    // Ensure renamed files still work after the regex fix
+    deepEqual(parseStatusLine("R  oldfile.txt -> newfile.txt"), {
+      type: "renamed",
+      name: "newfile.txt",
+      oldName: "oldfile.txt",
+    });
+    deepEqual(parseStatusLine("RM old/path.js -> new/path.js"), {
+      type: "renamed",
+      name: "new/path.js",
+      oldName: "old/path.js",
+    });
+  });
 });
