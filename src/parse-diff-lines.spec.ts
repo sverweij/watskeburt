@@ -24,6 +24,7 @@ describe("convert diff line to change object", () => {
       ),
       {
         type: "renamed",
+        similarity: 66,
         name: "test/report/markdown/markdown-short.spec.mjs",
         oldName: "test/report/markdown/markdown.spec.mjs",
       },
@@ -72,6 +73,7 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
         },
         {
           type: "renamed",
+          similarity: 100,
           name: "to",
           oldName: "from",
         },
@@ -89,6 +91,7 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
         },
         {
           type: "renamed",
+          similarity: 100,
           name: "to",
           oldName: "from",
         },
@@ -108,8 +111,9 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
   });
 
   it("correctly parses renamed files with tab separator", () => {
-    deepEqual(parseDiffLine("R100\told.txt\tnew.txt"), {
+    deepEqual(parseDiffLine("R042\told.txt\tnew.txt"), {
       type: "renamed",
+      similarity: 42,
       name: "new.txt",
       oldName: "old.txt",
     });
@@ -118,6 +122,7 @@ describe("convert a bunch of diff lines to an array of change objects", () => {
   it("correctly parses renamed files with space separator", () => {
     deepEqual(parseDiffLine("R100 oldname.txt newname.txt"), {
       type: "renamed",
+      similarity: 100,
       name: "newname.txt",
       oldName: "oldname.txt",
     });

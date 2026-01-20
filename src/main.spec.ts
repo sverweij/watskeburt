@@ -22,7 +22,7 @@ describe("main - list & listSync ", () => {
       await unlink(UNTRACKED_FILE_NAME);
     } catch (pError) {
       process.stderr.write(
-        "cleaning up untracked file failed in test 'main - list & listSync'\n",
+        `cleaning up untracked file failed in test 'main - list & listSync':\n${pError}\n`,
       );
     }
   });

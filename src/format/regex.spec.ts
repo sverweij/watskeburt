@@ -23,6 +23,7 @@ describe("regex formatter", () => {
   ];
 
   it("empty array yields empty regex", () => {
+    //@ts-expect-error Testing invalid input
     deepEqual(format([]), "^()$");
   });
 
@@ -35,8 +36,8 @@ describe("regex formatter", () => {
 
   it("one file in diff with a backslash in its name (wut) yields regex with that thing", () => {
     deepEqual(
-      format([{ type: "added", name: "ad\\ded.mjs" }], EXTENSION_SET),
-      "^(ad\\\\ded[.]mjs)$",
+      format([{ type: "added", name: String.raw`ad\ded.mjs` }], EXTENSION_SET),
+      String.raw`^(ad\\ded[.]mjs)$`,
     );
   });
 

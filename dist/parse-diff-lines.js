@@ -13,6 +13,12 @@ export function parseDiffLine(pString) {
 	const lReturnValue = {};
 	if (lMatchResult?.groups) {
 		lReturnValue.type = mapChangeType(lMatchResult.groups.type);
+		if (lMatchResult.groups.similarity) {
+			lReturnValue.similarity = Number.parseInt(
+				lMatchResult.groups.similarity,
+				10,
+			);
+		}
 		if (lMatchResult.groups.newName) {
 			lReturnValue.name = lMatchResult.groups.newName;
 			lReturnValue.oldName = lMatchResult.groups.name;

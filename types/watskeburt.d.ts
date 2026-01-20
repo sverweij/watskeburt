@@ -18,6 +18,10 @@ export interface IChange {
    */
   name: string;
   /**
+   * similarity percentage for renamed files (0-100)
+   */
+  similarity?: number;
+  /**
    * how the file was changed
    */
   type: changeType;
