@@ -8,7 +8,7 @@ describe("format", () => {
     throws(() => format([], "this format is not known"));
   });
   it("returns a regex when passed regex as a format", () => {
-    deepEqual(format([], "regex", ""), "^()$");
+    deepEqual(format([], "regex", ""), "^(?:)$");
   });
   it("returns json when passed json as a format", () => {
     deepEqual(format([], "json", ""), "[]");
@@ -18,7 +18,7 @@ describe("format", () => {
     // error, but we want to test the behavior of the function
     // when it's not passed at all, which is very possible in javascript
     // and (with a ts-expect-error comment) in typescript as well.
-    deepEqual(format([], "regex"), "^()$");
+    deepEqual(format([], "regex"), "^(?:)$");
   });
   it("ensures regexp doesn't filter if no extensions are provided", () => {
     deepEqual(
@@ -40,7 +40,7 @@ describe("format", () => {
         ],
         "regex",
       ),
-      "^(dist/format/format[.]js|src/format/format[.]spec[.]ts|src/format/format[.]ts)$",
+      "^(?:dist/format/format[.]js|src/format/format[.]spec[.]ts|src/format/format[.]ts)$",
     );
   });
   it("ensures regexp _does_ filter when provided with the empty string as list of extensions)", () => {
@@ -63,7 +63,7 @@ describe("format", () => {
         "regex",
         "",
       ),
-      "^()$",
+      "^(?:)$",
     );
   });
 });

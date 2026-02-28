@@ -24,20 +24,20 @@ describe("regex formatter", () => {
 
   it("empty array yields empty regex", () => {
     //@ts-expect-error Testing invalid input
-    deepEqual(format([]), "^()$");
+    deepEqual(format([]), "^(?:)$");
   });
 
   it("one file in diff yields regex with that thing", () => {
     deepEqual(
       format([{ type: "added", name: "added.mjs" }], EXTENSION_SET),
-      "^(added[.]mjs)$",
+      "^(?:added[.]mjs)$",
     );
   });
 
   it("one file in diff with a backslash in its name (wut) yields regex with that thing", () => {
     deepEqual(
       format([{ type: "added", name: String.raw`ad\ded.mjs` }], EXTENSION_SET),
-      String.raw`^(ad\\ded[.]mjs)$`,
+      String.raw`^(?:ad\\ded[.]mjs)$`,
     );
   });
 
@@ -50,14 +50,14 @@ describe("regex formatter", () => {
         ],
         EXTENSION_SET,
       ),
-      "^(added[.]mjs|changed[.]mjs)$",
+      "^(?:added[.]mjs|changed[.]mjs)$",
     );
   });
 
   it("by default only takes changes into account that changed the contents + untracked files", () => {
     deepEqual(
       format(lChangesOfEachType, EXTENSION_SET),
-      "^(added[.]mjs|copied[.]mjs|modified[.]mjs|renamed[.]mjs|untracked[.]mjs)$",
+      "^(?:added[.]mjs|copied[.]mjs|modified[.]mjs|renamed[.]mjs|untracked[.]mjs)$",
     );
   });
 
@@ -68,7 +68,7 @@ describe("regex formatter", () => {
         new Set([".mjs"]),
         new Set(["type changed", "pairing broken", "ignored"]),
       ),
-      "^(type-changed[.]mjs|pairing-broken[.]mjs|ignored[.]mjs)$",
+      "^(?:type-changed[.]mjs|pairing-broken[.]mjs|ignored[.]mjs)$",
     );
   });
 
@@ -103,7 +103,7 @@ describe("regex formatter", () => {
         ],
         new Set([".aap", ".noot", ".mies"]),
       ),
-      "^(added[.]aap|modified[.]aap|added[.]noot|added[.]mies)$",
+      "^(?:added[.]aap|modified[.]aap|added[.]noot|added[.]mies)$",
     );
   });
   it("when list of extensions contains '.*', returns all the things", () => {
@@ -137,7 +137,7 @@ describe("regex formatter", () => {
         ],
         new Set([".*"]),
       ),
-      "^(added[.]aap|modified[.]aap|added[.]noot|added[.]mies|added[.]wim|added[.]zus)$",
+      "^(?:added[.]aap|modified[.]aap|added[.]noot|added[.]mies|added[.]wim|added[.]zus)$",
     );
   });
 });

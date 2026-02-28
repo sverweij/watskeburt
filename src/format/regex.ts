@@ -22,5 +22,5 @@ export default function formatAsRegex(
     )
     .map(({ name }) => name.replaceAll("\\", "\\\\").replaceAll(".", "[.]"))
     .join("|");
-  return `^(${lChanges})$`;
+  return `^(?:${lChanges})$`;
 }
