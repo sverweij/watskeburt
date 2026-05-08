@@ -68,6 +68,11 @@
     "typescript": "6.0.3",
     "upem": "10.0.4"
   },
+  "overrides": {
+    "c8": {
+      "yargs": "^18.0.0"
+    }
+  },
   "upem": {
     "policies": [
       {
@@ -102,14 +107,14 @@
   },
   "scripts": {
     "build": "npm-run-all --sequential build:clean build:version build:dist build:format",
-    "build:version": "tsx tools/get-version.ts > src/version.ts",
+    "build:version": "node --experimental-strip-types tools/get-version.ts > src/version.ts",
     "build:clean": "rm -rf dist/*",
     "build:dist": "tsc",
     "build:format": "prettier --log-level warn --write --use-tabs dist/",
     "check": "npm-run-all --parallel --aggregate-output lint depcruise test:cover",
     "clean": "rm -rf dist",
     "test": "tsx --test-reporter ./tools/dot-with-summary.reporter.js --test src/*.spec.ts src/**/*.spec.ts",
-    "test:cover": "c8 npm test",
+    "test:cover": "c8 node --run=test",
     "depcruise": "depcruise dist src types",
     "depcruise:graph": "depcruise src types --include-only '^(dist|src|types)' --output-type dot | dot -T svg | tee docs/dependency-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-graph.html",
     "depcruise:graph:dev": "depcruise dist src types --include-only '^(dist|src|types)' --prefix vscode://file/$(pwd)/ --output-type dot | dot -T svg | depcruise-wrap-stream-in-html | browser",
