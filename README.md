@@ -26,12 +26,12 @@ const lChangedFiles = await list({
 });
 
 // list all files that differ between 'main' and the current revision
-// (excluding files not staged for commit)
+// (including untracked files, output as JSON)
 /** @type {import('watskeburt').IChange[]|string} */
 const lChangedFiles = await list({
   oldRevision: "main",
   trackedOnly: false, // when set to true leaves out files not under revision control
-  outputType: "json", // options: "object", "json" and "regex"
+  outputType: "json", // options: "json" and "regex"
 });
 ```
 
@@ -57,7 +57,7 @@ The array of changes this returns looks like this:
 
 ### :shell: cli
 
-Works with node >=18.11
+Works with node >=20.12
 
 ```shell
 # list all JavaScript-ish files changed since main in a regular expression
@@ -86,13 +86,13 @@ Options:
   -e, --extensions <list>  comma separated list of file extensions to consider
                            - pass "*" to consider all extensions
                            - currently applicable only to the "regex" reporter
-                           - defaults to to most popular extensions in the
+                           - defaults to most popular extensions in the
                              JavaScript/ TypeScript ecosystem
   -h, --help               display help for command
 ```
 
 Default list of extensions (cli, regex reporter only):
-`"cjs, cjsx, coffee, csx, cts, js, json, jsx, litcoffee, ls, mjs, mts, svelte, ts, tsx, vue, vuex"`.
+`"cjs,cjsx,coffee,csx,cts,js,json,jsx,litcoffee,ls,mjs,mts,svelte,ts,tsx,vue,vuex"`.
 
 ## why?
 

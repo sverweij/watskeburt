@@ -28,7 +28,7 @@ Options:
   -e, --extensions <list>  comma separated list of file extensions to consider 
                            - pass "*" to consider all extensions
                            - currently applicable only to the "regex" reporter
-                           - defaults to to most popular extensions in the 
+                           - defaults to most popular extensions in the 
                              JavaScript/ TypeScript ecosystem
   -V, --version            output the version number
   -h, --help               display help for command${EOL}`;

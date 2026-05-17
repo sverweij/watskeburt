@@ -8,7 +8,7 @@ title: "Feature request: ... "
 
 ### Context
 
-<!--- How does this issue affected you? What are you trying to accomplish? -->
+<!--- How has this issue affected you? What are you trying to accomplish? -->
 <!--- Providing context helps us better understand the issue - which makes for better solutions  -->
 
 ### Expected Behavior
