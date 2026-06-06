@@ -14,7 +14,7 @@ To make this as easy as possible for you, here's some simple guidelines:
 - In turn, we try to **respond within two weeks**.  
   This might or might not include an actual code fix.
 - If there's something that doesn't fit an issue, feel free to contact us on
-  X [@mcmeadow](https://x.com/mcmeadow).
+  Mastodon [@mcmeadow@mstdn.social](https://mstdn.social/@mcmeadow).
 
 ### Contributing code
 
