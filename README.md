@@ -57,7 +57,7 @@ The array of changes this returns looks like this:
 
 ### :shell: cli
 
-Works with node >=20.12
+Works with node >=22
 
 ```shell
 # list all JavaScript-ish files changed since main in a regular expression

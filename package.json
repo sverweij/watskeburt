@@ -108,7 +108,7 @@
     ]
   },
   "engines": {
-    "node": "^20.12||^22.13||>=24.0"
+    "node": "^22.13||^24||>=26"
   },
   "scripts": {
     "build": "npm-run-all --node-run --sequential build:clean build:version build:dist build:format",
