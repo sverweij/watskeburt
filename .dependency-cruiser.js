@@ -60,7 +60,7 @@ export default {
           "(^|/)[.][^/]+[.](js|cjs|ts|json)$", // dot files
           "[.]d[.]ts$", // TypeScript declaration files
           "(^|/)tsconfig[.]json$", // TypeScript config
-          "eslint.config[.]m?js", // eslint config
+          "[.]oxlintrc[.]json$", // oxlint config
           "^dist/",
         ],
       },

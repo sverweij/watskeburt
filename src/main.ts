@@ -11,7 +11,6 @@ export async function list(pOptions?: IOptions): Promise<IChange[] | string> {
   const [lDiffLines, lStatusLines] = await Promise.all([
     primitives.getDiffLines(lOldRevision, pOptions?.newRevision),
     // to stay consistent with the use of trackedOnly below: negated condition
-    // eslint-disable-next-line no-negated-condition
     !lOptions.trackedOnly ? primitives.getStatusShort() : "",
   ]);
 

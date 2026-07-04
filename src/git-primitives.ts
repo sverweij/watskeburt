@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, no-magic-numbers */
 import { type ChildProcess, spawn } from "node:child_process";
 
 type IErrorMapType = Map<number, string>;
@@ -69,7 +68,6 @@ function getGitResult(
 ): Promise<string> {
   const lGit: ChildProcess = pSpawnFunction("git", pArguments, {
     cwd: process.cwd(),
-    // eslint-disable-next-line n/no-process-env
     env: process.env,
   });
   const lStdOutChunks: Array<string> = [];
@@ -97,6 +95,7 @@ function getGitResult(
       }
     });
 
+    // oxlint-disable-next-line no-explicit-any
     lGit.on("error", (pError: any) => {
       if (pError?.code === "ENOENT") {
         pReject(new Error("git executable not found"));

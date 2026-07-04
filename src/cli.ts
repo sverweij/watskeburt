@@ -1,8 +1,7 @@
 import { EOL } from "node:os";
-/* eslint n/no-unsupported-features/node-builtins: "off" */
 import { parseArgs } from "node:util";
-import { type Writable } from "node:stream";
-import { type IFormatOptions } from "../types/watskeburt.js";
+import type { Writable } from "node:stream";
+import type { IFormatOptions } from "../types/watskeburt.js";
 import { list } from "./main.js";
 import { VERSION } from "./version.js";
 
@@ -34,7 +33,6 @@ Options:
   -h, --help               display help for command${EOL}`;
 
 export async function cli(
-  // eslint-disable-next-line no-magic-numbers
   pArguments: string[] = process.argv.slice(2),
   pOutStream: Writable = process.stdout,
   pErrorStream: Writable = process.stderr,
@@ -69,7 +67,6 @@ export async function cli(
     pOutStream.write(`${lResult}${EOL}`);
   } catch (pError: unknown) {
     pErrorStream.write(`${EOL}ERROR: ${(pError as Error).message}${EOL}${EOL}`);
-    // eslint-disable-next-line require-atomic-updates
     process.exitCode = pErrorExitCode;
   }
 }
@@ -102,6 +99,6 @@ function getArguments(pArguments: string[]): IArguments {
   }) as IArguments;
 }
 
-function outputTypeIsValid(pOutputType: string) {
+function outputTypeIsValid(pOutputType: string): boolean {
   return ["json", "regex"].includes(pOutputType);
 }

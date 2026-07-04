@@ -1,7 +1,6 @@
 // the security (and unicorn) plugins don't seem to detect named caption
 // groups very well - false-flagging below regular expressions to be susceptible
 // to redos  attacks.
-/* eslint-disable security/detect-unsafe-regex */
 import type { IChange } from "../types/watskeburt.js";
 import { mapChangeType } from "./map-change-type.js";
 

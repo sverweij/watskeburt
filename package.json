@@ -45,24 +45,12 @@
     "README.md"
   ],
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.5",
-    "@eslint/js": "9.39.3",
     "@types/node": "25.9.3",
-    "@typescript-eslint/eslint-plugin": "8.61.1",
     "c8": "11.0.0",
     "clean-pkg-json": "2.0.0",
     "dependency-cruiser": "17.4.3",
-    "eslint": "9.39.3",
-    "eslint-config-moving-meadow": "5.0.0",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-budapestian": "^6.0.0",
-    "eslint-plugin-eslint-comments": "3.2.0",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-mocha": "^10.5.0",
-    "eslint-plugin-n": "^17.24.0",
-    "eslint-plugin-security": "4.0.1",
-    "eslint-plugin-unicorn": "^56.0.1",
     "npm-run-all2": "9.0.2",
+    "oxlint": "1.72.0",
     "prettier": "3.8.4",
     "tsx": "4.22.4",
     "typescript": "6.0.3",
@@ -72,40 +60,6 @@
     "c8": {
       "yargs": "^18.0.0"
     }
-  },
-  "upem": {
-    "policies": [
-      {
-        "package": "@eslint/js",
-        "policy": "wanted",
-        "because": "eslint"
-      },
-      {
-        "package": "eslint",
-        "policy": "wanted",
-        "because": "eslint"
-      },
-      {
-        "package": "eslint-plugin-mocha",
-        "policy": "wanted",
-        "because": "in the next version (11) some things incompatible with the current setup happen (- very likely due to esm-ness?)"
-      },
-      {
-        "package": "eslint-plugin-n",
-        "policy": "wanted",
-        "because": "in the next version (18) some things incompatible with the current setup happen (missing rule)"
-      },
-      {
-        "package": "eslint-plugin-unicorn",
-        "policy": "wanted",
-        "because": "in the next version (57) some things incompatible with the current setup happen (e.g. unicorn/catch-error-name dropped? troubles with esm-ness?)"
-      },
-      {
-        "package": "eslint-plugin-budapestian",
-        "policy": "wanted",
-        "because": "in the next version (7) some things incompatible with the current setup happen"
-      }
-    ]
   },
   "engines": {
     "node": "^22.13||^24||>=26"
@@ -131,10 +85,10 @@
     "depcruise:reaches": "depcruise src types --progress --output-type text --reaches",
     "format": "prettier --log-level warn --write \"{src,tools}/**/*.{js,ts}\" \"types/**/*.ts\" \"*.{json,yml,md,js}\" \"!package-lock.json\"",
     "format:check": "prettier --log-level warn --check \"{src,tools}/**/*.ts\" \"types/**/*.ts\" \"*.{json,yml,md,js}\" \"!package-lock.json\"",
-    "lint": "npm-run-all --node-run --parallel --aggregate-output format:check lint:eslint lint:types",
-    "lint:fix": "npm-run-all --node-run --parallel --aggregate-output format lint:eslint:fix",
-    "lint:eslint": "eslint src types tools --cache --cache-location node_modules/.cache/eslint/",
-    "lint:eslint:fix": "eslint src types tools --fix --cache --cache-location node_modules/.cache/eslint/",
+    "lint": "npm-run-all --node-run --parallel --aggregate-output format:check lint:es lint:types",
+    "lint:fix": "npm-run-all --node-run --parallel --aggregate-output format lint:es:fix",
+    "lint:es": "oxlint src types tools",
+    "lint:es:fix": "oxlint src types tools --fix",
     "lint:types": "tsc --noEmit",
     "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo see github for test, build and analysis scripts\"}' > smol-package.json && mv smol-package.json package.json && prettier --log-level warn --write --use-tabs package.json types",
     "postpack": "git restore package.json types",

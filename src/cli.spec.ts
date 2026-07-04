@@ -5,15 +5,15 @@ import { cli } from "./cli.js";
 import { getSHA } from "./main.js";
 
 class WritableTestStream extends Writable {
-  expected = /^$/;
+  private expected = /^$/;
 
-  constructor(pExpected?: RegExp) {
+  public constructor(pExpected?: RegExp) {
     super();
     if (pExpected) {
       this.expected = pExpected;
     }
   }
-  write(pChunk) {
+  public write(pChunk: string): boolean {
     match(pChunk, this.expected);
     return true;
   }

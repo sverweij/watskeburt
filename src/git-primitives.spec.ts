@@ -1,12 +1,11 @@
-/* eslint-disable no-undefined */
 import { deepEqual, match, doesNotReject } from "node:assert/strict";
 import { EventEmitter } from "node:events";
 import { describe, it } from "node:test";
 import { getDiffLines, getSHA, getStatusShort } from "./git-primitives.js";
 
 class FakeChildProcess extends EventEmitter {
-  stdout: EventEmitter = new EventEmitter();
-  stderr: EventEmitter = new EventEmitter();
+  public stdout: EventEmitter = new EventEmitter();
+  public stderr: EventEmitter = new EventEmitter();
 }
 
 describe("git-primitives - diff --name-status ", () => {

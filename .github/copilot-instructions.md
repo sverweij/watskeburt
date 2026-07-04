@@ -9,8 +9,8 @@
 ```sh
 npm --run=test               # run all tests (uses Node.js built-in runner via tsx)
 node --run=test:cover        # tests with c8 coverage
-node --run=lint              # format:check + eslint + tsc --noEmit (in parallel)
-node --run=lint:fix          # auto-fix format and eslint issues
+node --run=lint              # format:check + oxlint + tsc --noEmit (in parallel)
+node --run=lint:fix          # auto-fix format and oxlint issues
 node --run=build             # clean → emit version → tsc → prettier on dist/
 node --run=check             # lint + depcruise + test:cover (full CI equivalent)
 node --run=depcruise         # validate dependency rules
