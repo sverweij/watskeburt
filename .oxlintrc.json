@@ -17,7 +17,8 @@
     "oxc/no-optional-chaining": "off",
     "oxc/no-rest-spread-properties": "off",
     "unicorn/import-style": "off",
-    "no-undefined": "off"
+    "no-undefined": "off",
+    "no-top-level-await": "off"
   },
   "env": {
     "builtin": true,
