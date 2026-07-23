@@ -54,7 +54,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{matrix.node-version}}
-      - run: npm install
+      - run: npm clean-install --ignore-scripts
       - run: node --run=depcruise
         if: matrix.node-version == env.NODE_LATEST
       - run: node --run=lint
@@ -105,6 +105,6 @@ jobs:
           node-version: ${{env.NODE_LATEST}}
       - name: install & build
         run: |
-          npm install
+          npm clean-install --ignore-scripts
           node --run=build
       - run: node --run=test
