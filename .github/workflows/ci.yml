@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - uses: actions/cache@v6
         with:
           path: node_modules
@@ -89,7 +89,7 @@ jobs:
           echo '' >> visual-diff.md
           echo '```' >> visual-diff.md
           gh pr comment ${{ github.event.number }} --create-if-none --edit-last --body-file visual-diff.md
-          echo visual-diff.md >> $GITHUB_STEP_SUMMARY
+          cat visual-diff.md >> $GITHUB_STEP_SUMMARY
 
   check-windows:
     env:
