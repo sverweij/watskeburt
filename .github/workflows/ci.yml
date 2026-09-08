@@ -66,7 +66,7 @@ jobs:
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
-          node --experimental-strip-types tools/istanbul-json-summary-to-markdown.ts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
+          node tools/istanbul-json-summary-to-markdown.ts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
       - name: emit full depcruise results to step summary
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |
@@ -81,12 +81,14 @@ jobs:
       - name: on pull requests emit depcruise graph to step summary with changed modules highlighted
         if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
         run: |
-          echo '## Visual diff' >> $GITHUB_STEP_SUMMARY
-          echo Modules changed in this PR have a fluorescent green color. >> $GITHUB_STEP_SUMMARY
-          echo '```mermaid' >> $GITHUB_STEP_SUMMARY
-          SHA=${{github.event.pull_request.base.sha}} node --run=depcruise:graph:diff:mermaid >> $GITHUB_STEP_SUMMARY
-          echo '' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo '## Visual diff' > visual-diff.md
+          echo Modules changed in this PR have a fluorescent green color. >> visual-diff.md
+          echo '```mermaid' >> visual-diff.md
+          SHA=${{github.event.pull_request.base.sha}} node --run=depcruise:graph:diff:mermaid >> visual-diff.md
+          echo '' >> visual-diff.md
+          echo '```' >> visual-diff.md
+          gh pr comment ${{ github.event.number }} --create-if-none --edit-last --body-file visual-diff.md
+          echo visual-diff.md >> $GITHUB_STEP_SUMMARY
 
   check-windows:
     env:
