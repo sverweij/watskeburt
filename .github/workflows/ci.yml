@@ -16,6 +16,7 @@ on:
 env:
   CI: true
   NODE_LATEST: 26.x
+  GH_TOKEN: ${{ github.token }}
 
 defaults:
   run:
