@@ -1,4 +1,5 @@
-/** @type {import('dependency-cruiser').IConfiguration} */
+import type { IConfiguration } from "dependency-cruiser";
+
 export default {
   forbidden: [
     {
@@ -320,5 +321,5 @@ export default {
       },
     },
   },
-};
+} as IConfiguration;
 // generated: dependency-cruiser@11.9.0 on 2022-06-15T20:07:49.259Z
