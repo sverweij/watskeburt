@@ -1,4 +1,4 @@
-# Copilot Instructions
+# Agent Instructions
 
 ## Project overview
 
@@ -7,12 +7,12 @@
 ## Commands
 
 ```sh
-npm --run=test               # run all tests (uses Node.js built-in runner via tsx)
+node --run=test               # run all tests (uses Node.js built-in runner via tsx)
 node --run=test:cover        # tests with c8 coverage
 node --run=lint              # format:check + oxlint + tsc --noEmit (in parallel)
-node --run=lint:fix          # auto-fix format and oxlint issues
+node --run=lint:fix          # auto-fix formatting and oxlint issues
 node --run=build             # clean → emit version → tsc → prettier on dist/
-node --run=check             # lint + depcruise + test:cover (full CI equivalent)
+node --run=check             # format + lint + depcruise + test:cover (full local quality check)
 node --run=depcruise         # validate dependency rules
 ```
 
@@ -38,16 +38,17 @@ src/
     json.ts               # formats IChange[] as JSON
 types/
   watskeburt.d.ts         # hand-maintained public API types (source of truth for the API)
-dist/                     # tsc output (committed, shipped in npm package)
+dist/                     # generated with node --run=build (tsc output, shipped in npm package, intentionally version controlled)
 ```
 
 The flow for a `list()` call: `main.ts` → calls `git-primitives.ts` → raw strings are parsed by `parse-diff-lines.ts` / `parse-status-lines.ts` → optionally formatted by `format/`.
 
 ## Key conventions
 
-**Naming prefixes** (enforced by `eslint-plugin-budapestian`):
+**Naming prefixes** :
 - Parameters: `p` prefix — `pOptions`, `pArguments`, `pSpawnFunction`
 - Local variables: `l` prefix — `lResult`, `lChanges`, `lErrorMap`
+- Constants: in uppercase - `OUTPUT_TYPE_TO_FUNCTION`
 
 **Imports**: Always use `.js` extensions for local imports (NodeNext module resolution), even for `.ts` source files:
 ```ts
@@ -63,3 +64,7 @@ import { parseDiffLines } from "./parse-diff-lines.js";
 **Public types**: `types/watskeburt.d.ts` is hand-maintained and is the authoritative source for the public API shape. It is *not* generated from source.
 
 **Dependency rules**: `dependency-cruiser` enforces module boundaries. Run `node --run=depcruise` to validate. Don't import from `dist/` in `src/`.
+
+**Release publishing**: don't - leave this exclusively to a human maintainer.
+
+**Hygiene**: After implementing any change ALWAYS run `node --run=build` and `node --run=check` and fix any errors and warnings it generates. Update the Architecture section in AGENTS.md when changes were made (or are detected) that make them out of sync with reality. New or changed behavior should include covering tests, matching CONTRIBUTING.md.
