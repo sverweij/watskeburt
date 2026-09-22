@@ -17,6 +17,7 @@ node --run=depcruise         # validate dependency rules
 ```
 
 **Run a single test file:**
+
 ```sh
 npx tsx --test src/parse-diff-lines.spec.ts
 ```
@@ -46,11 +47,13 @@ The flow for a `list()` call: `main.ts` → calls `git-primitives.ts` → raw st
 ## Key conventions
 
 **Naming prefixes** :
+
 - Parameters: `p` prefix — `pOptions`, `pArguments`, `pSpawnFunction`
 - Local variables: `l` prefix — `lResult`, `lChanges`, `lErrorMap`
 - Constants: in uppercase - `OUTPUT_TYPE_TO_FUNCTION`
 
 **Imports**: Always use `.js` extensions for local imports (NodeNext module resolution), even for `.ts` source files:
+
 ```ts
 import { parseDiffLines } from "./parse-diff-lines.js";
 ```
@@ -61,7 +64,7 @@ import { parseDiffLines } from "./parse-diff-lines.js";
 
 **ESM only**: `"type": "module"` in package.json. No CommonJS.
 
-**Public types**: `types/watskeburt.d.ts` is hand-maintained and is the authoritative source for the public API shape. It is *not* generated from source.
+**Public types**: `types/watskeburt.d.ts` is hand-maintained and is the authoritative source for the public API shape. It is _not_ generated from source.
 
 **Dependency rules**: `dependency-cruiser` enforces module boundaries. Run `node --run=depcruise` to validate. Don't import from `dist/` in `src/`.
 

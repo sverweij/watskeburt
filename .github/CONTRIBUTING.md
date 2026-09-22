@@ -22,9 +22,9 @@ To make this as easy as possible for you, here's some simple guidelines:
   **[pull requests](https://help.github.com/articles/creating-a-pull-request/)**
   based on the most recent version of the **main** branch.
 - Code quality
-  - watskeburt has a bunch of automated checks (test coverage, depcruise,
+  - watskeburt has a bunch of automated checks (test coverage, architecture check,
     linting, code formatting). They also run on the CI, but you can save yourself
-    time by running them locally already: `npm run check`.
+    time by running them locally already: `node --run=check`.
   - Do add tests for new and updated code. It not only helps PR reviewers a lot,
     it'll prevent regressions in the future.
   - Code style (you know, petty things like indentations, where brackets go,
