@@ -45,15 +45,15 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/node": "26.6.5",
+    "@types/node": "26.6.6",
     "c8": "12.0.0",
-    "clean-pkg-json": "2.0.0",
-    "dependency-cruiser": "18.8.0-beta-1",
-    "oxlint": "1.89.0",
-    "prettier": "3.9.10",
+    "clean-pkg-json": "2.1.0",
+    "dependency-cruiser": "18.9.0",
+    "oxlint": "1.95.0",
+    "prettier": "3.10.1",
     "tsx": "4.23.15",
     "typescript": "7.1.0-beta",
-    "upem": "11.0.1"
+    "upem": "11.0.3"
   },
   "engines": {
     "node": "^22.13||^24||>=26"
@@ -91,13 +91,18 @@
     "upem:update": "npm outdated --json --long | upem | pbcopy && pbpaste",
     "version": "node --run=build && node --run=lint && node --run=depcruise:graph && node --run=scm:stage"
   },
+  "overrides": {
+    "c8": {
+      "test-exclude": {
+        "glob": "^14.0.6",
+        "minimatch": "^11.0.9"
+      },
+      "glob": "^14.0.6",
+      "minimatch": "^11.0.9"
+    }
+  },
   "upem": {
     "policies": [
-      {
-        "package": "dependency-cruiser",
-        "policy": "wanted",
-        "because": "we want to use the 8.8 beta for a bit"
-      },
       {
         "package": "typescript",
         "policy": "pin",

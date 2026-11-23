@@ -55,16 +55,18 @@ export default async function* dotWithSummaryReporter(pSource) {
     // oxlint-disable-next-line unicorn/no-array-reduce, oxc/no-accumulating-spread
     .reduce((pAll, pDiagnostic) => ({ ...pAll, ...pDiagnostic }), {});
 
-  yield `${
-    EOL + lFailStack.map(summarizeFailsToText).filter(Boolean).join(EOL)
-  }${EOL}${lDiagnostics.pass} passing (${gTimeFormat(
-    lDiagnostics.duration_ms,
-  )})${EOL}` +
+  yield (
+    `${
+      EOL + lFailStack.map(summarizeFailsToText).filter(Boolean).join(EOL)
+    }${EOL}${lDiagnostics.pass} passing (${gTimeFormat(
+      lDiagnostics.duration_ms,
+    )})${EOL}` +
     `${lDiagnostics.fail > 0 ? `${lDiagnostics.fail} failing${EOL}` : ""}` +
     `${
       lDiagnostics.skipped > 0 ? `${lDiagnostics.skipped} skipped${EOL}` : ""
     }` +
-    `${lDiagnostics.todo > 0 ? `${lDiagnostics.todo} todo${EOL}` : ""}${EOL}`;
+    `${lDiagnostics.todo > 0 ? `${lDiagnostics.todo} todo${EOL}` : ""}${EOL}`
+  );
 }
 
 function summarizeFailsToText(pFailEvent) {
